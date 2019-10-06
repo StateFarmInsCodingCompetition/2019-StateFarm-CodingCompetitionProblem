@@ -1,9 +1,19 @@
 Your team (name of each individual participating):
+Brandon Galloway
 How many JUnits were you able to get to pass? 
-
+10/10
 Document and describe any enhancements included to help the judges properly grade your submission.
-	Step 1:
-	Step 2: 
+	Step 1:CodingCompetitionCSVParser was created to handle direct parsing of CSV files
+	Step 2:CodingCompCSVUtil was programmed to utalize CSVParser and complete all JUnit test requirements
+	Step 3:Additional web functionality was added in the form of Spring Boot web
+	Step 4:A DisasterService service class was added to better modularize functionality
+	Step 5:Thymeleaf was brought into the project to provide visualization of data via RESTful endpoints
 	
+	Example URLs:
+	
+	http://localhost:8080/visualizeData?fileName=significant-earthquakes.csv&entity=Canada
+	http://localhost:8080/visualizeData?fileName=significant-earthquakes.csv&code=CAN
+	http://localhost:8080/getFileByCountry?fileName=significant-volcanic-eruptions.csv&countryName=El%20Salvador
+	http://localhost:8080/getFile?fileName=test.csv
 	
 Feedback for the coding competition?  Things you would like to see in future events?
