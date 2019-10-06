@@ -25,4 +25,7 @@ public class DisasterDescription {
     public String getYear() {
         return year;
     }
+	public String getCategory() {
+		return category;
+	}
 }
