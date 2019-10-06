@@ -4,10 +4,6 @@ import java.util.List;
 
 public class ControlFilters {
 	
-	public ControlFilters() {
-		
-	}
-	
 	/**
 	 * The type of the chart
 	 */
@@ -49,19 +45,53 @@ public class ControlFilters {
 		return chartType;
 	}
 	
+	public ControlFilters setChartType(int chartType) {
+		this.chartType = chartType;
+		return this;
+	}
+	
 	public int getXAxis() {
 		return xAxis;
+	}
+	
+	public ControlFilters setXAxis(int xAxis) {
+		this.xAxis = xAxis;
+		return this;
 	}
 	
 	public List<String> getCategoryFilters() {
 		return categoryFilters;
 	}
 	
+	public ControlFilters setCategoryFilters(List<String> categoryFilters) {
+		this.categoryFilters = categoryFilters;
+		return this;
+	}
+	
 	public int getMinYear() {
 		return minYear;
 	}
 	
+	public ControlFilters setMinYear(int minYear) {
+		this.minYear = minYear;
+		return this;
+	}
+	
 	public int getMaxYear() {
 		return maxYear;
+	}
+	
+	public ControlFilters setMaxYear(int maxYear) {
+		this.maxYear = maxYear;
+		return this;
+	}
+	
+	public boolean getBarChartDisplayCategories() {
+		return barChartDisplayCategories;
+	}
+	
+	public ControlFilters setBarChartDisplayCategories(boolean barChartDisplayCategories) {
+		this.barChartDisplayCategories = barChartDisplayCategories;
+		return this;
 	}
 }
