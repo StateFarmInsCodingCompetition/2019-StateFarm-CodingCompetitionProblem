@@ -4,8 +4,8 @@ How many JUnits were you able to get to pass? 10
 Document and describe any enhancements included to help the judges properly grade your submission.
 	Step 1: visualizer.py, when given input, plots dataset data discriminated based on category. Activate by calling: python visualizer.py "(country/category name)" "(dataset)" from the command line in src/main
 	The dataset description is optional, and defaults to natural-disasters-by-type but the category is mandatory.
-	Step 2: visualizer.py, when given no input, plots all datasets from natural-disasters-by-type, based on category, with a legend identifying each dataset.
+	Step 2: visualizer.py, when given no input, plots all datasets from natural-disasters-by-type, based on category, with a legend identifying each dataset. Activate by calling: python visualizer.py from the command line in src/main
 	
 	
 Feedback for the coding competition?  Things you would like to see in future events?
-Great! Preferred future events: more Java reliance
+Great! Preferred future events: more Java reliance and testing of larger-scale systems
