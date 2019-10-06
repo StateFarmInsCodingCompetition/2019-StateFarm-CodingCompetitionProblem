@@ -17,7 +17,7 @@ public class GUIMain {
 
 	
 	public static void main(String[] args) {
-		frame = new JFrame("Disaster Visualizer GUI - Created by Robert Pooley and Jeremy Schonfeld");
+		frame = new JFrame("Disaster Visualizer GUI - Robert Pooley and Jeremy Schonfeld - Data from Our World Data");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
 		Point topLeft = new Point(size.width / 2, size.height / 2);

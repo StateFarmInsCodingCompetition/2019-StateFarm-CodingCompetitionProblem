@@ -51,13 +51,13 @@ public class ControlsPanel extends JPanel implements ItemListener {
 	public void itemStateChanged(ItemEvent e) {
 		if (e.getStateChange() == ItemEvent.SELECTED) {
 			this.filters.setChartType(chartTypeSelector.getSelectedIndex() + 1);
-			this.filters.setXAxis(xAxisSelector.getSelectedIndex() + 1);
+			//this.filters.setXAxis(xAxisSelector.getSelectedIndex() + 1);
 			switch (chartTypeSelector.getSelectedIndex()) {
 			case 0:
-				xAxisTitle.setText("Slice By");
+				//xAxisTitle.setText("Slice By");
 				break;
 			default:
-				xAxisTitle.setText("X Axis");
+				//xAxisTitle.setText("X Axis");
 				break;
 			}
 			this.chart.update(this.filters);
