@@ -11,7 +11,7 @@ import javax.swing.JPanel;
 public class GUIMain {
 	
 	private static JFrame frame;
-	private static final Dimension WINDOW_SIZE = new Dimension(700, 700);
+	private static final Dimension WINDOW_SIZE = new Dimension(1200, 800);
 	
 	public static String fileName;
 
