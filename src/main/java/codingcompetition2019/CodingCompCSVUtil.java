@@ -26,10 +26,10 @@ public class CodingCompCSVUtil {
 		File file = new File(fileName);
 		FileReader fr = new FileReader(file);
 		BufferedReader br = new BufferedReader(fr);
-		String line;
+		String entry;
 		List<List<String>> interpretedFile = new ArrayList<List<String>>();
-		while ((line = br.readLine()) != null) {
-	        List<String> interpretedLine = Arrays.asList(line.split("\\s*,\\s*"));
+		while ((entry = br.readLine()) != null) {
+	        List<String> interpretedLine = Arrays.asList(entry.split("\\s*,\\s*"));
 	        if (interpretedLine.get(0).equals(countryName)) {
 	        	interpretedFile.add(interpretedLine);
 	        }
@@ -47,10 +47,10 @@ public class CodingCompCSVUtil {
 		File file = new File(fileName);
 		FileReader fr = new FileReader(file);
 		BufferedReader br = new BufferedReader(fr);
-		String line;
+		String entry;
 		List<List<String>> interpretedFile = new ArrayList();
-		while ((line = br.readLine()) != null) {
-	        List<String> interpretedLine = Arrays.asList(line.split("\\s*,\\s*"));
+		while ((entry = br.readLine()) != null) {
+	        List<String> interpretedLine = Arrays.asList(entry.split("\\s*,\\s*"));
 	        interpretedFile.add(interpretedLine);
 		}
 		return interpretedFile;
@@ -63,15 +63,8 @@ public class CodingCompCSVUtil {
      * @throws IOException thrown when fileName is invalid
      */
 	public List<List<String>> readCSVFileWithoutHeaders(String fileName) throws IOException {
-		File file = new File(fileName);
-		FileReader fr = new FileReader(file);
-		BufferedReader br = new BufferedReader(fr);
-		String line = br.readLine();//skips the first line
-		List<List<String>> interpretedFile = new ArrayList();
-		while((line = br.readLine()) != null){
-	        List<String> interpretedLine = Arrays.asList(line.split("\\s*,\\s*"));
-	        interpretedFile.add(interpretedLine);
-		}
+		List<List<String>> interpretedFile = readCSVFileWithHeaders(fileName);
+		interpretedFile.remove(0);
 		return interpretedFile;
 	}
 
@@ -81,6 +74,7 @@ public class CodingCompCSVUtil {
      * @return         a DisasterDescription for the disasters in the most impactful year
      */
 	public DisasterDescription getMostImpactfulYear(List<List<String>> records) {
+		//checks formatting style of records - if sorted by category, use category method
 		if (records.get(0).get(0).equals("All natural disasters")) {
 			return getMostImpactfulYearByCategory("All natural disasters", records);
 		}
@@ -108,19 +102,20 @@ public class CodingCompCSVUtil {
 		while (!foundCategory && i < records.size()) {
 			if(records.get(i++).get(0).equals(category)) {
 				foundCategory = true;
+				i--;
 			}
 		}
-		List<String> currentEntry;
-		List<String> highestEntry = records.get(i++);
-		int highestNumDistasters = Integer.parseInt(highestEntry.get(3));
-		while((currentEntry = records.get(i++)).get(0).equals(category)) {
+		List<String> currentEntry = records.get(i++);
+		int highestNumDistasters = Integer.parseInt(currentEntry.get(3));
+		int yearOf_highestNumDistasters = Integer.parseInt(currentEntry.get(2));
+		while((currentEntry = records.get(i++)).get(0).equals(category) && i < records.size()) {
 			int numDisasters = Integer.parseInt(currentEntry.get(3));
 			if (numDisasters > highestNumDistasters) {
-				highestEntry = currentEntry;
 				highestNumDistasters = numDisasters;
+				yearOf_highestNumDistasters = Integer.parseInt(currentEntry.get(2));
 			}
 		}
-		return new DisasterDescription(category, highestNumDistasters, Integer.parseInt(highestEntry.get(2)));
+		return new DisasterDescription(category, highestNumDistasters, yearOf_highestNumDistasters);
 	}
 
     /**
@@ -130,17 +125,19 @@ public class CodingCompCSVUtil {
      * @return         a DisasterDescription for the most impactful disaster category in a given year
      */
 	public DisasterDescription getMostImpactfulDisasterByYear(String year, List<List<String>> records) {
-		String mostImpactfulDisasterCategory = "";
-		int mostImpactsByDisaster = -1;
-		for (List<String> line : records) {
-			if (line.get(2).equals(year)&&!(line.get(0).equals("All natural disasters"))) {
-				if (Integer.parseInt(line.get(3)) > mostImpactsByDisaster) {
-					mostImpactfulDisasterCategory = line.get(0);
-					mostImpactsByDisaster = Integer.parseInt(line.get(3));
+		int mostImpactsByDisaster = Integer.parseInt(records.get(0).get(3));
+		String categoryOf_mostImpactfulDisaster = records.get(0).get(0);
+		for (int i = 1; i < records.size(); i++) {
+			List<String> line = records.get(i);
+			if (line.get(2).equals(year) && !(line.get(0).equals("All natural disasters"))) {
+				int numDisasters = Integer.parseInt(line.get(3));
+				if (numDisasters > mostImpactsByDisaster) {
+					categoryOf_mostImpactfulDisaster = line.get(0);
+					mostImpactsByDisaster = numDisasters;
 				}
 			}
 		}
-		return new DisasterDescription(mostImpactfulDisasterCategory, mostImpactsByDisaster, Integer.parseInt(year));
+		return new DisasterDescription(categoryOf_mostImpactfulDisaster, mostImpactsByDisaster, Integer.parseInt(year));
 	}
 
     /**
@@ -150,11 +147,19 @@ public class CodingCompCSVUtil {
      * @return          a DisasterDescription for the number of incidents of a certain disaster category
      */
 	public DisasterDescription getTotalReportedIncidentsByCategory(String category, List<List<String>> records) {
-		int totalReportedIncidents = 0;
-		for (List<String> line : records) {
-			if (line.get(0).equals(category)) {
-				totalReportedIncidents += Integer.parseInt(line.get(3));
+		boolean foundCategory = false;
+		int i = 0;
+		while (!foundCategory && i < records.size()) {
+			if(records.get(i++).get(0).equals(category)) {
+				foundCategory = true;
+				i--;
 			}
+		}
+		List<String> currentEntry = records.get(i++);
+		int totalReportedIncidents = Integer.parseInt(currentEntry.get(3));
+		while((currentEntry = records.get(i++)).get(0).equals(category) && i < records.size()) {
+			int numDisasters = Integer.parseInt(currentEntry.get(3));
+			totalReportedIncidents += numDisasters;
 		}
 		return new DisasterDescription(category,totalReportedIncidents);
 	}
@@ -172,15 +177,15 @@ public class CodingCompCSVUtil {
 	 */
 	public int countImpactfulYearsWithReportedIncidentsWithinRange(List<List<String>> records, int min, int max) {
 		int count = 0;
-		if (min==-1) {
-			for (List<String> line : records) {
+		if (min == -1) {
+			for (List<String> entry : records) {
 				count++;
 			}
 		}
 		else {
-			for (List<String> line : records) {
-				int numIncidents = Integer.parseInt(line.get(3));
-				if (min <= numIncidents && ((max==-1)?true:numIncidents<=max)) {
+			for (List<String> entry : records) {
+				int numIncidents = Integer.parseInt(entry.get(3));
+				if (min <= numIncidents && (max == -1 ? true : numIncidents <= max)) {
 					count++;
 				}
 			}
@@ -191,6 +196,7 @@ public class CodingCompCSVUtil {
 
 	/**
 	 * counts the number of incidents in a set of natural disaster records
+	 * used as a helper method for firstRecordsHaveMoreReportedIndicents
 	 * @param records a list of lists of strings representing natural disaster data interpreted from a CSV file
 	 * @return        the number of incidents in the records
 	 */

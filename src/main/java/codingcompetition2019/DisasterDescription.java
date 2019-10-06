@@ -1,10 +1,10 @@
 package codingcompetition2019;
 
 /**
-* @author Mudit Gupta and Ryan Thomas Lynch
-* @version 1.0
-*
-*/
+ * This class represents a description for a natural disaster
+ * @author Mudit Gupta and Ryan Thomas Lynch
+ * @version 1.0
+ */
 public class DisasterDescription {
 
 
