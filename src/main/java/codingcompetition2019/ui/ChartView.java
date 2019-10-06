@@ -38,7 +38,7 @@ public class ChartView extends JPanel {
 	public ChartView() {
 		mapYearCategoryIncidents();
 		update(new ControlFilters()
-				.setChartType(ControlFilters.CHART_BAR)
+				.setChartType(ControlFilters.CHART_PIE)
 		);
 	}
 	
@@ -73,6 +73,8 @@ public class ChartView extends JPanel {
 			yearCatIncidents.put(year, categoryIncidents);
 		}
 		
+		categories.remove("All natural disasters");
+		
 		String[] sYears = new ArrayList<String>(yearCatIncidents.keySet()).toArray(new String[yearCatIncidents.size()]);
 		Arrays.sort(sYears);
 		years = new int[sYears.length];
@@ -99,11 +101,22 @@ public class ChartView extends JPanel {
 			this.remove(currentXPanel);
 		}
 		
-		SwingWrapper wrapper = new SwingWrapper(chart);
-		JFrame frame = wrapper.displayChart();
-		frame.setVisible(false);
-		currentXPanel = wrapper.getXChartPanel();
-		this.add(currentXPanel);
+		final Chart fChart = chart;
+		
+		new Thread(new Runnable() {
+
+			public void run() {
+				SwingWrapper wrapper = new SwingWrapper(fChart);
+				JFrame frame = wrapper.displayChart();
+				frame.setVisible(false);
+				currentXPanel = wrapper.getXChartPanel();
+				ChartView.this.add(currentXPanel);
+				ChartView.this.repaint();
+			}
+			
+		}).start();
+		
+		
 	}
 	
 	private Chart buildBarChart(ControlFilters filters) {
