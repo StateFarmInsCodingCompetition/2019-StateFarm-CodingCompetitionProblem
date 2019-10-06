@@ -103,6 +103,13 @@ public class CodingCompCSVUtil {
         return fullList;
 	}
 	
+	/**
+	 * Produces a DisasterDescription containing information regarding the most impactful year, as measured in the list records.
+	 *
+	 * @param  records     a list of lists containing all data points with category, code (if applicable), year, and occurrence rate
+	 * @return             a DisasterDescription containing the most impactful year by calling setYear()
+	 */
+	
 	public DisasterDescription getMostImpactfulYear(List<List<String>> records) {
 		// TODO implement this method
 		HashMap<String, Integer> yearMap = new HashMap<String, Integer>();
@@ -126,6 +133,14 @@ public class CodingCompCSVUtil {
 		return curr;
 	}
 
+	/**
+	 * Produces a DisasterDescription containing information regarding the most impactful year from the correct category, as measured in the list records.
+	 *
+	 * @param  records     a list of lists containing all data points with category, code (if applicable), year, and occurrence rate
+	 * @param  category    a String containing the category to match with the list
+	 * @return             a DisasterDescription containing the most impactful year by calling setYear()
+	 */
+	
 	public DisasterDescription getMostImpactfulYearByCategory(String category, List<List<String>> records) {
 		// TODO implement this method
 		HashMap<String, Integer> yearMap = new HashMap<String, Integer>();
@@ -152,6 +167,14 @@ public class CodingCompCSVUtil {
 		
 	}
 
+	/**
+	 * Produces a DisasterDescription containing information regarding the most impactful disaster type with a specified year, as measured in the list records.
+	 *
+	 * @param  records     a list of lists containing all data points with category, code (if applicable), year, and occurrence rate
+	 * @param  year        a String containing the year to match with the list
+	 * @return             a DisasterDescription containing the most impactful year by calling setYear()
+	 */
+	
 	public DisasterDescription getMostImpactfulDisasterByYear(String year, List<List<String>> records) {
 		// TODO implement this method
 		HashMap<String, Integer> disasterMap = new HashMap<String, Integer>();
@@ -177,6 +200,14 @@ public class CodingCompCSVUtil {
 		return curr;
 	}
 
+	/**
+	 * Produces a DisasterDescription containing information regarding the total number of reported incidents of a specified categry, as measured in the list records.
+	 *
+	 * @param  records     a list of lists containing all data points with category, code (if applicable), year, and occurrence rate
+	 * @param  category    a String containing the category to match with the list
+	 * @return             a DisasterDescription containing the most impactful year by calling setYear()
+	 */
+	
 	public DisasterDescription getTotalReportedIncidentsByCategory(String category, List<List<String>> records) {
 		// TODO implement this method
 		int incident = 0;
@@ -222,6 +253,14 @@ public class CodingCompCSVUtil {
 		}
 		return total;
 	}
+	
+	/**
+	 * Determines if the first record contains more incidents than the second record
+	 *
+	 * @param  records1    a list of lists containing all data points with category, code (if applicable), year, and occurrence rate for the first dataset
+	 * @param  records2    a list of lists containing all data points with category, code (if applicable), year, and occurrence rate for the second dataset
+	 * @return             a boolean describing whether the first record contains more reported incidents
+	 */
 	
 	public boolean firstRecordsHaveMoreReportedIndicents(List<List<String>> records1, List<List<String>> records2) {
 		// TODO implement this method
