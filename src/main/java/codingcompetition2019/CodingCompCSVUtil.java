@@ -160,14 +160,14 @@ public class CodingCompCSVUtil {
 		int count = 0;
 		if (min==-1) {
 			for (List<String> line : records) {
-				count += Integer.parseInt(line.get(3));
+				count++;
 			}
 		}
 		else {
 			for (List<String> line : records) {
 				int numIncidents = Integer.parseInt(line.get(3));
-				if (min <= numIncidents && (max==-1)?true:numIncidents<=max) {
-					count += Integer.parseInt(line.get(3));
+				if (min <= numIncidents && ((max==-1)?true:numIncidents<=max)) {
+					count++;
 				}
 			}
 		}
@@ -190,10 +190,10 @@ public class CodingCompCSVUtil {
 	}
 
     /**
-     * [firstRecordsHaveMoreReportedIndicents description]
-     * @param  records1 [description]
-     * @param  records2 [description]
-     * @return          [description]
+     * Returns true if the first parameter has strictly more total reported incidents than the second.
+     * @param  records1 The first list to check. Returns true if it has strictly more incidents.
+     * @param  records2 The second list to check. Returns true if it has strictly fewer incidents.
+     * @return          True if the first list is strictly larger than the second in terms of total reported incidents. 
      */
 	public boolean firstRecordsHaveMoreReportedIndicents(List<List<String>> records1, List<List<String>> records2) {
 		return countIncidents(records1) > countIncidents(records2);

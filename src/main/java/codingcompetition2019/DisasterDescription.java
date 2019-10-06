@@ -7,7 +7,13 @@ public class DisasterDescription {
 	private int reportedIncidents;
 	private int year;
 	
-	//big boy constructor
+	/**
+	 * Initializes a description of some summary of disasters in a 
+	 * given year and category with the number of 
+	 * @param category
+	 * @param reportedIncidents
+	 * @param year
+	 */
 	public DisasterDescription(String category, int reportedIncidents, int year) {
 		this.category = category;
 		this.reportedIncidents = reportedIncidents;
