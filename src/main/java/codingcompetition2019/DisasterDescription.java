@@ -8,6 +8,7 @@ public class DisasterDescription {
 	public DisasterDescription(String year) {
 	    this(year, "", 0);
     }
+
     public DisasterDescription(String year, String type, int reportedIncidents) {
 	    this.year = year;
 	    this.category = type;
@@ -18,6 +19,9 @@ public class DisasterDescription {
 	    return reportedIncidents;
     }
 
+    public void addReportedIncidents(int numIncidents) {
+        reportedIncidents += numIncidents;
+    }
     public String getYear() {
         return year;
     }

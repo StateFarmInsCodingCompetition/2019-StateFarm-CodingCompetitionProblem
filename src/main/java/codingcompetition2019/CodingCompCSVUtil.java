@@ -110,8 +110,19 @@ public class CodingCompCSVUtil {
 	}
 
 	public DisasterDescription getTotalReportedIncidentsByCategory(String category, List<List<String>> records) {
-		// TODO implement this method
-		return null;
+		DisasterDescription disaster = new DisasterDescription("year=" + category, category, 0);
+
+		for (List<String> record : records) {
+			if (record.get(0).compareTo(category) > 0) {
+				break;
+			}
+
+			if (!record.get(0).equals(category)) {
+				continue;
+			}
+			disaster.addReportedIncidents(Integer.parseInt(record.get(3)));
+		}
+		return disaster;
 	}
 	
 	/**
@@ -122,8 +133,16 @@ public class CodingCompCSVUtil {
 	 *  + If a max value is provided, then a max value is also needed.
 	 */
 	public int countImpactfulYearsWithReportedIncidentsWithinRange(List<List<String>> records, int min, int max) {
-		// TODO implement this method
-		return -1;
+		if (max == -1) {
+			max = Integer.MAX_VALUE;
+		}
+		int numYearsInRange = 0;
+		for (List<String> record : records) {
+			if (Integer.parseInt(record.get(3)) >= min && Integer.parseInt(record.get(3)) <= max) {
+				numYearsInRange++;
+			}
+		}
+		return numYearsInRange;
 	}
 	
 	public boolean firstRecordsHaveMoreReportedIndicents(List<List<String>> records1, List<List<String>> records2) {

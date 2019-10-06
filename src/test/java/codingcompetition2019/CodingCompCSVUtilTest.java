@@ -74,14 +74,14 @@ public class CodingCompCSVUtilTest extends TestCase {
 		assertEquals(1372, util.getTotalReportedIncidentsByCategory("Earthquake", records).getReportedIncidentsNum());
 	}
 
-//	@Test
-//	public void testCountImpactfulYearsWithReportedIncidentsWithinRange() throws IOException {
-//		List<List<String>> tempRecords = util.readCSVFileByCountry(significantVolcanicEruptionsFileName, "United States");
-//
-//		assertEquals(40, util.countImpactfulYearsWithReportedIncidentsWithinRange(tempRecords, 1, -1));
-//		assertEquals(4, util.countImpactfulYearsWithReportedIncidentsWithinRange(tempRecords, 2, 4));
-//	}
-//
+	@Test
+	public void testCountImpactfulYearsWithReportedIncidentsWithinRange() throws IOException {
+		List<List<String>> tempRecords = util.readCSVFileByCountry(significantVolcanicEruptionsFileName, "United States");
+
+		assertEquals(40, util.countImpactfulYearsWithReportedIncidentsWithinRange(tempRecords, 1, -1));
+		assertEquals(4, util.countImpactfulYearsWithReportedIncidentsWithinRange(tempRecords, 2, 4));
+	}
+
 //	@Test
 //	public void testFirstRecordsHaveMoreReportedIndicents() throws IOException {
 //		List<List<String>> tempRecords1 = util.readCSVFileByCountry(significantEarthquakeFileNameName, "United States");
