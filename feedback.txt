@@ -3,7 +3,7 @@ How many JUnits were you able to get to pass? 10/10
 
 Document and describe any enhancements included to help the judges properly grade your submission.
 	Step 1: Added meaningful description for each methods in CodingCompCSVUtil.java file for other developers to understand the code easily.
-	Step 2: 
+	Step 2: Added a GUI that allows users to view the most impactful disaster by year and category.
 	
 	
 Feedback for the coding competition?  Things you would like to see in future events?
