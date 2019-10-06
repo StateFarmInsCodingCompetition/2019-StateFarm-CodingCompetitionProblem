@@ -45,10 +45,10 @@ public class CodingCompCSVUtil {
 		return disasters;
 	}
 	/**
-	 * Reads a CSV file with headers - it reads in the first line
-	 * @param fileName
-	 * @return
-	 * @throws IOException
+	 * Reads a CSV file with headers (reads in the first line)
+	 * @param fileName      path to the csv data file
+	 * @return              a 2D String arrayList representing the csv file including the first line (headers)
+	 * @throws IOException  if the file is not found or cannot be parsed
 	 */
 	public List<List<String>> readCSVFileWithHeaders(String fileName) throws IOException {
 		
@@ -71,7 +71,12 @@ public class CodingCompCSVUtil {
 		}
 		return disasters;
 	}
-	
+	/**
+	 * Reads a CSV file without the headers (ignores the first line)
+	 * @param fileName     path to the csv file
+	 * @return             a 2D String arrayList representing the csv file excluding the first line (headers)
+	 * @throws IOException if the file is not found or cannot be parsed
+	 */
 	public List<List<String>> readCSVFileWithoutHeaders(String fileName) throws IOException {
 		
 		List<List<String>> disasters = new ArrayList<List<String>>();
@@ -95,7 +100,11 @@ public class CodingCompCSVUtil {
 		}
 		return disasters;
 	}
-	
+	/**
+	 * Parses natural disaster data to find the year with the most natural disasters
+	 * @param records 2D List representing the natural disaster data
+	 * @return                a DisasterDescription object with both the year with the most disasters and how many there were
+	 */
 	public DisasterDescription getMostImpactfulYear(List<List<String>> records) {
 		Map<Integer, Integer> map = new HashMap<Integer,Integer>();
 		for(List<String> line : records) {
@@ -121,7 +130,12 @@ public class CodingCompCSVUtil {
 		}
 		return new DisasterDescription(maxYear,"",maxDisasters);
 	}
-
+	/**
+	 * Parses natural disaster data to find the year with the most natural disasters of a certain category/type
+	 * @param category  the category or type of natural disaster
+	 * @param records   the 2D list representing the natural disaster data
+	 * @return          a DisasterDescription object with both the year with the most disasters given the category and how many there were
+	 */
 	public DisasterDescription getMostImpactfulYearByCategory(String category, List<List<String>> records) {
 		for(int i = 0; i < records.size(); i ++) {
 			if(!records.get(i).get(0).equals(category)) {
@@ -131,7 +145,13 @@ public class CodingCompCSVUtil {
 		}
 		return(getMostImpactfulYear(records));
 	}
-
+	
+	/**
+	 * Parses natural disaster data to find the most frequent type of natural disaster in a given year
+	 * @param year     the year to be specified
+	 * @param records  the 2D list representing the natural disaster data
+	 * @return         a DisasterDescription object with both the category/type of the most frequent natural disaster in that year and how many times it occured in that year
+	 */
 	public DisasterDescription getMostImpactfulDisasterByYear(String year, List<List<String>> records) {
 		for(int i = 0; i < records.size(); i ++) {
 			if(!records.get(i).get(2).contentEquals(year)) {
@@ -157,7 +177,13 @@ public class CodingCompCSVUtil {
 		return new DisasterDescription(0, category, amountOfIncidents);
 	
 	}
-
+	
+	/**
+	 * Parses natural disaster data to find how many reported incidents of a given type of natural disaster there were within a data set
+	 * @param category  the category/type of natural disaster to be counted/searched for
+	 * @param records	the 2D list representing the natural disaster data
+	 * @return			a DisasterDescription object containing the category and the amount that type of disaster occurred throughout the entire data set
+	 */
 	public DisasterDescription getTotalReportedIncidentsByCategory(String category, List<List<String>> records) {
 		for(int i = 0; i < records.size(); i ++) {
 			if(!records.get(i).get(0).contentEquals(category)) {
@@ -168,15 +194,15 @@ public class CodingCompCSVUtil {
 		for(int i = 0; i < records.size(); i ++) { 
 			count += Integer.parseInt(records.get(i).get(3));
 		}
-		return(new DisasterDescription(0, "", count));
+		return(new DisasterDescription(0, category, count));
 	}
 	
 	/**
-	 * This method will return the count if the number of incident falls within the provided range.
-	 * To simplify the problem, we assume:
-	 * 	+ A value of -1 is provided if the max range is NOT applicable.
-	 *  + A min value can be provided, without providing a max value (which then has to be -1 like indicated above).
-	 *  + If a max value is provided, then a max value is also needed.
+	 * Finds the number of years that had a certain amount (range) of natural disasters occurring in that year throughout a natural disaster data set
+	 * @param records	the 2D list representing the natural disaster data
+	 * @param min  		the lower bound of the disaster frequency range for a year to be counted
+	 * @param max		the upper bound of the disaster frequency range for a year to be counted. -1 if no max is specified
+	 * @return			the number of years with number of disasters within the specified range
 	 */
 	public int countImpactfulYearsWithReportedIncidentsWithinRange(List<List<String>> records, int min, int max) {
 		int count = 0;
@@ -191,27 +217,14 @@ public class CodingCompCSVUtil {
 		}
 		return count;
 	}
-	
+	/**
+	 * @param records1	the 2D list representing the first set of natural disaster data
+	 * @param records2	the 2D list representing the second set of natural disaster data
+	 * @return			true if the first set of data has more natural disasters than the second. False otherwise.
+	 */
 	public boolean firstRecordsHaveMoreReportedIndicents(List<List<String>> records1, List<List<String>> records2) {
 		return records1.size() > records2.size();
 	}
 	
-	public static void main(String[] args) throws IOException {
-		CodingCompCSVUtil util = new CodingCompCSVUtil();
-		String naturalDisasterByTypeFile = "src/main/resources/natural-disasters-by-type.csv";
-		
-		String significantEarthquakeFileNameName = "src/main/resources/significant-earthquakes.csv";
-		
-		String significantVolcanicEruptionsFileName = "src/main/resources/significant-volcanic-eruptions.csv";
-		
-		List<List<String>>records = util.readCSVFileWithoutHeaders(naturalDisasterByTypeFile);
-		
-		List<List<String>> earthquakeRecords = util.readCSVFileByCountry(significantEarthquakeFileNameName, "United States");
-		System.out.println(util.getMostImpactfulYear(earthquakeRecords).getYear());
-		System.out.println(util.readCSVFileWithHeaders(naturalDisasterByTypeFile).size());
-		System.out.println(util.getMostImpactfulYearByCategory("Earthquake", records).getYear());
-		DisasterDescription dd = util.getMostImpactfulDisasterByYear("2005", records);
-		System.out.println(dd.getCategory());
-		System.out.println(dd.getReportedIncidentsNum());
-	}
+	
 }
