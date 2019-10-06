@@ -100,7 +100,7 @@ public class CodingCompCSVUtil {
      * Finds the most impactful year for a given set of natural disasters of a certain category
      * @param  category the desired category
      * @param  records  a list of lists of strings representing natural disaster data interpreted from a CSV file
-     * @return          a DisasterDescription for the disasters of a certain category in the most impactful year 
+     * @return          a DisasterDescription for the disasters of a certain category in the most impactful year
      */
 	public DisasterDescription getMostImpactfulYearByCategory(String category, List<List<String>> records) {
 		boolean foundCategory = false;
@@ -207,7 +207,7 @@ public class CodingCompCSVUtil {
      * Returns true if the first parameter has strictly more total reported incidents than the second.
      * @param  records1 The first list to check. Returns true if it has strictly more incidents.
      * @param  records2 The second list to check. Returns true if it has strictly fewer incidents.
-     * @return          True if the first list is strictly larger than the second in terms of total reported incidents. 
+     * @return          True if the first list is strictly larger than the second in terms of total reported incidents.
      */
 	public boolean firstRecordsHaveMoreReportedIndicents(List<List<String>> records1, List<List<String>> records2) {
 		return countIncidents(records1) > countIncidents(records2);
