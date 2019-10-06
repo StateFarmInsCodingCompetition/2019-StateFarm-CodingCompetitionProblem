@@ -1,8 +1,18 @@
 package codingcompetition2019;
 
-import java.io.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
+/**
+ * This class holds methods that interpret natural disaster records
+ * @author Mudit Gupta and Ryan Thomas Lynch
+ * @version 1.0
+ */
 public class CodingCompCSVUtil {
 
     /**
@@ -18,7 +28,7 @@ public class CodingCompCSVUtil {
 		BufferedReader br = new BufferedReader(fr);
 		String line;
 		List<List<String>> interpretedFile = new ArrayList<List<String>>();
-		while((line = br.readLine()) != null){
+		while ((line = br.readLine()) != null) {
 	        List<String> interpretedLine = Arrays.asList(line.split("\\s*,\\s*"));
 	        if (interpretedLine.get(0).equals(countryName)) {
 	        	interpretedFile.add(interpretedLine);
@@ -155,6 +165,10 @@ public class CodingCompCSVUtil {
 	 * 	+ A value of -1 is provided if the max range is NOT applicable.
 	 *  + A min value can be provided, without providing a max value (which then has to be -1 like indicated above).
 	 *  + If a max value is provided, then a MIN value is also needed.
+	 * @param records a list of lists of strings representing natural disaster data interpreted from a CSV file
+	 * @param min     the minimum number of incidents to count a year (see above for specifications)
+	 * @param max     the maximum number of incidents to count a year (see above for specifications)
+	 * @return        the number of incidents that fall in the given range
 	 */
 	public int countImpactfulYearsWithReportedIncidentsWithinRange(List<List<String>> records, int min, int max) {
 		int count = 0;
