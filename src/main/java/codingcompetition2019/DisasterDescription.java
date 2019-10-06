@@ -44,7 +44,7 @@ public class DisasterDescription {
      * [getYear description]
      * @return [description]
      */
-	public int getYear() {
-		return year;
+	public String getYear() {
+		return String.valueOf(year);
 	}
 }
