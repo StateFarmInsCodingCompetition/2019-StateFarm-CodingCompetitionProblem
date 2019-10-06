@@ -64,6 +64,29 @@ public class CodingCompetitionCSVParser
 	}
 	
 	
+	public List<List<String>> parseAsString(boolean readHead, String targetCountry) throws IOException
+	{
+		boolean rh = !readHead;
+		List<List<String>> parsedEntrys = new ArrayList<List<String>>();
+		BufferedReader br = new BufferedReader(new FileReader(fileName));
+		String data = "";
+		while ((data = br.readLine()) != null) {
+			if(rh)
+			{
+				rh = false;
+				continue;
+			}
+			String[] dataArray = data.split(",");
+			if(dataArray[0].equals(targetCountry))
+				parsedEntrys.add(Arrays.asList(dataArray));
+		}
+		br.close();
+		
+		
+		return parsedEntrys;
+	}
+	
+	
 	
 
 }

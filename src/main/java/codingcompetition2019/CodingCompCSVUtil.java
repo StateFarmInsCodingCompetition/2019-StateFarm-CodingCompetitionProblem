@@ -12,7 +12,7 @@ public class CodingCompCSVUtil {
 	
 	public List<List<String>> readCSVFileByCountry(String fileName, String countryName) throws IOException {
 		CodingCompetitionCSVParser parser = new CodingCompetitionCSVParser(fileName);
-		return null;
+		return parser.parseAsString(false,countryName);
 	}
 	
 	public List<List<String>> readCSVFileWithHeaders(String fileName) throws IOException {
@@ -133,8 +133,22 @@ public class CodingCompCSVUtil {
 	 *  + If a max value is provided, then a max value is also needed.
 	 */
 	public int countImpactfulYearsWithReportedIncidentsWithinRange(List<List<String>> records, int min, int max) {
-		// TODO implement this method
-		return -1;
+		if(min == -1)
+			min = Integer.MIN_VALUE;
+		
+		if(max == -1)
+			max = Integer.MAX_VALUE;
+		
+		int validYears = 0;
+		
+		for(List<String> line : records)
+		{
+			if(Integer.parseInt(line.get(3)) >= min && Integer.parseInt(line.get(3)) <= max)
+			{
+				validYears++;
+			}
+		}
+		return validYears;
 	}
 	
 	public boolean firstRecordsHaveMoreReportedIndicents(List<List<String>> records1, List<List<String>> records2) {
