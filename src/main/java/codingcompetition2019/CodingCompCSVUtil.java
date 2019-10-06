@@ -11,7 +11,7 @@ public class CodingCompCSVUtil {
 	public List<List<String>> readCSVFileByCountry(String fileName, String countryName) throws IOException {
 		// TODO implement this method
 		List<List<String>> records = readCSVFileWithHeaders(fileName);
-		List<List<String>> countryRecords = new ArrayList<>();
+		List<List<String>> countryRecords = new ArrayList<List<String>>();
 		
 		for(List<String> record : records) {
 			if(record.get(0).equals(countryName))
@@ -22,7 +22,7 @@ public class CodingCompCSVUtil {
 	
 	public List<List<String>> readCSVFileWithHeaders(String fileName) throws IOException {
 		
-		List<List<String>> records = new ArrayList<>();
+		List<List<String>> records = new ArrayList<List<String>>();
 		
 		try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
 		    String line;
@@ -64,7 +64,7 @@ public class CodingCompCSVUtil {
 
 	public DisasterDescription getMostImpactfulYearByCategory(String category, List<List<String>> records) {
 		// TODO implement this method
-		List<List<String>> catRecords = new ArrayList<>();
+		List<List<String>> catRecords = new ArrayList<List<String>>();
 		
 		for(List<String> record : records) {
 			if(record.get(0).equals(category)){
@@ -75,7 +75,7 @@ public class CodingCompCSVUtil {
 	}
 	
 	public List<List<String>> filterListBySearch(int column, String columnSearch, List<List<String>> records) {
-		List<List<String>> newRecords = new ArrayList<>();
+		List<List<String>> newRecords = new ArrayList<List<String>>();
 		
 		for(List<String> record : records) {
 			if(record.get(column).equals(columnSearch)){
@@ -87,7 +87,7 @@ public class CodingCompCSVUtil {
 
 	public DisasterDescription getMostImpactfulDisasterByYear(String year, List<List<String>> records) {
 		// TODO implement this method
-		List<List<String>> catRecords = new ArrayList<>();
+		List<List<String>> catRecords = new ArrayList<List<String>>();
 		
 		for(List<String> record : records) {
 			if(record.get(2).equals(year) && !(record.get(0).equals("All natural disasters"))){ //must ignore "All Natural Disasters" since it is the total
@@ -99,7 +99,7 @@ public class CodingCompCSVUtil {
 
 	public DisasterDescription getTotalReportedIncidentsByCategory(String category, List<List<String>> records) {
 		// TODO implement this method
-		List<List<String>> newRecords = new ArrayList<>();
+		List<List<String>> newRecords = new ArrayList<List<String>>();
 		int totalIncidentCount = 0;
 		
 		newRecords = filterListBySearch(0, category, records);
