@@ -1,9 +1,17 @@
 Your team (name of each individual participating):
-How many JUnits were you able to get to pass? 
+Mike Razzakov
+
+How many JUnits were you able to get to pass?
+All of them: 10/10
 
 Document and describe any enhancements included to help the judges properly grade your submission.
-	Step 1:
-	Step 2: 
+	Step 1: JavaDocs Added
+	Step 2: Created Method filterListBySearch to filter list of data by any given column.  Used it to simplfy code / not repeat myself.
+	Step 3: Reused previously completed methods throughout the code.
 	
 	
-Feedback for the coding competition?  Things you would like to see in future events?
+Feedback for the coding competition?
+	Difficulty was great, wish it was more than 1 challenge, like the 2013 version.
+
+Things you would like to see in future events?
+	More variety of challenges put together like 2013 version.
