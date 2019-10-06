@@ -4,23 +4,28 @@ import java.io.IOException;
 import java.util.List;
 
 public class CodingCompCSVUtil {
+	
+	public CodingCompCSVUtil()
+	{
+	}
+	
 	public List<List<String>> readCSVFileByCountry(String fileName, String countryName) throws IOException {
-		// TODO implement this method
+		CodingCompetitionCSVParser parser = new CodingCompetitionCSVParser(fileName);
 		return null;
 	}
 	
 	public List<List<String>> readCSVFileWithHeaders(String fileName) throws IOException {
-		// TODO implement this method
-		return null;
+		CodingCompetitionCSVParser parser = new CodingCompetitionCSVParser(fileName);
+		return parser.parseAsString(true);
 	}
 	
 	public List<List<String>> readCSVFileWithoutHeaders(String fileName) throws IOException {
-		// TODO implement this method
-		return null;
+		CodingCompetitionCSVParser parser = new CodingCompetitionCSVParser(fileName);
+		return parser.parseAsString(false);
 	}
 	
 	public DisasterDescription getMostImpactfulYear(List<List<String>> records) {
-		// TODO implement this method
+		HashMap<String,Integer> impactMap = new HashMap<String,Integer>();
 		return null;
 	}
 
