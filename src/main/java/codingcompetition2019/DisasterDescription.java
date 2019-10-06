@@ -15,8 +15,8 @@ public class DisasterDescription {
 	public String getCategory() {
 		return category;
 	}
-	public int getYear() {
-		return year;
+	public String getYear() {
+		return Integer.toString(year);
 	}
 	public int getReportedIncidentsNum() {
 		return reportedIncident;
