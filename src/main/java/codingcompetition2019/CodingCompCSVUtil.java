@@ -160,7 +160,7 @@ public class CodingCompCSVUtil {
 		int i=0;
 		
 		//only check the cumulative sum of incidents per year
-		while(records.get(i).get(0).equals("All natural disasters")) {
+		while(i<records.size()) {
 			List<String> currentLine=records.get(i);
 			int numIncidents=Integer.parseInt(currentLine.get(NUM_INCIDENT_COL));
 			
@@ -173,8 +173,7 @@ public class CodingCompCSVUtil {
 		}
 		
 		DisasterDescription disaster=new DisasterDescription(maxYear, 
-				                                             maxIncidents, 
-				                                             "All natural disasters");
+				                                             maxIncidents);
 		
 		return disaster;
 	}
@@ -198,7 +197,6 @@ public class CodingCompCSVUtil {
 			if(records.get(i).get(0).startsWith(category)) {
 				List<String> currentLine=records.get(i);
 				int numIncidents=Integer.parseInt(currentLine.get(NUM_INCIDENT_COL));
-				System.out.println(numIncidents);
 				
 				if(numIncidents>maxIncidents) {
 					maxYear=currentLine.get(YEAR_COL);
@@ -297,14 +295,63 @@ public class CodingCompCSVUtil {
 	 * 	+ A value of -1 is provided if the max range is NOT applicable.
 	 *  + A min value can be provided, without providing a max value (which then has to be -1 like indicated above).
 	 *  + If a max value is provided, then a max value is also needed.
+	 *  
+	 *  @param records 2D list of records
+	 *  @param min integer repretsenting minimum number of incidents for a year
+	 *  @param max integer representing maximum number of incidnts for a year. Note that
+	 *             this is not rquired, and if no, will be -1.
 	 */
 	public int countImpactfulYearsWithReportedIncidentsWithinRange(List<List<String>> records, int min, int max) {
-		// TODO implement this method
-		return -1;
+		int numOfIncidents=0;
+		
+		for(int i=0; i<records.size(); i++) {
+			List<String> currentLine=records.get(i);
+			
+			int incidents=Integer.parseInt(currentLine.get(NUM_INCIDENT_COL));
+			
+			//num of incidents falls within range, count year
+			if(incidents>=min && max==-1) {
+				numOfIncidents+=1;
+			}
+			else if(incidents>=min && incidents<=max) {
+				numOfIncidents+=1;
+			}
+		}
+		
+		return numOfIncidents;
 	}
 	
+	
+	/**
+	 * Determines if the first records has more reported incidents
+	 * 
+	 * @param records1 2D list of natural disaster records
+	 * @param records2 2D list of natural diaster records
+	 * @return boolean on if first records has more reported incidents
+	 */
 	public boolean firstRecordsHaveMoreReportedIndicents(List<List<String>> records1, List<List<String>> records2) {
-		// TODO implement this method
-		return false;
+		int records1Incidents=countNumberOfIncidents(records1);
+		int records2Incidents=countNumberOfIncidents(records2);
+		
+		return records1Incidents>records2Incidents;
+	}
+	
+	
+	/**
+	 * Count number of incidents for a list of records
+	 * 
+	 * @param records 2D list of records
+	 * @return int representing the count of incidents per a list of records
+	 */
+	private int countNumberOfIncidents(List<List<String>> records) {
+		int recordsIncidents=0;
+		for(int i=0; i<records.size(); i++) {
+			List<String> currentLine=records.get(i);
+			int incidents=Integer.parseInt(currentLine.get(NUM_INCIDENT_COL));
+			
+			recordsIncidents+=incidents;
+		}
+		
+		return recordsIncidents;
 	}
 }
