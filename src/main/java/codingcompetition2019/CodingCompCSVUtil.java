@@ -11,11 +11,11 @@ import java.util.*;
 public class CodingCompCSVUtil {
 
     /**
-     * [readCSVFileByCountry description]
-     * @param  fileName    [description]
-     * @param  countryName [description]
-     * @return             [description]
-     * @throws IOException [description]
+     * Interprets CSV file as a list of list of strings - only returns records for a specified country
+     * @param  fileName    the file path relative to the location of program execution
+     * @param  countryName the country we want records from
+     * @return             a list of list of strings representing each entry in the CSV related to the country
+     * @throws IOException thrown when fileName is invalid
      */
 	public List<List<String>> readCSVFileByCountry(String fileName, String countryName) throws IOException {
 		File file = new File(fileName);
@@ -33,10 +33,10 @@ public class CodingCompCSVUtil {
 	}
 
     /**
-     * [readCSVFileWithHeaders description]
-     * @param  fileName    [description]
-     * @return             [description]
-     * @throws IOException [description]
+     * Interprets CSV file as a list of list of strings including column headers
+     * @param  fileName    the file path relative to the location of program execution
+     * @return             a list of list of strings representing each entry in the CSV
+     * @throws IOException thrown when fileName is invalid
      */
 	public List<List<String>> readCSVFileWithHeaders(String fileName) throws IOException {
 		File file = new File(fileName);
@@ -52,10 +52,10 @@ public class CodingCompCSVUtil {
 	}
 
     /**
-     * [readCSVFileWithoutHeaders description]
-     * @param  fileName    [description]
-     * @return             [description]
-     * @throws IOException [description]
+     * Interprets CSV file as a list of list of strings excluding column headers
+     * @param  fileName    the file path relative to the location of program execution
+     * @return             a list of list of strings representing each disaster entry in the CSV
+     * @throws IOException thrown when fileName is invalid
      */
 	public List<List<String>> readCSVFileWithoutHeaders(String fileName) throws IOException {
 		File file = new File(fileName);
@@ -71,9 +71,9 @@ public class CodingCompCSVUtil {
 	}
 
     /**
-     * [getMostImpactfulYear description]
-     * @param  records [description]
-     * @return         [description]
+     * Finds the most impactful year for a given set of natural disaster records
+     * @param  records a list of lists of strings representing natural disaster data interpreted from a CSV file
+     * @return         a DisasterDescription for the disasters in the most impactful year
      */
 	public DisasterDescription getMostImpactfulYear(List<List<String>> records) {
 		if (records.get(0).get(0).equals("All natural disasters")) {
@@ -92,10 +92,10 @@ public class CodingCompCSVUtil {
 	}
 
     /**
-     * [getMostImpactfulYearByCategory description]
-     * @param  category [description]
-     * @param  records  [description]
-     * @return          [description]
+     * Finds the most impactful year for a given set of natural disasters of a certain category
+     * @param  category the desired category
+     * @param  records  a list of lists of strings representing natural disaster data interpreted from a CSV file
+     * @return          a DisasterDescription for the disasters of a certain category in the most impactful year 
      */
 	public DisasterDescription getMostImpactfulYearByCategory(String category, List<List<String>> records) {
 		boolean foundCategory = false;
@@ -119,30 +119,30 @@ public class CodingCompCSVUtil {
 	}
 
     /**
-     * [getMostImpactfulDisasterByYear description]
-     * @param  year    [description]
-     * @param  records [description]
-     * @return         [description]
+     * Finds the most impactful disaster for a given set of natural disasters in a certain year
+     * @param  year    the desired year
+     * @param  records a list of lists of strings representing natural disaster data interpreted from a CSV file
+     * @return         a DisasterDescription for the most impactful disaster category in a given year
      */
 	public DisasterDescription getMostImpactfulDisasterByYear(String year, List<List<String>> records) {
-		String mostImpactfulDisaster = "";
+		String mostImpactfulDisasterCategory = "";
 		int mostImpactsByDisaster = -1;
 		for (List<String> line : records) {
 			if (line.get(2).equals(year)&&!(line.get(0).equals("All natural disasters"))) {
 				if (Integer.parseInt(line.get(3)) > mostImpactsByDisaster) {
-					mostImpactfulDisaster = line.get(0);
+					mostImpactfulDisasterCategory = line.get(0);
 					mostImpactsByDisaster = Integer.parseInt(line.get(3));
 				}
 			}
 		}
-		return new DisasterDescription(mostImpactfulDisaster, mostImpactsByDisaster, Integer.parseInt(year));
+		return new DisasterDescription(mostImpactfulDisasterCategory, mostImpactsByDisaster, Integer.parseInt(year));
 	}
 
     /**
-     * [getTotalReportedIncidentsByCategory description]
-     * @param  category [description]
-     * @param  records  [description]
-     * @return          [description]
+     * counts the number of incidents of a certain category within a set of disaster records
+     * @param  category the desired category to measure
+     * @param  records  a list of lists of strings representing natural disaster data interpreted from a CSV file
+     * @return          a DisasterDescription for the number of incidents of a certain disaster category
      */
 	public DisasterDescription getTotalReportedIncidentsByCategory(String category, List<List<String>> records) {
 		int totalReportedIncidents = 0;
@@ -180,6 +180,11 @@ public class CodingCompCSVUtil {
 	}
 
 
+	/**
+	 * counts the number of incidents in a set of natural disaster records
+	 * @param records a list of lists of strings representing natural disaster data interpreted from a CSV file
+	 * @return        the number of incidents in the records
+	 */
 	private int countIncidents(List<List<String>> records) {
 		int count = 0;
 		for (List<String> entry : records) {

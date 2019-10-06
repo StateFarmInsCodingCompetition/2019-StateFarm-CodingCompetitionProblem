@@ -1,3 +1,5 @@
 *.class
 target/*
-*.class
+*/target
+target
+target/
