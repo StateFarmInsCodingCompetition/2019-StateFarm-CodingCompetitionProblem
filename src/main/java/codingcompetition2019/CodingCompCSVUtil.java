@@ -95,14 +95,8 @@ public class CodingCompCSVUtil {
 	 * @return DisasterDescription Object which is the category, year, and the number of incidents for the disaster
 	 */
 	public DisasterDescription getMostImpactfulYearByCategory(String category, List<List<String>> records) {
-		List<List<String>> catRecords = new ArrayList<List<String>>();
 		
-		for(List<String> record : records) {
-			if(record.get(0).equals(category)){
-				catRecords.add(record);
-			}
-		}
-		return getMostImpactfulYear(catRecords);
+		return getMostImpactfulYear(filterListBySearch(0,category, records));
 	}
 	
 	/**
@@ -130,7 +124,6 @@ public class CodingCompCSVUtil {
 	 * @return DisasterDescription Object which is the category, year, and the number of incidents for the disaster
 	 */
 	public DisasterDescription getMostImpactfulDisasterByYear(String year, List<List<String>> records) {
-		// TODO implement this method
 		List<List<String>> catRecords = new ArrayList<List<String>>();
 		
 		for(List<String> record : records) {
@@ -204,7 +197,6 @@ public class CodingCompCSVUtil {
 			int incidentCount = Integer.parseInt(record.get(3));
 			total += incidentCount;
 		}
-
 		return total;
 	}
 	
@@ -215,7 +207,7 @@ public class CodingCompCSVUtil {
 	 */
 	public boolean firstRecordsHaveMoreReportedIndicents(List<List<String>> records1, List<List<String>> records2) {
 		
-		if(getTotalIncidents(records1) >= getTotalIncidents(records2))
+		if(getTotalIncidents(records1) > getTotalIncidents(records2))
 			return true;
 		return false;
 	}
