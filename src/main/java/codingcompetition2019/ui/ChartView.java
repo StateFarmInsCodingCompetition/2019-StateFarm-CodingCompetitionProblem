@@ -23,14 +23,10 @@ public class ChartView extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	
+	private Map<String, Map<String, Integer>> yearCatIncidents;
+	
 	public ChartView() {
-		CodingCompCSVUtil util = new CodingCompCSVUtil();
-		List<List<String>> records = null;
-		try {
-			records = util.readCSVFileWithoutHeaders("src/main/resources/natural-disasters-by-type.csv");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		mapYearCategoryIncidents();
 		CategoryChart chart = this.getChart();
 		SwingWrapper wrapper = new SwingWrapper(chart);
 		JFrame frame = wrapper.displayChart();
@@ -38,20 +34,16 @@ public class ChartView extends JPanel {
 		add(wrapper.getXChartPanel());
 	}
 	
-	private CategoryChart buildYearBarChart(List<List<String>> records) {
-		CategoryChart chart = new CategoryChartBuilder()
-				.width(800)
-				.height(600)
-				.title("My Chart")
-				.xAxisTitle("My X axis")
-				.yAxisTitle("My Y axis")
-				.build();
+	private void mapYearCategoryIncidents() {
+		// Load records
+		List<List<String>> records = null;
+		try {
+			records = new CodingCompCSVUtil().readCSVFileWithoutHeaders(GUIMain.fileName);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
-		chart.getStyler().setLegendPosition(LegendPosition.InsideNW);
-		chart.getStyler().setAvailableSpaceFill(0.96);
-		chart.getStyler().setOverlapped(false);
-		
-		Map<String, Map<String, Integer>> yearCatIncidents = new HashMap<String, Map<String, Integer>>();
+		yearCatIncidents = new HashMap<String, Map<String, Integer>>();
 		
 		for (List<String> line : records) {
 			String category = line.get(0);
@@ -67,6 +59,33 @@ public class ChartView extends JPanel {
 			categoryIncidents.put(category, categoryIncidents.getOrDefault(category, 0) + incidents);
 			yearCatIncidents.put(year, categoryIncidents);
 		}
+	}
+
+	public void update(ControlFilters filters) {
+		int chartType = filters.getChartType();
+		
+		CategoryChart chart = null;
+		if (chartType == ControlFilters.CHART_BAR) {
+			chart = buildBarChart(filters);
+		}
+	}
+	
+	private CategoryChart buildBarChart(ControlFilters filters) {
+		CategoryChart chart = new CategoryChartBuilder()
+				.width(800)
+				.height(600)
+				.title("My Chart")
+				.xAxisTitle("My X axis")
+				.yAxisTitle("My Y axis")
+				.build();
+		
+		chart.getStyler().setLegendPosition(LegendPosition.InsideNW);
+		chart.getStyler().setAvailableSpaceFill(0.96);
+		chart.getStyler().setOverlapped(false);
+		
+		Map<String, Map<String, Integer>> yearCatIncidents = new HashMap<String, Map<String, Integer>>();
+		
+		
 		
 		String[] years = new ArrayList<String>(yearCatIncidents.keySet()).toArray(new String[yearCatIncidents.size()]);
 		Arrays.sort(years);
