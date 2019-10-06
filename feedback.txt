@@ -2,7 +2,15 @@ Your team (name of each individual participating): Mudit Gupta and Ryan Thomas L
 How many JUnits were you able to get to pass? 10/10
 
 Document and describe any enhancements included to help the judges properly grade your submission.
-	Added Javadocs and following checkstyle.
-	More to come! (Hopefully 😭)
+	Added Javadocs
+		We wanted to make our code as understandable as possible, so the addition of javadocs makes
+		each function very simple to understand.
+	Following CheckStyle-6.2.2
+		To ensure cleanliness and readability in our code, we decided to follow the guidelines
+		established by CheckStyle-6.2.2.
+	Attempting to be time efficient with iterations over functions based on disaster category
+		The code will only perform evaluations for entries of the correct category. Once an entry
+		is found in the wrong category, the function will stop processing the list given that the
+		data is sorted by category.
 	
 Feedback for the coding competition?  Things you would like to see in future events?
