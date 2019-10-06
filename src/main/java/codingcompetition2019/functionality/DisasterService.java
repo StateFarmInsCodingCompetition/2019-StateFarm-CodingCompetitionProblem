@@ -18,7 +18,11 @@ public class DisasterService
 	{
 	}
 	
-	
+	/**
+	 * 
+	 * @param fileName a valid filename
+	 * @return parsed file data as a nested String list
+	 */
 	public List<List<String>> getFileAsString(String fileName)
 	{
 		try {
@@ -29,6 +33,11 @@ public class DisasterService
 		return null;
 	}
 	
+	/**
+	 * 
+	 * @param fileName a valid fileName
+	 * @return parsed data as a list of DisasterDescription objects
+	 */
 	public List<DisasterDescription> getFileAsDisaster(String fileName)
 	{
 		try {
@@ -40,7 +49,12 @@ public class DisasterService
 	}
 	
 	
-	
+	/**
+	 * 
+	 * @param fileName a valid fileName
+	 * @param countryName a valid countryName
+	 * @return parsed data with respect to countryName
+	 */
 	public List<List<String>> getFileAsStringByCountry(String fileName, String countryName)
 	{
 		try {
@@ -51,6 +65,12 @@ public class DisasterService
 		return null;
 	}
 	
+	/**
+	 * 
+	 * @param fileName a valid fileName
+	 * @param countryCode a valid countryCode
+	 * @return parsed data with respect to countryCode
+	 */
 	public List<List<String>> getFileAsStringByCountryCode(String fileName, String countryCode)
 	{
 		try {
@@ -62,7 +82,14 @@ public class DisasterService
 	}
 	
 	
-	
+	/**
+	 * This method is meant to speed up visualization efforts to assist with the competition timeframe
+	 * 
+	 * 
+	 * @param data parsed data in String format
+	 * @return parsed data converted to DisasterDescription objects
+	 * @throws IOException
+	 */
 	public List<DisasterDescription> asDisasterDescriptions(List<List<String>> data) throws IOException
 	{
 		CodingCompetitionCSVParser parser = new CodingCompetitionCSVParser(null);

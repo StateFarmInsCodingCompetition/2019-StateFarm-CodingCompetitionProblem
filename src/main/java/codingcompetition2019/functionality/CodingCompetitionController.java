@@ -22,18 +22,36 @@ public class CodingCompetitionController {
 	@Autowired
 	DisasterService disasterService;
 
+	
+	
+	/**
+	 * 
+	 * @return A simple string to tell if the application is operational
+	 */
 	@GetMapping("/")
 	public String isUp() {
 		return "This is an application for the 2019 State Farm Coding Competition!";
 	}
 
-
+	/**
+	 * 
+	 * @param fileName A filename in the form foo.csv
+	 * @return Json data of the parsed file
+	 */
 	@GetMapping("/getFile")
 	@ResponseBody
 	public List<List<String>> getFileData(@RequestParam("fileName") String fileName) {
 		return disasterService.getFileAsString("src/main/resources/" + fileName);
 	}
 
+	
+	/**
+	 * 
+	 * @param fileName A filename in the form foo.csv
+	 * @param countryName An optional country name to filter data
+	 * @param countryCode An optional country code to filter data
+	 * @return filtered data in Json form
+	 */
 	@GetMapping("/getFileByCountry")
 	@ResponseBody
 	public List<List<String>> getFileData(@RequestParam(name = "fileName") String fileName,
@@ -48,6 +66,16 @@ public class CodingCompetitionController {
 
 	}
 
+	
+	/**
+	 * 
+	 * @param model An autowired parameter for visualization
+	 * @param fileName A filename in the form foo.csv
+	 * @param entity An optional entity name to filter data
+	 * @param code An optional code name to filter data
+	 * @return A web display table of parsed data
+	 * @throws IOException
+	 */
 	@RequestMapping(value = "/visualizeData", method = RequestMethod.GET)
 	public String showTableWithValues(Model model, @RequestParam(name = "fileName") String fileName,
 	@RequestParam(name = "entity", required = false) String entity,

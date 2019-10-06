@@ -18,6 +18,13 @@ public class CodingCompetitionCSVParser
 		this.fileName = fileName;
 	}
 	
+	
+	/**
+	 * 
+	 * @param data parsed data in String format
+	 * @return parsed data in DisasterDescription format
+	 * @throws IOException
+	 */
 	public List<DisasterDescription> parseAsDisaster(List<List<String>> data) throws IOException
 	{
 		ArrayList<DisasterDescription> parsedEntrys = new ArrayList<DisasterDescription>();
@@ -33,7 +40,12 @@ public class CodingCompetitionCSVParser
 	}
 	
 	
-	
+	/**
+	 * 
+	 * @param readHead a boolean value representing if the file head should be included in the output
+	 * @return parsed data in DisasterDescription form
+	 * @throws IOException
+	 */
 	public List<DisasterDescription> parseAsDisaster(boolean readHead) throws IOException
 	{
 		boolean rh = !readHead;
@@ -63,7 +75,12 @@ public class CodingCompetitionCSVParser
 		return parsedEntrys;
 	}
 	
-
+	/**
+	 * 
+	 * @param readHead a boolean value representing if the file head should be included in the output
+	 * @return parsed data in String format
+	 * @throws IOException
+	 */
 	public List<List<String>> parseAsString(boolean readHead) throws IOException
 	{
 		boolean rh = !readHead;
