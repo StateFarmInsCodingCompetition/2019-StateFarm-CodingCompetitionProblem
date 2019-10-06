@@ -1,9 +1,12 @@
-Your team (name of each individual participating):
-How many JUnits were you able to get to pass? 
+Your team (name of each individual participating): Harshal Sheth, Ankur Sundara
+How many JUnits were you able to get to pass?  10/10
 
 Document and describe any enhancements included to help the judges properly grade your submission.
-	Step 1:
-	Step 2: 
-	
-	
+	Step 0: We added a web-based frontend for visualizing and interacting with the provided data.
+	Step 1: To use it, simply open the `webui/Main.java` file, and click the green arrow
+	        beside the Main class. Click the option for 'Run Main.main()'.
+	Step 2: Once our server has started, navigate to http://localhost:4567 in a browser, and
+	        follow the instructions on using our tool.
+
 Feedback for the coding competition?  Things you would like to see in future events?
+The competition was extremely fun!
