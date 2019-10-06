@@ -18,6 +18,10 @@ public class CodingCompCSVUtil {
         CATEGORY, YEAR;
     }
 
+    private enum ReturnResult {
+        YEAR, DISASTER, REPORTED_INCIDENTS;
+    }
+
     public List<List<String>> readCSVFileByCountry(String fileName, String countryName) throws IOException {
         List<List<String>> result = new LinkedList<List<String>>();
         bufferedReader = new BufferedReader(new FileReader(fileName));
@@ -86,61 +90,112 @@ public class CodingCompCSVUtil {
         return result;
     }
 
-    private DisasterDescription getDisasterDescriptionByCritera(SearchCriteria searchCriteria, String relevant, List<List<String>> records) {
+    private DisasterDescription getDisasterDescriptionByCritera(SearchCriteria searchCriteria, String relevant, ReturnResult returnResult, List<List<String>> records) {
         DisasterDescription description = new DisasterDescription();
 
-        Map<String, Integer> incidentsByYear = new HashMap<String, Integer>();
+        if (returnResult == ReturnResult.YEAR) {
+            Map<String, Integer> incidentsByYear = new HashMap<String, Integer>();
+            String mostImpactfulYear = "";
+            int max = Integer.MIN_VALUE;
 
-        String mostImpactfulYear = "";
-        int max = Integer.MIN_VALUE;
+            for (List<String> line : records) {
+                String category = line.get(0);
+                String year = line.get(2);
 
-        for (List<String> line : records) {
-            String category = line.get(0);
-            String year = line.get(2);
+                if (searchCriteria == SearchCriteria.CATEGORY) {
+                    if (!category.equalsIgnoreCase(relevant)) continue;
+                } else if (searchCriteria == SearchCriteria.YEAR) {
+                    if (!year.equalsIgnoreCase(relevant)) continue;
+                }
 
+                int incidents = Integer.parseInt(line.get(3));
+                Integer currentValue = incidentsByYear.get(year);
+                Integer value = currentValue == null ? incidents : currentValue + incidents;
+
+                if (value > max) {
+                    max = value;
+                    mostImpactfulYear = year;
+                }
+
+                incidentsByYear.put(year, value);
+            }
             if (searchCriteria == SearchCriteria.CATEGORY) {
+                description.setCategory(relevant);
+            } else {
+                description.setCategory(ALL_NATURAL_DISASTERS);
+            }
+            description.setYear(mostImpactfulYear);
+            description.setReportedIncidentsNum(max);
+
+            return description;
+        } else if (returnResult == ReturnResult.DISASTER) {
+            Map<String, Integer> incidentsByDisaster = new HashMap<String, Integer>();
+
+            String mostImpactfulDisaster = "";
+            int max = Integer.MIN_VALUE;
+
+            for (List<String> line : records) {
+                String category = line.get(0);
+                if (category.equalsIgnoreCase(ALL_NATURAL_DISASTERS)) continue;
+
+                String year = line.get(2);
+
+                if (searchCriteria == SearchCriteria.CATEGORY) {
+                    if (!category.equalsIgnoreCase(relevant)) continue;
+                } else if (searchCriteria == SearchCriteria.YEAR) {
+                    if (!year.equalsIgnoreCase(relevant)) continue;
+                }
+
+                int incidents = Integer.parseInt(line.get(3));
+                Integer currentValue = incidentsByDisaster.get(category);
+                Integer value = currentValue == null ? incidents : currentValue + incidents;
+
+                if (value > max) {
+                    max = value;
+                    mostImpactfulDisaster = category;
+                }
+
+                incidentsByDisaster.put(year, value);
+            }
+            description.setCategory(mostImpactfulDisaster);
+            description.setReportedIncidentsNum(max);
+
+            return description;
+        } else if (returnResult == ReturnResult.REPORTED_INCIDENTS) {
+            int totalReportedIncidents = 0;
+
+            for (List<String> line : records) {
+                String category = line.get(0);
+                String year = line.get(2);
+
                 if (!category.equalsIgnoreCase(relevant)) continue;
-            } else if (searchCriteria == SearchCriteria.YEAR) {
-                if (!year.equalsIgnoreCase(relevant)) continue;
+
+                totalReportedIncidents += Integer.parseInt(line.get(3));
             }
 
-            int incidents = Integer.parseInt(line.get(3));
-            Integer currentValue = incidentsByYear.get(year);
-            Integer value = currentValue == null ? incidents : currentValue + incidents;
-
-            if (value > max) {
-                max = value;
-                mostImpactfulYear = year;
-            }
-
-            incidentsByYear.put(year, value);
-        }
-        if (searchCriteria == SearchCriteria.CATEGORY) {
             description.setCategory(relevant);
-        } else {
-            description.setCategory(ALL_NATURAL_DISASTERS);
-        }
-        description.setYear(mostImpactfulYear);
-        description.setReportedIncidentsNum(max);
+            description.setReportedIncidentsNum(totalReportedIncidents);
 
-        return description;
+            return description;
+        }
+
+        throw new IllegalArgumentException("Invalid return result");
     }
 
     public DisasterDescription getMostImpactfulYear(List<List<String>> records) {
-        return getDisasterDescriptionByCritera(SearchCriteria.CATEGORY, ALL_NATURAL_DISASTERS, records);
+        return getDisasterDescriptionByCritera(SearchCriteria.CATEGORY, ALL_NATURAL_DISASTERS, ReturnResult.YEAR, records);
     }
 
     public DisasterDescription getMostImpactfulYearByCategory(String category, List<List<String>> records) {
-        return getDisasterDescriptionByCritera(SearchCriteria.CATEGORY, category, records);
+        return getDisasterDescriptionByCritera(SearchCriteria.CATEGORY, category, ReturnResult.YEAR, records);
     }
 
     public DisasterDescription getMostImpactfulDisasterByYear(String year, List<List<String>> records) {
-        return getDisasterDescriptionByCritera(SearchCriteria.YEAR, year, records);
+        return getDisasterDescriptionByCritera(SearchCriteria.YEAR, year, ReturnResult.DISASTER, records);
     }
 
     public DisasterDescription getTotalReportedIncidentsByCategory(String category, List<List<String>> records) {
-        // TODO implement this method
-        return null;
+        return getDisasterDescriptionByCritera(SearchCriteria.CATEGORY, category, ReturnResult.REPORTED_INCIDENTS, records);
     }
 
     /**
@@ -151,12 +206,37 @@ public class CodingCompCSVUtil {
      * + If a max value is provided, then a max value is also needed.
      */
     public int countImpactfulYearsWithReportedIncidentsWithinRange(List<List<String>> records, int min, int max) {
-        // TODO implement this method
-        return -1;
+        int totalReportedIncidents = 0;
+
+        for (List<String> line : records) {
+            int reportedIncidents = Integer.parseInt(line.get(3));
+            if (reportedIncidents >= min) {
+                if (max == -1) {
+                    totalReportedIncidents++;
+                } else {
+                    if (reportedIncidents <= max) {
+                        totalReportedIncidents++;
+                    }
+                }
+            }
+        }
+
+        return totalReportedIncidents;
     }
 
     public boolean firstRecordsHaveMoreReportedIndicents(List<List<String>> records1, List<List<String>> records2) {
-        // TODO implement this method
-        return false;
+        return getTotalReportedIncidentsInRange(records1) > getTotalReportedIncidentsInRange(records2);
+    }
+
+    private int getTotalReportedIncidentsInRange(List<List<String>> records) {
+        int totalReportedIncidents = 0;
+
+        for (List<String> line : records) {
+            int reportedIncidents = Integer.parseInt(line.get(3));
+
+            totalReportedIncidents += reportedIncidents;
+        }
+
+        return totalReportedIncidents;
     }
 }
