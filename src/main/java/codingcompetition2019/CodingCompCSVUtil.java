@@ -174,7 +174,7 @@ public class CodingCompCSVUtil {
 				amountOfIncidents = Integer.parseInt(records.get(i).get(3));
 			}
 		}
-		return new DisasterDescription(0, category, amountOfIncidents);
+		return new DisasterDescription(Integer.parseInt(year), category, amountOfIncidents);
 	
 	}
 	
@@ -186,7 +186,7 @@ public class CodingCompCSVUtil {
 	 */
 	public DisasterDescription getTotalReportedIncidentsByCategory(String category, List<List<String>> records) {
 		for(int i = 0; i < records.size(); i ++) {
-			if(!records.get(i).get(0).contentEquals(category)) {
+			if(!records.get(i).get(0).equalsIgnoreCase(category)) {
 				records.remove(i--);
 			}
 		}
