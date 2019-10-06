@@ -1,7 +1,9 @@
 package codingcompetition2019;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class CodingCompCSVUtil {
 	public List<List<String>> readCSVFileByCountry(String fileName, String countryName) throws IOException {
@@ -20,8 +22,27 @@ public class CodingCompCSVUtil {
 	}
 	
 	public DisasterDescription getMostImpactfulYear(List<List<String>> records) {
-		// TODO implement this method
-		return null;
+		Map<String, Integer> yearImpact = new HashMap<String, Integer>();
+		for (List<String> line : records) {
+			// Extract year from record
+			String year = line.get(2);
+			
+			// Increment year's impact by one
+			yearImpact.put(year, yearImpact.getOrDefault(year, 0) + 1);
+		}
+
+		String maxYear = null;
+		int maxImpact = 0;
+		
+		for (String year : yearImpact.keySet()) {
+			int impact = yearImpact.get(year);
+			if (maxYear == null || impact > maxImpact) {
+				maxYear = year;
+				maxImpact = impact;
+			}
+		}
+		
+		return new DisasterDescription("defaultEntity", "defaultCode", maxYear, "0");
 	}
 
 	public DisasterDescription getMostImpactfulYearByCategory(String category, List<List<String>> records) {

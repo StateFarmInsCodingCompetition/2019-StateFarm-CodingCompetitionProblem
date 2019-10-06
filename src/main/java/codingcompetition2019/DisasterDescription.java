@@ -1,11 +1,16 @@
 package codingcompetition2019;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class DisasterDescription {
 	
 	private String entity, code;
 	private int year, statistic;
+	
+	public DisasterDescription(String...data) {
+		this(Arrays.asList(data));
+	}
 	
 	public DisasterDescription(List<String> data) {
 		if (data.size() < 4) {
