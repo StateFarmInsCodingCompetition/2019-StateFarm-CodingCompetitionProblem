@@ -90,4 +90,5 @@ public class CodingCompCSVUtilTest extends TestCase {
 		assertTrue(util.firstRecordsHaveMoreReportedIndicents(tempRecords1, tempRecords2));
 		assertFalse(util.firstRecordsHaveMoreReportedIndicents(tempRecords2, tempRecords1));
 	}
+
 }

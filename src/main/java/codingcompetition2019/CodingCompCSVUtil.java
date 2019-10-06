@@ -205,5 +205,86 @@ public class CodingCompCSVUtil {
 		return total;
 	}
 
+
+	/**
+	 * Custom Methods
+	 */
+
+
+	// Given a location name, return whether or not the individual is a low risk, medium risk or high risk individual based on some parameters for any given year
+	public String evaluateRisk(String countryName, String year) throws IOException {
+
+		String risk_analysis;
+		int totalIncidents = 0;
+
+		String significantEarthquakeFileNameName = "src/main/resources/significant-earthquakes.csv";
+		String significantVolcanicEruptionsFileName = "src/main/resources/significant-volcanic-eruptions.csv";
+
+		List<List<String>> volcanic_data = readCSVFileByCountry(significantVolcanicEruptionsFileName, countryName);
+		List<List<String>> earthquake_data = readCSVFileByCountry(significantEarthquakeFileNameName, countryName);
+
+
+
+		//Our method will see the total number of incidents this location has had in the past 10 years. We will slot these into catagories of < 5, <10, and 11+
+
+		totalIncidents += getTotalNumReportsInYearRange(volcanic_data, year);
+		totalIncidents += getTotalNumReportsInYearRange(earthquake_data, year);
+
+
+
+
+		if (totalIncidents >= 10) {
+			risk_analysis = "HIGH RISK";
+		} else if (totalIncidents < 10 && totalIncidents >= 5) {
+			risk_analysis = "MEDIUM RISK";
+		} else {
+			risk_analysis = "LOW RISK";
+		}
+
+
+
+		return risk_analysis;
+
+	}
+
+	public int getTotalNumReportsInYearRange(List<List<String>> records, String year) {
+		int total = 0;
+
+		int high_year = Integer.parseInt(year);
+		int low_year = high_year - 10;
+		for (List<String> record : records) {
+			for (String str : record) {
+				String[] dataSplit = str.split(",");
+
+				if (Integer.parseInt(dataSplit[2]) >= low_year && Integer.parseInt(dataSplit[2]) <= high_year) {
+					total += Integer.parseInt(dataSplit[3]);
+				}
+			}
+		}
+		return total;
+	}
+
+	/* Custom method
+		To display countries that had a disaster based on year of input.
+		If there are countries that reported incidences during that year, they will get outputted.
+	 */
+	public void countriesOfIncidenceThatYear(int year, String filename) throws IOException {
+		List<String> listOfCountries = new ArrayList<>();
+
+		List<List<String>> data = readCSVFileWithoutHeaders(filename);
+		for (List<String> record : data) {
+			for (String str : record) {
+				String[] dataSplit = str.split(",");
+				if (year == Integer.parseInt(dataSplit[2])) {
+					listOfCountries.add(dataSplit[0]);
+				}
+			}
+		}
+
+		for (String country : listOfCountries) {
+			System.out.print(country + " ");
+		}
+	}
+
 }
 
