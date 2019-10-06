@@ -24,14 +24,16 @@ public class ChartView extends JPanel {
 	private static final long serialVersionUID = 1L;
 	
 	private Map<String, Map<String, Integer>> yearCatIncidents;
+	private int[] years;
+	private List<String> categories;
+	
+	private JPanel currentXPanel;
 	
 	public ChartView() {
 		mapYearCategoryIncidents();
-		CategoryChart chart = this.getChart();
-		SwingWrapper wrapper = new SwingWrapper(chart);
-		JFrame frame = wrapper.displayChart();
-		frame.setVisible(false);
-		add(wrapper.getXChartPanel());
+		update(new ControlFilters()
+				.setChartType(ControlFilters.CHART_BAR)
+		);
 	}
 	
 	private void mapYearCategoryIncidents() {
@@ -45,8 +47,13 @@ public class ChartView extends JPanel {
 		
 		yearCatIncidents = new HashMap<String, Map<String, Integer>>();
 		
+		categories = new ArrayList<String>();
+		
 		for (List<String> line : records) {
 			String category = line.get(0);
+			if (!categories.contains(category)) {
+				categories.add(category);
+			}
 			String year = line.get(2);
 			int incidents;
 			try {
@@ -59,6 +66,13 @@ public class ChartView extends JPanel {
 			categoryIncidents.put(category, categoryIncidents.getOrDefault(category, 0) + incidents);
 			yearCatIncidents.put(year, categoryIncidents);
 		}
+		
+		String[] sYears = new ArrayList<String>(yearCatIncidents.keySet()).toArray(new String[yearCatIncidents.size()]);
+		Arrays.sort(sYears);
+		years = new int[sYears.length];
+		for (int i = 0; i < sYears.length; i++) {
+			years[i] = Integer.parseInt(sYears[i]);
+		}
 	}
 
 	public void update(ControlFilters filters) {
@@ -68,31 +82,45 @@ public class ChartView extends JPanel {
 		if (chartType == ControlFilters.CHART_BAR) {
 			chart = buildBarChart(filters);
 		}
+		
+		if (currentXPanel != null) {
+			this.remove(currentXPanel);
+		}
+		
+		SwingWrapper wrapper = new SwingWrapper(chart);
+		JFrame frame = wrapper.displayChart();
+		frame.setVisible(false);
+		currentXPanel = wrapper.getXChartPanel();
+		this.add(currentXPanel);
 	}
 	
 	private CategoryChart buildBarChart(ControlFilters filters) {
-		CategoryChart chart = new CategoryChartBuilder()
-				.width(800)
-				.height(600)
-				.title("My Chart")
-				.xAxisTitle("My X axis")
-				.yAxisTitle("My Y axis")
+		CategoryChart chart = createBaseChart()
+				.title("Bar chart")
+				.xAxisTitle("Year")
+				.yAxisTitle("Incidents")
 				.build();
 		
 		chart.getStyler().setLegendPosition(LegendPosition.InsideNW);
 		chart.getStyler().setAvailableSpaceFill(0.96);
 		chart.getStyler().setOverlapped(false);
 		
-		Map<String, Map<String, Integer>> yearCatIncidents = new HashMap<String, Map<String, Integer>>();
-		
-		
-		
-		String[] years = new ArrayList<String>(yearCatIncidents.keySet()).toArray(new String[yearCatIncidents.size()]);
-		Arrays.sort(years);
-		
-		//chart.addSeries("test", new [] {1, 2, 3, 4, 5}, new double[] {10, 20, 30, 40, 50});
+		for (String cat : categories) {
+			int[] incidents = new int[years.length];
+			for (int i = 0; i < years.length; i++) {
+				incidents[i] = yearCatIncidents.getOrDefault(years[i] + "", new HashMap<String, Integer>())
+						.getOrDefault(cat, 0);
+			}
+			chart.addSeries(cat, years, incidents);
+		}
 		
 		return chart;
+	}
+	
+	private CategoryChartBuilder createBaseChart() {
+		return new CategoryChartBuilder()
+				.width(800)
+				.height(600);
 	}
 	
 	private CategoryChart getChart() {
