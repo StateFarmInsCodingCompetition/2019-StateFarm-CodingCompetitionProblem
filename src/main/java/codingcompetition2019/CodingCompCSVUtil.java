@@ -73,8 +73,21 @@ public class CodingCompCSVUtil {
 	}
 
 	public DisasterDescription getMostImpactfulDisasterByYear(String year, List<List<String>> records) {
-		// TODO implement this method
-		return null;
+		HashMap<String, Integer> counts = new HashMap<String, Integer>();
+		String maxDisaster = null;
+		int maxDisasterCount = -1;
+		for (List<String> item : records) {
+			DisasterDescription desc = new DisasterDescription(item);
+			if (!desc.getYear().equals(year)) continue;
+			if (desc.getCategory().equals("All natural disasters")) continue;
+			int newCount = counts.getOrDefault(desc.getCategory(), 0) + desc.getReportedIncidentsNum();
+			counts.put(desc.getCategory(), newCount);
+			if (newCount > maxDisasterCount) {
+				maxDisasterCount = newCount;
+				maxDisaster = desc.getCategory();
+			}
+		}
+		return new DisasterDescription(maxDisaster, "", year, maxDisasterCount + "");	
 	}
 
 	public DisasterDescription getTotalReportedIncidentsByCategory(String category, List<List<String>> records) {
