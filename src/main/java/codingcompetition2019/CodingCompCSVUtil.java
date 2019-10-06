@@ -43,16 +43,7 @@ public class CodingCompCSVUtil {
 	}
 	
 	public List<List<String>> readCSVFileWithoutHeaders(String fileName) throws IOException {
-		List<List<String>> queriedData = new ArrayList<>();
-
-		BufferedReader csvReader = new BufferedReader(new FileReader(fileName));
-
-		String row;
-		while ((row = csvReader.readLine()) != null) {
-			queriedData.add(new ArrayList<>(Arrays.asList(row)));
-		}
-		csvReader.close();
-
+		List<List<String>> queriedData = readCSVFileWithHeaders(fileName);
 		queriedData.remove(0);
 		return queriedData;
 	}
@@ -71,7 +62,7 @@ public class CodingCompCSVUtil {
 				String[] data = record.split(",");
 				int currImpact = Integer.parseInt(data[3]);
 
-				if (!data[0].equals("All natural disasters") && currImpact > highestImpact) {
+				if (currImpact > highestImpact) {
 					highestImpact = currImpact;
 
 					disasterDescription = new DisasterDescription(data[0], data[1], data[2], data[3]);
@@ -161,58 +152,39 @@ public class CodingCompCSVUtil {
 	public int countImpactfulYearsWithReportedIncidentsWithinRange(List<List<String>> records, int min, int max) {
 		// TODO implement this method
 
-		int numValidYears = 0;
+		int numValidYearsInRange = 0;
 
-		for (List<String> elem : records) {
+		for (List<String> record : records) {
+			for (String str : record) {
 
-			for (String str : elem) {
-
-				String[] vals1 = str.split(",");
-				int currImpact = Integer.parseInt(vals1[3]);
+				String[] dataSplit = str.split(",");
+				int currImpact = Integer.parseInt(dataSplit[3]);
 
 				// case one: if max isn't provided
 				// case two: max IS provided
 				if (max == -1) {
 					if (currImpact >= min) {
-						numValidYears++;
+						numValidYearsInRange++;
 					}
 				} else {
 					if (currImpact >= min && currImpact <= max) {
-						numValidYears++;
+						numValidYearsInRange++;
 					}
 				}
 			}
 		}
 
-		return numValidYears;
+		return numValidYearsInRange;
 	}
 
 	public boolean firstRecordsHaveMoreReportedIndicents(List<List<String>> records1, List<List<String>> records2) {
 		// TODO implement this method
 
 		boolean isGreater = false;
+		int numReports1 = 0, numReports2 = 0;
 
-		int numReports1 = 0;
-		int numReports2 = 0;
-
-		for (List<String> elem : records1) {
-
-			for (String str : elem) {
-
-				String[] vals1 = str.split(",");
-				int currImpact1 = Integer.parseInt(vals1[3]);
-				numReports1 += currImpact1;
-			}
-		}
-
-		for (List<String> elem2 : records2) {
-			for (String str2 : elem2) {
-
-				String[] vals2 = str2.split(",");
-				int currImpact2 = Integer.parseInt(vals2[3]);
-				numReports2 += currImpact2;
-			}
-		}
+		numReports1 += getTotalNumReports(records1);
+		numReports2 += getTotalNumReports(records2);
 
 		if (numReports1 > numReports2) {
 			isGreater = true;
@@ -221,4 +193,17 @@ public class CodingCompCSVUtil {
 		return isGreater;
 	}
 
+	public int getTotalNumReports(List<List<String>> records) {
+		int total = 0;
+		for (List<String> record : records) {
+			for (String str : record) {
+				String[] dataSplit = str.split(",");
+				int currImpact = Integer.parseInt(dataSplit[3]);
+				total += currImpact;
+			}
+		}
+		return total;
+	}
+
 }
+
