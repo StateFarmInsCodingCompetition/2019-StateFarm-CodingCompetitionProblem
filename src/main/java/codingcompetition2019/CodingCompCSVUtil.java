@@ -60,7 +60,6 @@ public class CodingCompCSVUtil {
 		
 		reader.close();
 		
-		System.out.println(records.size());
 		return records;
 	}
 	
