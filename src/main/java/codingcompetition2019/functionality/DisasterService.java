@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import codingcompetition2019.CodingCompCSVUtil;
+import codingcompetition2019.CodingCompetitionCSVParser;
 import codingcompetition2019.DisasterDescription;
 
 @Service
@@ -60,5 +61,12 @@ public class DisasterService
 		return null;
 	}
 	
+	
+	
+	public List<DisasterDescription> asDisasterDescriptions(List<List<String>> data) throws IOException
+	{
+		CodingCompetitionCSVParser parser = new CodingCompetitionCSVParser(null);
+		return parser.parseAsDisaster(data);
+	}
 
 }

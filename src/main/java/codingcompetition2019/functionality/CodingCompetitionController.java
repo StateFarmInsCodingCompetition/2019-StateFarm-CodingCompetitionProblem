@@ -1,5 +1,6 @@
 package codingcompetition2019.functionality;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,16 +27,6 @@ public class CodingCompetitionController {
 		return "This is an application for the 2019 State Farm Coding Competition!";
 	}
 
-	@GetMapping("/visual")
-	@ResponseBody
-	public String dataVisual(Model model) {
-		return "visual";
-	}
-
-	@PostMapping("/visual")
-	public String dataVisualInput() {
-		return "visual";
-	}
 
 	@GetMapping("/getFile")
 	@ResponseBody
@@ -57,14 +48,30 @@ public class CodingCompetitionController {
 
 	}
 
-	@RequestMapping(value = "/showTableWithValues", method = RequestMethod.GET)
-	public String showTableWithValues(Model model, @RequestParam(name = "fileName") String fileName) {
-		// list with Persons
-		List<DisasterDescription> list = disasterService.getFileAsDisaster("src/main/resources/" + fileName);
+	@RequestMapping(value = "/visualizeData", method = RequestMethod.GET)
+	public String showTableWithValues(Model model, @RequestParam(name = "fileName") String fileName,
+	@RequestParam(name = "entity", required = false) String entity,
+	@RequestParam(name = "code", required = false) String code) throws IOException{
+		List<DisasterDescription> list;
+		
+		if (entity != null && !entity.equals("null"))
+		{
+			list = disasterService.asDisasterDescriptions(disasterService.getFileAsStringByCountry("src/main/resources/" + fileName, entity));			
+		}else if (code != null && !code.equals("null"))
+		{
+			list = disasterService.asDisasterDescriptions(disasterService.getFileAsStringByCountryCode("src/main/resources/" + fileName, code));
+		}else
+		{
+			list = disasterService.getFileAsDisaster("src/main/resources/" + fileName);
+		}
+
+		
+		//List<DisasterDescription> list = disasterService.getFileAsDisaster("src/main/resources/" + fileName);
 
 		model.addAttribute("list", list);
 
 		return "visual";
 	}
+	
 
 }

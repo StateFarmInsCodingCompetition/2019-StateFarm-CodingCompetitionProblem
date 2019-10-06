@@ -18,6 +18,22 @@ public class CodingCompetitionCSVParser
 		this.fileName = fileName;
 	}
 	
+	public List<DisasterDescription> parseAsDisaster(List<List<String>> data) throws IOException
+	{
+		ArrayList<DisasterDescription> parsedEntrys = new ArrayList<DisasterDescription>();
+		for(List<String> line : data)
+		{
+			DisasterDescription dd = new DisasterDescription(line.get(0),line.get(1),line.get(2),Integer.parseInt(line.get(3)));
+			parsedEntrys.add(dd);
+		}
+			
+			
+        
+		return parsedEntrys;
+	}
+	
+	
+	
 	public List<DisasterDescription> parseAsDisaster(boolean readHead) throws IOException
 	{
 		boolean rh = !readHead;
@@ -30,20 +46,20 @@ public class CodingCompetitionCSVParser
 				rh = false;
 				continue;
 			}
-		    String[] dataArray = data.split(",");
-		    for(String s : dataArray)
-		    {
-		    	if(s == null)
-		    	{
-		    		s = "null";
-		    	}
-		    }
-		    DisasterDescription dd = new DisasterDescription(dataArray[0],dataArray[1],dataArray[2],Integer.parseInt(dataArray[3]));
-		    parsedEntrys.add(dd);
+			String[] dataArray = data.split(",");
+			for(String s : dataArray)
+			{
+				if(s == null)
+				{
+					s = "null";
+				}
+			}
+			DisasterDescription dd = new DisasterDescription(dataArray[0],dataArray[1],dataArray[2],Integer.parseInt(dataArray[3]));
+			parsedEntrys.add(dd);
 		}
 		br.close();
-        
-        
+		
+		
 		return parsedEntrys;
 	}
 	
