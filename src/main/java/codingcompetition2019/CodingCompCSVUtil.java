@@ -71,7 +71,19 @@ public class CodingCompCSVUtil {
      * @return         [description]
      */
 	public DisasterDescription getMostImpactfulYear(List<List<String>> records) {
-		return getMostImpactfulYearByCategory("All natural disasters", records);
+		if (records.get(0).get(0).equals("All natural disasters")) {
+			return getMostImpactfulYearByCategory("All natural disasters", records);
+		}
+		int highestNumDisasters = Integer.parseInt(records.get(0).get(3));
+		int yearOf_highestNumDisasters = Integer.parseInt(records.get(0).get(2));
+		for (int i = 1; i < records.size(); i++) {
+            int numDisasters = Integer.parseInt(records.get(i).get(3));
+			if(numDisasters > highestNumDisasters) {
+				highestNumDisasters = numDisasters;
+                yearOf_highestNumDisasters = Integer.parseInt(records.get(i).get(2));
+			}
+		}
+		return new DisasterDescription(highestNumDisasters, yearOf_highestNumDisasters);
 	}
 
     /**
@@ -98,7 +110,7 @@ public class CodingCompCSVUtil {
 				highestNumDistasters = numDisasters;
 			}
 		}
-		return new DisasterDescription(category, highestNumDistasters, highestEntry.get(2));
+		return new DisasterDescription(category, highestNumDistasters, Integer.parseInt(highestEntry.get(2)));
 	}
 
     /**
@@ -118,7 +130,7 @@ public class CodingCompCSVUtil {
 				}
 			}
 		}
-		return new DisasterDescription(mostImpactfulDisaster, mostImpactsByDisaster, year);
+		return new DisasterDescription(mostImpactfulDisaster, mostImpactsByDisaster, Integer.parseInt(year));
 	}
 
     /**
@@ -128,7 +140,6 @@ public class CodingCompCSVUtil {
      * @return          [description]
      */
 	public DisasterDescription getTotalReportedIncidentsByCategory(String category, List<List<String>> records) {
-		// TODO implement this method
 		int totalReportedIncidents = 0;
 		for (List<String> line : records) {
 			if (line.get(0).equals(category)) {

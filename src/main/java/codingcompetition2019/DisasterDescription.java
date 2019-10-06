@@ -14,16 +14,16 @@ public class DisasterDescription {
 		this.year = year;
 	}
 	
-	//like main constructor, but for year as a string
-	public DisasterDescription(String category, int reportedIncidents, String year) {
-		this(category, reportedIncidents, Integer.parseInt(year));
-	}
-	
 	//for when the year is irrelevant
 	public DisasterDescription(String category, int reportedIncidents) {
-		this.category = category;
-		this.reportedIncidents = reportedIncidents;
+		this(category, reportedIncidents, -1);
 	}
+	
+	//for when the category is irrelevant
+	public DisasterDescription(int reportedIncidents, int year) {
+		this(null, reportedIncidents, year);
+	}
+	
     /**
      * [getCategory description]
      * @return [description]
