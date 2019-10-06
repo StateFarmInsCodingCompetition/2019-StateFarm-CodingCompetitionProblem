@@ -11,7 +11,6 @@ import java.util.List;
 
 public class CodingCompCSVUtil {
 	public List<List<String>> readCSVFileByCountry(String fileName, String countryName) throws IOException {
-		// TODO implement this method
 		BufferedReader br = null;
 		String line = "";
 		List<List<String>> countryLines = new ArrayList<List<String>>();
@@ -32,26 +31,29 @@ public class CodingCompCSVUtil {
 	}
 	
 	public List<List<String>> readCSVFileWithHeaders(String fileName) throws IOException {
-		// TODO implement this method
-		return null;
+	    return null;
 	}
 
 	public List<List<String>> readCSVFileWithoutHeaders(String fileName) throws IOException {
-		List<List<String>> records = new ArrayList<>();
-		boolean firstLine = false;
-		try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
-			String line;
-			while ((line = br.readLine()) != null) {
-				if (!firstLine) {
-					firstLine = true;
-					continue;
-				}
-				String[] values = line.split(",");
-				records.add(Arrays.asList(values));
-			}
-		}
-		System.out.println(records);
-		return null;
+        List<List<String>> csvFile = new ArrayList<List<String>>();
+        String delimiter = ",";
+        boolean first_line = false;
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(fileName));
+            String line = "";
+            while ((line = br.readLine()) != null) {
+                if (!first_line) {
+                    first_line = true;
+                    continue;
+                }
+                String[] lineData = line.split(delimiter, -1);
+                List<String> lineDataList = Arrays.asList(lineData);
+                csvFile.add(lineDataList);
+            }
+        } catch(FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        return csvFile;
 	}
 	
 	public DisasterDescription getMostImpactfulYear(List<List<String>> records) {
