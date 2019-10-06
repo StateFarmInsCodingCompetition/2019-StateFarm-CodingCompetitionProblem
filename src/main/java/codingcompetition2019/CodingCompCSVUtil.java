@@ -1,6 +1,10 @@
 package codingcompetition2019;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class CodingCompCSVUtil {
@@ -15,13 +19,34 @@ public class CodingCompCSVUtil {
 	}
 	
 	public List<List<String>> readCSVFileWithoutHeaders(String fileName) throws IOException {
-		// TODO implement this method
+		List<List<String>> records = new ArrayList<>();
+		boolean firstLine = false;
+		try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+			String line;
+			while ((line = br.readLine()) != null) {
+				if (!firstLine) {
+					firstLine = true;
+					continue;
+				}
+				String[] values = line.split(",");
+				records.add(Arrays.asList(values));
+			}
+		}
+		System.out.println(records);
 		return null;
 	}
 	
 	public DisasterDescription getMostImpactfulYear(List<List<String>> records) {
-		// TODO implement this method
-		return null;
+		String mostImpactfulYear = null;
+		int maxYearImpact = 0;
+		for (List<String> record : records) {
+			int currImpact = Integer.parseInt(record.get(3));
+			if (currImpact > maxYearImpact) {
+				maxYearImpact = currImpact;
+				mostImpactfulYear = record.get(2);
+			}
+		}
+		return new DisasterDescription(mostImpactfulYear);
 	}
 
 	public DisasterDescription getMostImpactfulYearByCategory(String category, List<List<String>> records) {
