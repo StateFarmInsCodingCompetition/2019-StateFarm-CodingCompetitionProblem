@@ -75,7 +75,13 @@ public class CodingCompCSVUtil {
 	}
 	
 	public DisasterDescription getMostImpactfulYear(List<List<String>> records) {
-		// TODO implement this method
+		
+		String maxYear;
+		int maxIncidents;
+		
+		
+		
+		
 		return null;
 	}
 
