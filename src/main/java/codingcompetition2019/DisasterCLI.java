@@ -16,7 +16,13 @@ public class DisasterCLI {
         System.out.println("3: getTotalReportedIncidentsByCategory");
         System.out.println("4: countImpactfulYearsWithReportedIncidentsWithinRange");
         Scanner scanner = new Scanner(System.in);
-        int method = scanner.nextInt();
+        String numMethod = scanner.next();
+        int method = -1;
+        try {
+            method = Integer.parseInt(numMethod);
+        } catch(Exception e) {
+
+        }
         if (method == 0) {
             try {
                 System.out.println(impactfulYear());
