@@ -20,13 +20,31 @@ public class CodingCompCSVUtil {
 	}
 	
 	public List<List<String>> readCSVFileWithHeaders(String fileName) throws IOException {
-		// TODO implement this method
-		return null;
+		File file = new File(fileName);
+		FileReader fr = new FileReader(file);
+		BufferedReader br = new BufferedReader(fr);
+		String line;
+		List<List<String>> interpretedFile = new ArrayList();
+		while((line = br.readLine()) != null){
+	        List<String> interpretedLine = Arrays.asList(line.split("\\s*,\\s*"));
+	        	interpretedFile.add(interpretedLine);
+        	}
+		}
+		return interpretedFile;
 	}
 	
 	public List<List<String>> readCSVFileWithoutHeaders(String fileName) throws IOException {
-		// TODO implement this method
-		return null;
+		File file = new File(fileName);
+		FileReader fr = new FileReader(file);
+		BufferedReader br = new BufferedReader(fr);
+		String line = br.readLine();//skips the first line
+		List<List<String>> interpretedFile = new ArrayList();
+		while((line = br.readLine()) != null){
+	        List<String> interpretedLine = Arrays.asList(line.split("\\s*,\\s*"));
+	        	interpretedFile.add(interpretedLine);
+        	}
+		}
+		return interpretedFile;
 	}
 	
 	public DisasterDescription getMostImpactfulYear(List<List<String>> records) {
