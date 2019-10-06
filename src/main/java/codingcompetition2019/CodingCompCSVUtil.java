@@ -146,9 +146,6 @@ public class CodingCompCSVUtil {
 		DisasterDescription disaster = new DisasterDescription("N/A", category, 0);
 
 		for (List<String> record : records) {
-			if (!allCategories && getLineEntity(record).compareTo(category) > 0) {
-				break;
-			}
 
 			if (!allCategories && !getLineEntity(record).equals(category)) {
 				continue;
@@ -174,18 +171,14 @@ public class CodingCompCSVUtil {
 		int maxYearImpact = 0;
 
 		for (List<String> record : records) {
-			if (!allCategories && record.get(0).compareTo(category) > 0) {
-				break;
-			}
-
-			if (!allCategories && !record.get(0).equals(category)) {
+			if (!allCategories && !getLineEntity(record).equals(category)) {
 				continue;
 			}
 
-			int currImpact = Integer.parseInt(record.get(3));
+			int currImpact = Integer.parseInt(getNumIncidents(record));
 			if (currImpact > maxYearImpact) {
 				maxYearImpact = currImpact;
-				mostImpactfulYear = record.get(2);
+				mostImpactfulYear = getLineYear(record);
 			}
 		}
 		return new DisasterDescription(mostImpactfulYear);
@@ -221,11 +214,6 @@ public class CodingCompCSVUtil {
 				}
 				String[] lineData = line.split(COMMA_DELIMITER, -1);
 				List<String> lineDataList = Arrays.asList(lineData);
-
-				if (!allCategories && getLineEntity(lineDataList).compareTo(extraParam) > 0) {
-					break;
-				}
-
 				if (!allCategories && !getLineEntity(lineDataList).equals(extraParam)) {
 					continue;
 				}
@@ -254,7 +242,7 @@ public class CodingCompCSVUtil {
 	private String getLineEntity(List<String> lineData) {
 		return lineData.get(ENTITY_COLMN);
 	}
-	
+
 	/**
 	 * Helper method returns the number of incidents from the current line in csv file.
 	 * @param lineData current line in csv file
