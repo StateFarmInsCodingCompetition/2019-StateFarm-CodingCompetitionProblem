@@ -31,7 +31,20 @@ public class CodingCompCSVUtil {
 	}
 	
 	public List<List<String>> readCSVFileWithHeaders(String fileName) throws IOException {
-	    return null;
+		List<List<String>> csvFile = new ArrayList<List<String>>();
+		String delimiter = ",";
+		try {
+			BufferedReader br = new BufferedReader(new FileReader(fileName));
+			String line = "";
+			while ((line = br.readLine()) != null) {
+				String[] lineData = line.split(delimiter, -1);
+				List<String> lineDataList = Arrays.asList(lineData);
+				csvFile.add(lineDataList);
+			}
+		} catch(FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		return csvFile;
 	}
 
 	public List<List<String>> readCSVFileWithoutHeaders(String fileName) throws IOException {

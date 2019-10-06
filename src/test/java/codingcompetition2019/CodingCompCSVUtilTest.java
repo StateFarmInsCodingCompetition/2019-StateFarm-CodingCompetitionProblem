@@ -41,11 +41,11 @@ public class CodingCompCSVUtilTest extends TestCase {
 		assertEquals("2011", util.getMostImpactfulYear(earthquakeRecords).getYear());
 	}
 
-//	@Test
-//	public void testReadCSVFileWithHeaders() throws IOException {
-//		assertEquals(829, util.readCSVFileWithHeaders(naturalDisasterByTypeFile).size());
-//	}
-//
+	@Test
+	public void testReadCSVFileWithHeaders() throws IOException {
+		assertEquals(829, util.readCSVFileWithHeaders(naturalDisasterByTypeFile).size());
+	}
+
 //	@Test
 //	public void testReadCSVFileWithoutHeaders() throws IOException {
 //		assertEquals(828, util.readCSVFileWithoutHeaders(naturalDisasterByTypeFile).size());
