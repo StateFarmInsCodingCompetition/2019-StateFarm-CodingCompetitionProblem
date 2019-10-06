@@ -47,9 +47,10 @@ public class CodingCompCSVUtil {
 		for (List<String> line : records) {
 			// Extract year from record
 			String year = line.get(2);
+			int numDisasters = Integer.parseInt(line.get(3));
 			
 			// Increment year's impact by one
-			yearImpact.put(year, yearImpact.getOrDefault(year, 0) + 1);
+			yearImpact.put(year, yearImpact.getOrDefault(year, 0) + numDisasters);
 		}
 
 		String maxYear = null;
@@ -63,7 +64,7 @@ public class CodingCompCSVUtil {
 			}
 		}
 		
-		return new DisasterDescription("defaultEntity", "defaultCode", maxYear, "0");
+		return new DisasterDescription("defaultEntity", "defaultCode", maxYear, String.valueOf(maxImpact));
 	}
 
 	public DisasterDescription getMostImpactfulYearByCategory(String category, List<List<String>> records) {
