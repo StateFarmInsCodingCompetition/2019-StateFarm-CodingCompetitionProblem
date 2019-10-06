@@ -48,15 +48,11 @@ public class DisasterDescription {
 	}
 
 	/**
-	* Returns the category if it is defined. If it is null,
-	* throws a CategoryNotDefinedException.
-	* @return the category if it is defined.
+	* Returns the category.
+	* @return the category.
 	*/
-	public String getCategory() throws CategoryNotDefinedException {
-		if (category != null) {
-			return category;
-		}
-		throw new CategoryNotDefinedException();
+	public String getCategory() {
+		return category;
 	}
 
 	/**
@@ -69,14 +65,11 @@ public class DisasterDescription {
 
 	/**
 	* Returns the year as a String if it exists (is not -1). If the year is -1,
-	* throws a YearNotDefinedException.
+	* returns "NoYr".
 	* @return the year as a String if it exists (is not -1). If the year is -1,
-	* throws a YearNotDefinedException.
+	* returns "NoYr".
 	*/
-	public String getYear() throws YearNotDefinedException {
-		if (year != -1) {
-			return String.valueOf(year);
-		}
-		throw new YearNotDefinedException();
+	public String getYear() {
+		return year == -1 ? "NoYr" : String.valueOf(year);
 	}
 }
