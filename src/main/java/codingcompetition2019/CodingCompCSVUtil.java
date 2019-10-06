@@ -26,20 +26,15 @@ public class CodingCompCSVUtil {
         List<List<String>> fullList = new ArrayList<List<String>>();
 
         try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
-
             while ((line = br.readLine()) != null) {
-
             	String[] country = line.split(cvsSplitBy);
-            	
                 if (countryName.equals(country[0])) {
                 	fullList.add(Arrays.asList(country));
                 }
-
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return fullList;
 	}
 	
@@ -57,18 +52,13 @@ public class CodingCompCSVUtil {
         String line = "";
         String cvsSplitBy = ",";
         List<List<String>> fullList = new ArrayList<List<String>>();
-
         try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
-
             while ((line = br.readLine()) != null) {
-
                 fullList.add(Arrays.asList(line.split(cvsSplitBy)));
-
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return fullList;
 	}
 	
@@ -86,20 +76,14 @@ public class CodingCompCSVUtil {
 		String line = "";
         String cvsSplitBy = ",";
         List<List<String>> fullList = new ArrayList<List<String>>();
-
         try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
-        	
         	br.readLine(); // Skips first line (contains header)
-        	
             while ((line = br.readLine()) != null) {
-
                 fullList.add(Arrays.asList(line.split(cvsSplitBy)));
-
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return fullList;
 	}
 	
@@ -264,7 +248,23 @@ public class CodingCompCSVUtil {
 	
 	public boolean firstRecordsHaveMoreReportedIndicents(List<List<String>> records1, List<List<String>> records2) {
 		// TODO implement this method
-		return records1.size() > records2.size();
+		int one = 0;
+		int two = 0;
+		for (int i = 1; i < records1.size(); i++) {
+			Optional<Integer> init = atoi(records1.get(i), 3);
+			if (!init.isPresent()) {
+				continue;
+			}
+			one += init.get();
+		}
+		for (int i = 1; i < records2.size(); i++) {
+			Optional<Integer> init = atoi(records2.get(i), 3);
+			if (!init.isPresent()) {
+				continue;
+			}
+			two += init.get();
+		}
+		return one > two;
 	}
 	
 	public Optional<Integer> atoi(List<String> curr, int index) {
