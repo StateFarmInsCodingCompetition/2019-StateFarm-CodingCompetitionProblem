@@ -73,6 +73,32 @@ public class DisasterDescription {
 		}
 	}
 	
+	public DisasterDescription(int no, int nono, String cat, List<List<String>> records) {
+		this.highest = 0;
+		this.highestYr = "";
+		
+		List<List<String>> newRecords = records;
+		
+		for (int i = 0; i < newRecords.size(); i++){
+			if(newRecords.get(i).get(0).contains("All natural disasters")){
+				newRecords.remove(i);
+				i--;
+			}
+			
+			else if(newRecords.get(i).get(0).contains(cat)){
+				continue;
+			}
+			else {
+				newRecords.remove(i);
+				i--;
+			}
+		}
+		
+		for (int i = 0; i < newRecords.size(); i++) {
+			highest += Integer.parseInt(newRecords.get(i).get(3));
+		}
+	}
+	
 	public String getYear() {
 		return highestYr;
 	}

@@ -68,8 +68,8 @@ public class CodingCompCSVUtil {
 	}
 
 	public DisasterDescription getTotalReportedIncidentsByCategory(String category, List<List<String>> records) {
-		// TODO implement this method
-		return null;
+		DisasterDescription byCat = new DisasterDescription(0, 0, category, records);
+		return byCat;
 	}
 	
 	/**
