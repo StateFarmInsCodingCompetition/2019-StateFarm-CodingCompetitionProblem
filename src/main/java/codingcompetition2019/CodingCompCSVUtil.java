@@ -43,9 +43,17 @@ public class CodingCompCSVUtil {
 	}
 	
 	public DisasterDescription getMostImpactfulYear(List<List<String>> records) {
+		return getMostImpactfulYearByCategory(null, records);
+	}
+
+	public DisasterDescription getMostImpactfulYearByCategory(String category, List<List<String>> records) {
 		Map<String, Integer> yearImpact = new HashMap<String, Integer>();
 		for (List<String> line : records) {
-			// Extract year from record
+			String cat = line.get(0);
+			if (category != null && !cat.equals(category)) {
+				continue;
+			}
+			
 			String year = line.get(2);
 			int numDisasters = Integer.parseInt(line.get(3));
 			
@@ -64,12 +72,8 @@ public class CodingCompCSVUtil {
 			}
 		}
 		
+		// TODO figure out if we want to change default values
 		return new DisasterDescription("defaultEntity", "defaultCode", maxYear, String.valueOf(maxImpact));
-	}
-
-	public DisasterDescription getMostImpactfulYearByCategory(String category, List<List<String>> records) {
-		// TODO implement this method
-		return null;
 	}
 
 	public DisasterDescription getMostImpactfulDisasterByYear(String year, List<List<String>> records) {
