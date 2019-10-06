@@ -79,18 +79,53 @@ public class CodingCompCSVUtil {
 	}
 	
 	public DisasterDescription getMostImpactfulYear(List<List<String>> records) {
-		// TODO implement this method
-		return null;
+		int maxYear = 0;
+		int maxDisasters = -1;
+		for(int i = 0;i <records.size(); i++) {
+			List<String> line = records.get(i);
+			int currYear = Integer.parseInt(line.get(3));
+			int currDisasters = 0;
+			while(Integer.parseInt(line.get(3)) == currYear) {
+				currDisasters++;
+				i++;
+				if(i <= records.size()) {
+					break;
+				}
+				line = records.get(i);
+			}
+			if(currDisasters >= maxDisasters) {
+				maxDisasters = currDisasters;
+				maxYear = currYear;
+			}
+		}
+		return new DisasterDescription(maxYear, "", 0);
 	}
 
 	public DisasterDescription getMostImpactfulYearByCategory(String category, List<List<String>> records) {
-		// TODO implement this method
-		return null;
+		for(int i = 0; i < records.size(); i ++) {
+			if(!records.get(i).get(0).contentEquals(category)) {
+				records.remove(i);
+			}
+		}
+		return(getMostImpactfulYear(records));
 	}
 
 	public DisasterDescription getMostImpactfulDisasterByYear(String year, List<List<String>> records) {
-		// TODO implement this method
-		return null;
+		for(int i = 0; i < records.size(); i ++) {
+			if(!records.get(i).get(2).contentEquals(year)) {
+				records.remove(i);
+			}
+		}
+		String category = "";
+		int max = 0;
+		for(int i = 0; i < records.size(); i ++) {
+			if(Integer.parseInt(records.get(i).get(3)) > max) {
+				max = Integer.parseInt(records.get(i).get(3));
+				category = records.get(i).get(0);
+			}
+		}
+		return new DisasterDescription(0, category, 0);
+	
 	}
 
 	public DisasterDescription getTotalReportedIncidentsByCategory(String category, List<List<String>> records) {
@@ -111,14 +146,18 @@ public class CodingCompCSVUtil {
 	}
 	
 	public boolean firstRecordsHaveMoreReportedIndicents(List<List<String>> records1, List<List<String>> records2) {
-		// TODO implement this method
-		return false;
+		return records1.size() > records2.size();
 	}
 	
 	public static void main(String[] args) throws IOException {
+		String naturalDisasterByTypeFile = "src/main/resources/natural-disasters-by-type.csv";
+		
 		String significantEarthquakeFileNameName = "src/main/resources/significant-earthquakes.csv";
+		
+		String significantVolcanicEruptionsFileName = "src/main/resources/significant-volcanic-eruptions.csv";
 		CodingCompCSVUtil util = new CodingCompCSVUtil();
 		
-		System.out.println(util.readCSVFileByCountry(significantEarthquakeFileNameName, "United States"));
+		List<List<String>> earthquakeRecords = util.readCSVFileByCountry(significantEarthquakeFileNameName, "United States");
+		System.out.println(util.getMostImpactfulYear(earthquakeRecords).getYear());
 	}
 }
