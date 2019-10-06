@@ -111,8 +111,24 @@ public class CodingCompCSVUtil {
 	 *  + If a max value is provided, then a max value is also needed.
 	 */
 	public int countImpactfulYearsWithReportedIncidentsWithinRange(List<List<String>> records, int min, int max) {
-		// TODO implement this method
-		return -1;
+		if (max == -1) {
+			max = Integer.MAX_VALUE;
+		}
+		HashMap<String, Integer> counts = new HashMap<String, Integer>();
+		for (List<String> item : records) {
+			DisasterDescription desc = new DisasterDescription(item);
+			int newCount = counts.getOrDefault(desc.getYear(), 0) + desc.getReportedIncidentsNum();
+			counts.put(desc.getYear(), newCount);
+		}
+		int impactfulYears = 0;
+		for (String year : counts.keySet()) {
+			int incidents = counts.get(year);
+			if (incidents >= min && incidents <= max) {
+				impactfulYears++;
+			}
+		}
+		return impactfulYears;	
+		
 	}
 	
 	public boolean firstRecordsHaveMoreReportedIndicents(List<List<String>> records1, List<List<String>> records2) {
