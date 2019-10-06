@@ -10,22 +10,21 @@ import junit.framework.TestCase;
 
 public class CodingCompCSVUtilTest extends TestCase {
 	private CodingCompCSVUtil util;
-	
+
 	private List<List<String>> records;
-	
+
 	private String naturalDisasterByTypeFile = "src/main/resources/natural-disasters-by-type.csv";
-	
+
 	private String significantEarthquakeFileNameName = "src/main/resources/significant-earthquakes.csv";
-	
+
 	private String significantVolcanicEruptionsFileName = "src/main/resources/significant-volcanic-eruptions.csv";
 
 	@Before
 	public void setUp() throws Exception {
 		util = new CodingCompCSVUtil();
 		records = util.readCSVFileWithoutHeaders(naturalDisasterByTypeFile);
-		System.out.println(records);
 	}
-	
+
 	@Test
 	public void testReadCSVFileWithHeadersByCountry() throws IOException {
 		List<List<String>> tempRecords = util.readCSVFileByCountry(significantEarthquakeFileNameName, "United States");
