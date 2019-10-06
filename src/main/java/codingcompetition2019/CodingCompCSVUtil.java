@@ -8,6 +8,16 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
+
+
+
+/**
+ * Utility class that parses CSV files filled with data about natural disasters, and parses
+ * the data accordingly.
+ * 
+ * @author Angel Aguayo, Andrew Raftovich
+ *
+ */
 public class CodingCompCSVUtil {
 	
 	
