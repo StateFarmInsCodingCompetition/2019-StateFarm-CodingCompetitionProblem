@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Scanner;
 
 
@@ -337,6 +338,33 @@ public class CodingCompCSVUtil {
 		int records2Incidents=countNumberOfIncidents(records2);
 		
 		return records1Incidents>records2Incidents;
+	}
+	
+	
+	/**
+	 * Generates a list of disasters that occured within a given year
+	 * 
+	 * @param records 2D list of records
+	 * @param year year to find disasters for
+	 * @return list of types of disasters found in a year
+	 */
+	public List<String> printDisastersByYear(List<List<String>> records, String year) {
+		
+		HashSet<String> disasterSet=new HashSet<>();
+		List<String> disasterList=new ArrayList<>();
+		
+		for(int i=0; i<records.size(); i++) {
+			List<String> currentLine=records.get(i);
+			
+			//current type has not been encountered and occurs within given year
+			if(!disasterSet.contains(currentLine.get(ENTITY_COL))
+					&& currentLine.get(YEAR_COL).equals(year)) {
+				disasterList.add(currentLine.get(ENTITY_COL));
+				disasterSet.add(currentLine.get(ENTITY_COL));
+			}
+		}
+		
+		return disasterList;
 	}
 	
 	
