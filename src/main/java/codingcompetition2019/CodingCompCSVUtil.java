@@ -41,8 +41,7 @@ public class CodingCompCSVUtil {
 		List<List<String>> interpretedFile = new ArrayList();
 		while((line = br.readLine()) != null){
 	        List<String> interpretedLine = Arrays.asList(line.split("\\s*,\\s*"));
-	        	interpretedFile.add(interpretedLine);
-        	}
+	        interpretedFile.add(interpretedLine);
 		}
 		return interpretedFile;
 	}
@@ -61,8 +60,7 @@ public class CodingCompCSVUtil {
 		List<List<String>> interpretedFile = new ArrayList();
 		while((line = br.readLine()) != null){
 	        List<String> interpretedLine = Arrays.asList(line.split("\\s*,\\s*"));
-	        	interpretedFile.add(interpretedLine);
-        	}
+	        interpretedFile.add(interpretedLine);
 		}
 		return interpretedFile;
 	}
