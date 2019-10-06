@@ -14,7 +14,10 @@ import javax.swing.JPanel;
 import org.knowm.xchart.CategoryChart;
 import org.knowm.xchart.CategoryChartBuilder;
 import org.knowm.xchart.Histogram;
+import org.knowm.xchart.PieChart;
+import org.knowm.xchart.PieChartBuilder;
 import org.knowm.xchart.SwingWrapper;
+import org.knowm.xchart.internal.chartpart.Chart;
 import org.knowm.xchart.style.Styler.LegendPosition;
 
 import codingcompetition2019.CodingCompCSVUtil;
@@ -22,6 +25,9 @@ import codingcompetition2019.CodingCompCSVUtil;
 public class ChartView extends JPanel {
 
 	private static final long serialVersionUID = 1L;
+	
+	private static final int WIDTH = 800;
+	private static final int HEIGHT = 600;
 	
 	private Map<String, Map<String, Integer>> yearCatIncidents;
 	private int[] years;
@@ -78,9 +84,15 @@ public class ChartView extends JPanel {
 	public void update(ControlFilters filters) {
 		int chartType = filters.getChartType();
 		
-		CategoryChart chart = null;
+		Chart chart = null;
 		if (chartType == ControlFilters.CHART_BAR) {
 			chart = buildBarChart(filters);
+		} else if (chartType == ControlFilters.CHART_PIE) {
+			chart = buildPieChart(filters);
+		}
+		
+		if (chart == null) {
+			return;
 		}
 		
 		if (currentXPanel != null) {
@@ -94,8 +106,10 @@ public class ChartView extends JPanel {
 		this.add(currentXPanel);
 	}
 	
-	private CategoryChart buildBarChart(ControlFilters filters) {
-		CategoryChart chart = createBaseChart()
+	private Chart buildBarChart(ControlFilters filters) {
+		CategoryChart chart = new CategoryChartBuilder()
+				.width(WIDTH)
+				.height(HEIGHT)
 				.title("Bar chart")
 				.xAxisTitle("Year")
 				.yAxisTitle("Incidents")
@@ -117,38 +131,22 @@ public class ChartView extends JPanel {
 		return chart;
 	}
 	
-	private CategoryChartBuilder createBaseChart() {
-		return new CategoryChartBuilder()
-				.width(800)
-				.height(600);
-	}
-	
-	private CategoryChart getChart() {
-		CategoryChart chart = new CategoryChartBuilder()
-				.width(800)
-				.height(600)
-				.title("My Chart")
-				.xAxisTitle("My X axis")
-				.yAxisTitle("My Y axis")
+	private Chart buildPieChart(ControlFilters filters) {
+		PieChart chart = new PieChartBuilder()
+				.width(WIDTH)
+				.height(HEIGHT)
+				.title("Pie chart")
 				.build();
 		
-		chart.getStyler().setLegendPosition(LegendPosition.InsideNW);
-		chart.getStyler().setAvailableSpaceFill(0.96);
-		chart.getStyler().setOverlapped(false);
-		 Histogram histogram1 = new Histogram(getGaussianData(10000), 20, -20, 20);
-		   Histogram histogram2 = new Histogram(getGaussianData(5000), 20, -20, 20);
-		    chart.addSeries("histogram 1", histogram1.getxAxisData(), histogram1.getyAxisData());
-		    chart.addSeries("histogram 2", histogram2.getxAxisData(), histogram2.getyAxisData());
-		 
+		for (String cat : categories) {
+			int incidents = 0;
+			for (int year : years) {
+				incidents += yearCatIncidents.getOrDefault(year + "", new HashMap<String, Integer>())
+				.getOrDefault(cat, 0);
+			}
+			chart.addSeries(cat, incidents);
+		}
+		
 		return chart;
 	}
-	
-	private List<Double> getGaussianData(int count) {
-	    List<Double> data = new ArrayList<Double>(count);
-	    Random r = new Random();
-	    for (int i = 0; i < count; i++) {
-	      data.add(r.nextGaussian() * 10);
-	    }
-	    return data;
-	  }
 }
