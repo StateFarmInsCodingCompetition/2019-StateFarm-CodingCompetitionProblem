@@ -8,6 +8,9 @@ public class CodingCompCSVUtil {
 
     /**
      * This method reads the CSV file and returns the data about the specified country
+     * Each row has a data about the disaster for the a year separated by comma.
+     * Store the data separated by comma in a list if the name of the country matches.
+     * Store all the list with the matching country name in a list and return it.
      *
      * @param fileName    filePath of the CSV file with data
      * @param countryName name of the country to filter the records by
@@ -30,8 +33,8 @@ public class CodingCompCSVUtil {
 
     /**
      * This method reads the CSV file including the header.
-     * Each line of the CSV has data about the disaster separated by comma. Store it in a list
-     * Store all the data in the list and return it
+     * Each line of the CSV has data about the disaster separated by comma. Store it in a list.
+     * Add that list to a master list and return the master list.
      *
      * @param fileName filePath of the CSV file with data
      * @return list with a list of data related to the disaster
@@ -70,7 +73,7 @@ public class CodingCompCSVUtil {
     /**
      * This method reads the CSV file without the header.
      * Each line of the CSV has data about the disaster separated by comma. Store it in a list
-     * Store all the data in the list and return it
+     * Add that list to a master list and return the master list.
      *
      * @param fileName filePath of the CSV file with data
      * @return list with a list of data related to the disaster
@@ -87,7 +90,8 @@ public class CodingCompCSVUtil {
     }
 
     /**
-     * This method finds the most impactful year
+     * This method iterates through the records list and checks the number of reported incidents for each record
+     * It finds the year with the most number of reported incidents
      *
      * @param records list of data related to a disaster event
      * @return info about the most impactful Disaster based on year
@@ -124,8 +128,9 @@ public class CodingCompCSVUtil {
     }
 
     /**
-     * This method filters the records by the given category and
-     * returns the info about the most impactful disaster for that given category.
+     * This method filters the records by the given category.
+     * It calls getMostImpactfulYear() method to find the most impactful year after filtering the list.
+     * Then returns the info about the most impactful disaster for that given category.
      *
      * @param category Category of disaster
      * @param records  List of data about the disaster
@@ -146,8 +151,9 @@ public class CodingCompCSVUtil {
     }
 
     /**
-     * This method filters the list by the given year and
-     * returns info about the most impactful disaster for that given year.
+     * This method filters the list by the given year.
+     * It calls getMostImpactfulYear() method to find the most impactful year after filtering the list.
+     * Then it returns info about the most impactful disaster for that given year.
      *
      * @param year    Filter the record based on this year
      * @param records List of data about the disaster
@@ -170,8 +176,9 @@ public class CodingCompCSVUtil {
     }
 
     /**
-     * This method filters the records by given category and
-     * calculates the total number of reported incidents for that category
+     * This method iterates through the list of records
+     * For each record, if the category matches, it retrieves the number of reported incidents
+     * Then it calculates the total number of reported incidents for that category.
      *
      * @param category Disaster category to filter the records
      * @param records  List of data about disaster
@@ -225,7 +232,8 @@ public class CodingCompCSVUtil {
 
     /**
      * This method checks if the first list has more reported incidents than the second list.
-     * It finds the total reported incidents for both records and compares them
+     * It calls getTotalReportedIncidents() to get the total number of reported incidents for both records
+     * It compares the total number of reported incidents for both records.
      *
      * @param records1 List of data about disaster
      * @param records2 List of data about disaster
@@ -236,7 +244,9 @@ public class CodingCompCSVUtil {
     }
 
     /**
-     * This method iterates through the records and calculates the total reported incidents for that given data.
+     * This method iterates through the records
+     * For each record, it retrieves the number of reported incident.
+     * It calculates the total reported incidents for that given data.
      *
      * @param records List of data about the disaster
      * @return int total reported incidents
