@@ -1,9 +1,10 @@
-Your team (name of each individual participating):
-How many JUnits were you able to get to pass? 
+Your team (name of each individual participating): Alex Kim and Ethan Xie
+How many JUnits were you able to get to pass? 10/10
 
 Document and describe any enhancements included to help the judges properly grade your submission.
-	Step 1:
-	Step 2: 
+	1: JavaDocs
+	2: 
 	
 	
 Feedback for the coding competition?  Things you would like to see in future events?
+Loved it, but perhaps maybe more guidance/instruction on what exactly each method should do or give a more detailled background on the context of the programming.
