@@ -76,9 +76,9 @@ public class CodingCompCSVUtilTest extends TestCase {
 	@Test
 	public void testCountImpactfulYearsWithReportedIncidentsWithinRange() throws IOException {
 		List<List<String>> tempRecords = util.readCSVFileByCountry(significantVolcanicEruptionsFileName, "United States");
-		assertEquals(4, util.countImpactfulYearsWithReportedIncidentsWithinRange(tempRecords, 2, 4));
 
 		assertEquals(40, util.countImpactfulYearsWithReportedIncidentsWithinRange(tempRecords, 1, -1));
+		assertEquals(4, util.countImpactfulYearsWithReportedIncidentsWithinRange(tempRecords, 2, 4));
 	}
 	
 	@Test
