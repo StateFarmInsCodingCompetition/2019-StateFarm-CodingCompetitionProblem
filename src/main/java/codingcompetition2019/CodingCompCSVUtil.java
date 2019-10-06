@@ -160,14 +160,14 @@ public class CodingCompCSVUtil {
 		int count = 0;
 		if (min==-1) {
 			for (List<String> line : records) {
-				count += Integer.parseInt(line.get(3));
+				count++;
 			}
 		}
 		else {
 			for (List<String> line : records) {
 				int numIncidents = Integer.parseInt(line.get(3)); 
-				if (min <= numIncidents && (max==-1)?true:numIncidents<=max) {
-					count += Integer.parseInt(line.get(3));
+				if (min <= numIncidents && ((max==-1)?true:numIncidents<=max)) {
+					count++;
 				}
 			}
 		}
