@@ -9,5 +9,11 @@ Document and describe any enhancements included to help the judges properly grad
 	Step 4:A DisasterService service class was added to better modularize functionality
 	Step 5:Thymeleaf was brought into the project to provide visualization of data via RESTful endpoints
 	
+	Example URLs:
+	
+	http://localhost:8080/visualizeData?fileName=significant-earthquakes.csv&entity=Canada
+	http://localhost:8080/visualizeData?fileName=significant-earthquakes.csv&code=CAN
+	http://localhost:8080/getFileByCountry?fileName=significant-volcanic-eruptions.csv&countryName=El%20Salvador
+	http://localhost:8080/getFile?fileName=test.csv
 	
 Feedback for the coding competition?  Things you would like to see in future events?

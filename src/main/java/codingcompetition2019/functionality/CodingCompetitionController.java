@@ -30,7 +30,7 @@ public class CodingCompetitionController {
 	 */
 	@GetMapping("/")
 	public String isUp() {
-		return "This is an application for the 2019 State Farm Coding Competition!";
+		return "This is an application for the 2019 State Farm Coding Competition!" + "";
 	}
 
 	/**
