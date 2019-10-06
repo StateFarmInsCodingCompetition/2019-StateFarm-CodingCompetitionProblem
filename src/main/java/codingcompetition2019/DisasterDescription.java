@@ -18,6 +18,12 @@ public class DisasterDescription {
 	public DisasterDescription(String category, int reportedIncidents, String year) {
 		this(category, reportedIncidents, Integer.parseInt(year));
 	}
+	
+	//for when the year is irrelevant
+	public DisasterDescription(String category, int reportedIncidents) {
+		this.category = category;
+		this.reportedIncidents = reportedIncidents;
+	}
     /**
      * [getCategory description]
      * @return [description]
