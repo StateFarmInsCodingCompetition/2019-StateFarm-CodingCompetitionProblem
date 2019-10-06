@@ -89,17 +89,17 @@ public class CodingCompCSVUtil {
 				foundCategory = true;
 			}
 		}
-		List<String> entry;
+		List<String> currentEntry;
 		List<String> highestEntry = records.get(i++);
-		int highest = Integer.parseInt(highestEntry.get(3));
-		while((entry = records.get(i++)).get(0).equals(category)) {
-			int numDisasters = Integer.parseInt(entry.get(3));
-			if (numDisasters > highest) {
-				highestEntry = entry;
-				highest = numDisasters;
+		int highestNumDistasters = Integer.parseInt(highestEntry.get(3));
+		while((currentEntry = records.get(i++)).get(0).equals(category)) {
+			int numDisasters = Integer.parseInt(currentEntry.get(3));
+			if (numDisasters > highestNumDistasters) {
+				highestEntry = currentEntry;
+				highestNumDistasters = numDisasters;
 			}
 		}
-		return new DisasterDescription();//TODO: incorporate DD constructor
+		return new DisasterDescription(category, highestNumDistasters, highestEntry.get(2));
 	}
 
     /**

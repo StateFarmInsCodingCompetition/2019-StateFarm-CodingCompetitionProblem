@@ -16,9 +16,7 @@ public class DisasterDescription {
 	
 	//like main constructor, but for year as a string
 	public DisasterDescription(String category, int reportedIncidents, String year) {
-		this.category = category;
-		this.reportedIncidents = reportedIncidents;
-		this.year = Integer.parseInt(year);
+		this(category, reportedIncidents, Integer.parseInt(year));
 	}
     /**
      * [getCategory description]
