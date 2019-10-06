@@ -4,10 +4,10 @@ public class DisasterDescription {
 
 
 	
-	private String entity;
-	private String code;
-	private String year;
-	private int numQuakes;
+	public String entity;
+	public String code;
+	public String year;
+	public int numQuakes;
 	
 	
 	public DisasterDescription() 

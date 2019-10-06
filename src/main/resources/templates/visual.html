@@ -1,0 +1,28 @@
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<title>State Farm Coding Competition</title>
+</head>
+<body>
+	<h1>Visual</h1>
+
+			<table class = "table table-striped">
+			<thead>
+				<th>Entity</th>			
+				<th>Code</th>			
+				<th>Year</th>			
+				<th>Impact</th>			
+			
+			</thead>
+			<tbody>
+			    <tr data-th-each="disaster : ${list}">
+			        <td data-th-text="${disaster.entity}">...</td>
+			        <td data-th-text="${disaster.code}">...</td>
+			        <td data-th-text="${disaster.year}">...</td>
+			        <td data-th-text="${disaster.numQuakes}">...</td>
+			    </tr>
+			</tbody>
+			</table>
+</body>
+</html>

@@ -12,7 +12,17 @@ public class CodingCompCSVUtil {
 	
 	public List<List<String>> readCSVFileByCountry(String fileName, String countryName) throws IOException {
 		CodingCompetitionCSVParser parser = new CodingCompetitionCSVParser(fileName);
-		return parser.parseAsString(false,countryName);
+		return parser.parseAsStringByCountry(false,countryName);
+	}
+	
+	public List<List<String>> readCSVFileByCountryCode(String fileName, String countryCode) throws IOException {
+		CodingCompetitionCSVParser parser = new CodingCompetitionCSVParser(fileName);
+		return parser.parseAsStringByCountryCode(false,countryCode);
+	}
+	
+	public List<DisasterDescription> readCSVFileAsDisaster(String fileName) throws IOException {
+		CodingCompetitionCSVParser parser = new CodingCompetitionCSVParser(fileName);
+		return parser.parseAsDisaster(false);
 	}
 	
 	public List<List<String>> readCSVFileWithHeaders(String fileName) throws IOException {

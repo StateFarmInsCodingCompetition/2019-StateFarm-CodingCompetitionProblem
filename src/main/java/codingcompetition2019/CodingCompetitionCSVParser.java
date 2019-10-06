@@ -18,9 +18,6 @@ public class CodingCompetitionCSVParser
 		this.fileName = fileName;
 	}
 	
-	
-	
-	
 	public List<DisasterDescription> parseAsDisaster(boolean readHead) throws IOException
 	{
 		boolean rh = !readHead;
@@ -34,6 +31,13 @@ public class CodingCompetitionCSVParser
 				continue;
 			}
 		    String[] dataArray = data.split(",");
+		    for(String s : dataArray)
+		    {
+		    	if(s == null)
+		    	{
+		    		s = "null";
+		    	}
+		    }
 		    DisasterDescription dd = new DisasterDescription(dataArray[0],dataArray[1],dataArray[2],Integer.parseInt(dataArray[3]));
 		    parsedEntrys.add(dd);
 		}
@@ -42,6 +46,8 @@ public class CodingCompetitionCSVParser
         
 		return parsedEntrys;
 	}
+	
+
 	public List<List<String>> parseAsString(boolean readHead) throws IOException
 	{
 		boolean rh = !readHead;
@@ -64,7 +70,7 @@ public class CodingCompetitionCSVParser
 	}
 	
 	
-	public List<List<String>> parseAsString(boolean readHead, String targetCountry) throws IOException
+	public List<List<String>> parseAsStringByCountry(boolean readHead, String targetCountry) throws IOException
 	{
 		boolean rh = !readHead;
 		List<List<String>> parsedEntrys = new ArrayList<List<String>>();
@@ -78,6 +84,29 @@ public class CodingCompetitionCSVParser
 			}
 			String[] dataArray = data.split(",");
 			if(dataArray[0].equals(targetCountry))
+				parsedEntrys.add(Arrays.asList(dataArray));
+		}
+		br.close();
+		
+		
+		return parsedEntrys;
+	}
+	
+	
+	public List<List<String>> parseAsStringByCountryCode(boolean readHead, String targetCode) throws IOException
+	{
+		boolean rh = !readHead;
+		List<List<String>> parsedEntrys = new ArrayList<List<String>>();
+		BufferedReader br = new BufferedReader(new FileReader(fileName));
+		String data = "";
+		while ((data = br.readLine()) != null) {
+			if(rh)
+			{
+				rh = false;
+				continue;
+			}
+			String[] dataArray = data.split(",");
+			if(dataArray[1].equals(targetCode))
 				parsedEntrys.add(Arrays.asList(dataArray));
 		}
 		br.close();

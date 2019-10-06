@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://thymeleaf.org">
+
+<head>
+<title>Order Form</title>
+</head>
+
+
+
+<body>
+
+<div align="center">
+<a href="/productForm">Create Product</a>
+<h1>Products</h1>
+
+<table border="1">
+<thead>
+<tr>
+<th>Product Name</th>
+<th>Product Price</th>
+<th>Actions</th>
+</tr>
+</thead>
+<tbody>
+<tr th:each="product : ${products}">
+<td th:text="${product.name}">Product Name</td>
+<td th:text="${product.price}">Product Price</td>
+<td><a data-method="post" th:href="@{'/productcatalog/product'+${product.productId}}">Delete</a></td>
+<td>
+
+<form th:action="@{'/productForm/product'+${product.productId}}" method="post">
+    <input type="submit"/>
+</form>
+
+</td>
+
+</tr>
+</tbody>
+</table>
+
+
+</div>
+
+</body>
+
+</html>
