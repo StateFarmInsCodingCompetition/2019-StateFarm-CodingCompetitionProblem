@@ -1,42 +1,75 @@
 package codingcompetition2019;
 
 import java.io.IOException;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class CodingCompCSVUtil {
 	public List<List<String>> readCSVFileByCountry(String fileName, String countryName) throws IOException {
-		// TODO implement this method
-		return null;
+		String tempStr = "";
+		BufferedReader br = new BufferedReader(new FileReader(fileName));
+		ArrayList<ArrayList<String>> row = new ArrayList<ArrayList<String>>();
+		ArrayList<ArrayList<String>> selected = new ArrayList<ArrayList<String>>();
+		
+		while((tempStr = br.readLine()) != null) {
+			String [] tempCol = tempStr.split(",");
+			ArrayList<String> col = new ArrayList<String>(Arrays.asList(tempCol));
+			row.add(col);
+		}
+		
+		for (int i = 0; i < row.size(); i++) {
+			if (row.get(i).get(0).contains(countryName)) {
+				selected.add(row.get(i));
+			}
+		}
+		List<List<String>> result = (List)selected;
+		return result;
 	}
 	
 	public List<List<String>> readCSVFileWithHeaders(String fileName) throws IOException {
-		// TODO implement this method
-		return null;
+		String tempStr = "";
+		BufferedReader br = new BufferedReader(new FileReader(fileName));
+		ArrayList<ArrayList<String>> row = new ArrayList<ArrayList<String>>();
+		ArrayList<ArrayList<String>> selected = new ArrayList<ArrayList<String>>();
+		
+		while((tempStr = br.readLine()) != null) {
+			String [] tempCol = tempStr.split(",");
+			ArrayList<String> col = new ArrayList<String>(Arrays.asList(tempCol));
+			row.add(col);
+		}
+		
+		List<List<String>> result = (List)row;
+		return result;
 	}
 	
 	public List<List<String>> readCSVFileWithoutHeaders(String fileName) throws IOException {
-		// TODO implement this method
-		return null;
+		ArrayList<ArrayList<String>> row = new ArrayList<ArrayList<String>>((ArrayList)readCSVFileWithHeaders("src/main/resources/natural-disasters-by-type.csv"));
+		row.remove(0);
+		List<List<String>> result = (List)row;
+		return result;
 	}
 	
 	public DisasterDescription getMostImpactfulYear(List<List<String>> records) {
-		// TODO implement this method
-		return null;
+		DisasterDescription highest = new DisasterDescription(records);
+		return highest;
 	}
 
 	public DisasterDescription getMostImpactfulYearByCategory(String category, List<List<String>> records) {
-		// TODO implement this method
-		return null;
+		DisasterDescription high = new DisasterDescription(category, records);
+		return high;
 	}
 
 	public DisasterDescription getMostImpactfulDisasterByYear(String year, List<List<String>> records) {
-		// TODO implement this method
-		return null;
+		DisasterDescription byYear = new DisasterDescription(0, year, records);
+		return byYear;
 	}
 
 	public DisasterDescription getTotalReportedIncidentsByCategory(String category, List<List<String>> records) {
-		// TODO implement this method
-		return null;
+		DisasterDescription byCat = new DisasterDescription(0, 0, category, records);
+		return byCat;
 	}
 	
 	/**
