@@ -1,15 +1,16 @@
-package codingcompetition2019;
+package test.java.codingcompetition2019;
 
 import java.io.IOException;
 import java.util.List;
 
+import main.java.codingcompetition2019.DisasterDescription;
 import org.junit.Before;
 import org.junit.Test;
 
 import junit.framework.TestCase;
 
 public class CodingCompCSVUtilTest extends TestCase {
-	private CodingCompCSVUtil util;
+	private main.java.codingcompetition2019.CodingCompCSVUtil util;
 	
 	private List<List<String>> records;
 	
@@ -21,7 +22,7 @@ public class CodingCompCSVUtilTest extends TestCase {
 
 	@Before
 	public void setUp() throws Exception {
-		util = new CodingCompCSVUtil();
+		util = new main.java.codingcompetition2019.CodingCompCSVUtil();
 		records = util.readCSVFileWithoutHeaders(naturalDisasterByTypeFile);
 	}	
 	
@@ -63,7 +64,7 @@ public class CodingCompCSVUtilTest extends TestCase {
 	@Test
 	public void testGetMostImpactfulDisasterByYear() {
 		DisasterDescription dd = util.getMostImpactfulDisasterByYear("2005", records);
-		
+
 		assertEquals("Flood", dd.getCategory());
 		assertEquals(193, dd.getReportedIncidentsNum());
 	}
@@ -89,4 +90,5 @@ public class CodingCompCSVUtilTest extends TestCase {
 		assertTrue(util.firstRecordsHaveMoreReportedIndicents(tempRecords1, tempRecords2));
 		assertFalse(util.firstRecordsHaveMoreReportedIndicents(tempRecords2, tempRecords1));
 	}
+
 }

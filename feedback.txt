@@ -1,9 +1,9 @@
-Your team (name of each individual participating):
-How many JUnits were you able to get to pass? 
+Your team (name of each individual participating): Dennis Eddington, Shivani Upadhayay
+How many JUnits were you able to get to pass? We passed all of our test cases!
 
 Document and describe any enhancements included to help the judges properly grade your submission.
-	Step 1:
-	Step 2: 
+	Step 1: We added a custom method to display countries that had a disaster based on year of input. If there are countries that reported incidences during that year, they will get outputted.
+	Step 2: We added a custom method to reports whether you are at high, average, or low risk for a natural disaster based on where you are located and this could determine how your insurance impacts you.
 	
 	
 Feedback for the coding competition?  Things you would like to see in future events?
