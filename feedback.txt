@@ -2,8 +2,14 @@ Your team (name of each individual participating): Robert Pooley and Jeremy Scho
 How many JUnits were you able to get to pass? All of them (10/10)
 
 Document and describe any enhancements included to help the judges properly grade your submission.
-	Step 1: Added javadocs / documentation
-	Step 2: Added a custom GUI to visually graph the data (this can be launched through the main method in codingcompetition2019.ui.GUIMain)
+
+Additions:
+ - Added javadocs / documentation
+ - Added a custom GUI to visually graph the data
+ 
+To Run GUI:
+	The main method is located in codingcompetition2019.ui.GUIMain
+	Create a run configuration with this class set as the main class and run as a Java Application
 	
 	
 Feedback for the coding competition?  Things you would like to see in future events?
