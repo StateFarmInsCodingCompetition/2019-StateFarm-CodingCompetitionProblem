@@ -1,9 +1,14 @@
-Your team (name of each individual participating):
-How many JUnits were you able to get to pass? 
+Your team (name of each individual participating): Champ Foronda, Joshua Holguin
+How many JUnits were you able to get to pass? 6
 
 Document and describe any enhancements included to help the judges properly grade your submission.
-	Step 1:
+
+	No nice to have features were added.
+
+	Step 1: 
 	Step 2: 
 	
 	
 Feedback for the coding competition?  Things you would like to see in future events?
+Competition was super fun, would love do this again! The problem and the methods in itself were not difficult, it was just figuring out how all the pieces work together
+and how to implement in Java.

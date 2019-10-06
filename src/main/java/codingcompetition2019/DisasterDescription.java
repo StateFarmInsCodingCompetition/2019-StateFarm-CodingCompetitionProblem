@@ -43,4 +43,5 @@ public class DisasterDescription
 	{
 		this.incidentNumber = inIncidentNum;
 	}
+
 }
