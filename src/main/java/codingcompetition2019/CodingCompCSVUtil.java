@@ -39,10 +39,9 @@ public class CodingCompCSVUtil {
 		BufferedReader br = new BufferedReader(fr);
 		String line;
 		List<List<String>> interpretedFile = new ArrayList();
-		while((line = br.readLine()) != null){
+		while ((line = br.readLine()) != null) {
 	        List<String> interpretedLine = Arrays.asList(line.split("\\s*,\\s*"));
 	        	interpretedFile.add(interpretedLine);
-        	}
 		}
 		return interpretedFile;
 	}
@@ -62,7 +61,6 @@ public class CodingCompCSVUtil {
 		while((line = br.readLine()) != null){
 	        List<String> interpretedLine = Arrays.asList(line.split("\\s*,\\s*"));
 	        	interpretedFile.add(interpretedLine);
-        	}
 		}
 		return interpretedFile;
 	}
@@ -84,8 +82,24 @@ public class CodingCompCSVUtil {
      * @return          [description]
      */
 	public DisasterDescription getMostImpactfulYearByCategory(String category, List<List<String>> records) {
-		// TODO implement this method
-		return null;
+		boolean foundCategory = false;
+		int i = 0;
+		while (!foundCategory) {
+			if(records.get(i++).get(0).equals(category)) {
+				foundCategory = true;
+			}
+		}
+		List<String> entry;
+		List<String> highestEntry = records.get(i++);
+		int highest = Integer.parseInt(highestEntry.get(3));
+		while((entry = records.get(i++)).get(0).equals(category)) {
+			int numDisasters = Integer.parseInt(entry.get(3));
+			if (numDisasters > highest) {
+				highestEntry = entry;
+				highest = numDisasters;
+			}
+		}
+		return new DisasterDescription();//TODO: incorporate DD constructor
 	}
 
     /**
