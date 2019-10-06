@@ -164,6 +164,7 @@ public class CodingCompCSVUtil {
 			List<String> currentLine=records.get(i);
 			int numIncidents=Integer.parseInt(currentLine.get(NUM_INCIDENT_COL));
 			
+			//if new max is found
 			if(numIncidents>maxIncidents) {
 				maxYear=currentLine.get(YEAR_COL);
 				maxIncidents=Integer.parseInt(currentLine.get(NUM_INCIDENT_COL));
@@ -198,6 +199,7 @@ public class CodingCompCSVUtil {
 				List<String> currentLine=records.get(i);
 				int numIncidents=Integer.parseInt(currentLine.get(NUM_INCIDENT_COL));
 				
+				//new max is found
 				if(numIncidents>maxIncidents) {
 					maxYear=currentLine.get(YEAR_COL);
 					maxIncidents=Integer.parseInt(currentLine.get(NUM_INCIDENT_COL));
@@ -239,6 +241,7 @@ public class CodingCompCSVUtil {
 				continue;
 			}
 			
+			//found a year entry for a given natural disaster
 			if(records.get(i).get(YEAR_COL).startsWith(year)) {
 				int numIncidents=Integer.parseInt(currentLine.get(NUM_INCIDENT_COL));
 				
