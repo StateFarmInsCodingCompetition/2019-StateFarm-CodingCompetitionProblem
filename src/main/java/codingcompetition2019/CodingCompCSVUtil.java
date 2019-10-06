@@ -1,7 +1,8 @@
 package codingcompetition2019;
 
+import java.io.BufferedWriter;
 import java.io.File;
-
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 import java.util.ArrayList;
@@ -367,6 +368,42 @@ public class CodingCompCSVUtil {
 		return disasterList;
 	}
 	
+	
+	/**
+	 * Hacky way to generate an R file that creates a bar graph of the data
+	 * (I dont know R)
+	 * 
+	 * @param records list of records
+	 */
+	public void generateRFile(List<List<String>> records) {
+		
+		 BufferedWriter writer;
+		 
+		 try {
+			 writer = new BufferedWriter(
+	                 new FileWriter("/chartGeneration.r"));
+			 
+			 /*
+			  * 
+			  */
+			 
+			String structure="W =c("+
+			           getTotalReportedIncidentsByCategory("Drought", records)+"L ),";
+			structure+= "X =c("+
+			           getTotalReportedIncidentsByCategory("Earthquake", records)+"L ),";
+			structure+=" .Names=(\"Drought\", \"Earthquakes\"), class=\"data.frame\"";
+			 
+			writer.write("data <- structure(list("+structure); 
+			writer.write("barplot(as.matrix(data), main=\"My Barchart\", ylab = \"Numbers\","
+			             +" cex.lab = 1.5, cex.main = 1.4, beside=TRUE, col=colours)");
+		
+			 writer.close();
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
 	/**
 	 * Count number of incidents for a list of records
