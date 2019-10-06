@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <title>State Farm Natural Disaster Viewer</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js" integrity="sha256-xKeoJ50pzbUGkpQxDYHD7o7hxe0LaOGeguUidbq6vis=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js" integrity="sha256-t8GepnyPmw9t+foMh3mKNvcorqNHamSKtKRxxpUEgFI=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" integrity="sha256-9mbkOfVho3ZPXfM7W8sV2SndrGDuh7wuyLjtsWeTI1Q=" crossorigin="anonymous" />
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-colorschemes"></script>
+</head>
+
+<body>
+
+<div class="ui main text container">
+    <h1 class="ui header">State Farm Natural Disaster Viewer</h1>
+    <p>We have three interactive charts available:</p>
+    <ul>
+        <li><a href="#type">Natural Disasters by Type</a></li>
+        <li><a href="#earthquake">Significant Earthquakes by Country</a></li>
+        <li><a href="#volcano">Significant Volcanic Eruptions by Country</a></li>
+    </ul>
+    <h2 class="ui header" id="type">Natural Disasters by Type</h2>
+    <p>
+        With this visualization, we can see the total number of natural disasters
+        that occur each year, broken down by type. By clicking on the labels within
+        the legend, you can add and remove natural disaster types from the
+        visualization.
+    </p>
+    <canvas id="naturalDisastersByType" width="600" height="400"></canvas>
+
+    <h2 class="ui header" id="earthquake">Significant Earthquakes by Country</h2>
+    <select name="earthquake-country" id="earthquake-country" class="ui fluid search dropdown">
+        <option value="">Country</option>
+    </select>
+    <canvas id="significantEarthquakes" width="600" height="400"></canvas>
+
+    <h2 class="ui header" id="volcano">Significant Volcanic Eruptions by Country</h2>
+    <select name="volcano-country" id="volcano-country" class="ui fluid search dropdown">
+        <option value="">Country</option>
+    </select>
+    <canvas id="significantVolcanicEruptions" width="600" height="400"></canvas>
+</div>
+<script>
+    async function setupNaturalDisasterByType() {
+        // Request data from backend API.
+        let request = await fetch('/api/disasters_by_type');
+        let jsonData = await request.json();
+
+        // Parse API response data.
+        let years = [];
+        let categoryData = {};
+        for (let d of jsonData) {
+            if (!(d.category in categoryData)) {
+                categoryData[d.category] = {}
+            }
+            years.push(d.year);
+            categoryData[d.category][d.year] = d.numIncidents;
+        }
+        years = [...(new Set(years))];
+        years.sort();
+        delete categoryData['All natural disasters'];
+
+        // Build chart data.
+        let barChartData = {
+            labels: years,
+            datasets: [],
+        };
+        Object.keys(categoryData).map((category) => {
+            let dataset = {
+                label: category,
+                data: years.map((year) => {
+                    return categoryData[category][year] || 0;
+                }),
+            };
+            barChartData.datasets.push(dataset);
+        });
+
+        // Create the chart.
+        let ctx = document.getElementById('naturalDisastersByType');
+        let myBarChart = new Chart(ctx, {
+            type: 'bar',
+            data: barChartData,
+            options: {
+                title: {
+                    display: false,
+                    text: 'Natural Disasters by Type'
+                },
+                tooltips: {
+                    mode: 'index',
+                    intersect: false
+                },
+                responsive: true,
+                scales: {
+                    xAxes: [{
+                        stacked: true,
+                    }],
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        },
+                        stacked: true
+                    }]
+                },
+                plugins: {
+                    colorschemes: {
+                        scheme: 'brewer.Paired12'
+                    }
+                }
+            }
+        });
+    }
+
+    async function setupSignificantEarthquakes() {
+        let request = await fetch("/api/significant_earthquakes");
+        let jsonData = await request.json();
+        let countries = jsonData.map(row => row.category);
+        countries = [...new Set(countries)];
+        let dropdown = $('#earthquake-country');
+        for (let country of countries) {
+            dropdown.append(`<option value="${country}">${country}</option>`);
+        }
+        dropdown.dropdown();
+
+        dropdown.change(() => {
+            let country = dropdown.val();
+            console.log(`Select Earthquake Country: ${country}`);
+            let allCountryData = jsonData.filter(x => x.category === country);
+            console.log(allCountryData);
+
+            // Parse category data.
+            let countryData = {};
+            for (let d of allCountryData) {
+                countryData[d.year] = d.numIncidents;
+            }
+
+            // Static years.
+            let years = [];
+            for (let i = 1800; i <= 2019; i++) {
+                years.push(i);
+            }
+
+            // Build chart data.
+            let barChartData = {
+                labels: years,
+                datasets: [
+                    {
+                        label: country,
+                        data: years.map((year) => {
+                            return countryData[year] || 0
+                        }),
+                    }
+                ]
+            };
+            console.log(barChartData);
+
+            let ctx = document.getElementById('significantEarthquakes');
+            let myBarChart = new Chart(ctx, {
+                type: 'bar',
+                data: barChartData,
+                options: {
+                    title: {
+                        display: true,
+                        text: `Significant Earthquakes in ${country}`
+                    },
+                    tooltips: {
+                        mode: 'index',
+                        intersect: false
+                    },
+                    responsive: true,
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    },
+                    plugins: {
+                        colorschemes: {
+                            scheme: 'brewer.Paired12'
+                        }
+                    }
+                }
+            });
+        });
+
+        dropdown.val("United States").change();
+    }
+
+    async function setupSignificantVolcanos() {
+        let request = await fetch("/api/significant_volcanic_eruptions");
+        let jsonData = await request.json();
+        let countries = jsonData.map(row => row.category);
+        countries = [...new Set(countries)];
+        let dropdown = $('#volcano-country');
+        for (let country of countries) {
+            dropdown.append(`<option value="${country}">${country}</option>`);
+        }
+        dropdown.dropdown();
+
+        dropdown.change(() => {
+            let country = dropdown.val();
+            console.log(`Select Volcanic Eruption Country: ${country}`);
+            let allCountryData = jsonData.filter(x => x.category === country);
+            console.log(allCountryData);
+
+            // Parse category data.
+            let countryData = {};
+            for (let d of allCountryData) {
+                countryData[d.year] = d.numIncidents;
+            }
+
+            // Static years.
+            let years = [];
+            for (let i = 1800; i <= 2019; i++) {
+                years.push(i);
+            }
+
+            // Build chart data.
+            let barChartData = {
+                labels: years,
+                datasets: [
+                    {
+                        label: country,
+                        data: years.map((year) => {
+                            return countryData[year] || 0
+                        }),
+                    }
+                ]
+            };
+            console.log(barChartData);
+
+            let ctx = document.getElementById('significantVolcanicEruptions');
+            let myBarChart = new Chart(ctx, {
+                type: 'bar',
+                data: barChartData,
+                options: {
+                    title: {
+                        display: true,
+                        text: `Significant Volcanic Eruptions in ${country}`
+                    },
+                    tooltips: {
+                        mode: 'index',
+                        intersect: false
+                    },
+                    responsive: true,
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    },
+                    plugins: {
+                        colorschemes: {
+                            scheme: 'brewer.Paired12'
+                        }
+                    }
+                }
+            });
+        });
+
+        dropdown.val("United States").change();
+    }
+</script>
+
+<script>
+window.onload = function() {
+    setupNaturalDisasterByType();
+    setupSignificantEarthquakes();
+    setupSignificantVolcanos();
+}
+</script>
+</body>
+</html>
