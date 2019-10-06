@@ -41,7 +41,7 @@ public class CodingCompCSVUtil {
 		List<List<String>> interpretedFile = new ArrayList();
 		while ((line = br.readLine()) != null) {
 	        List<String> interpretedLine = Arrays.asList(line.split("\\s*,\\s*"));
-	        	interpretedFile.add(interpretedLine);
+	        interpretedFile.add(interpretedLine);
 		}
 		return interpretedFile;
 	}
@@ -60,7 +60,7 @@ public class CodingCompCSVUtil {
 		List<List<String>> interpretedFile = new ArrayList();
 		while((line = br.readLine()) != null){
 	        List<String> interpretedLine = Arrays.asList(line.split("\\s*,\\s*"));
-	        	interpretedFile.add(interpretedLine);
+	        interpretedFile.add(interpretedLine);
 		}
 		return interpretedFile;
 	}
@@ -110,7 +110,17 @@ public class CodingCompCSVUtil {
      */
 	public DisasterDescription getMostImpactfulDisasterByYear(String year, List<List<String>> records) {
 		// TODO implement this method
-		return null;
+		String mostImpactfulDisaster = "";
+		int mostImpactsByDisaster = -1;
+		for (List<String> line : records) {
+			if (line.get(2).equals(year)&&!(line.get(0).equals("All natural disasters"))) {
+				if (Integer.parseInt(line.get(3)) > mostImpactsByDisaster) {
+					mostImpactfulDisaster = line.get(0);
+					mostImpactsByDisaster = Integer.parseInt(line.get(3));
+				}
+			}
+		}
+		return new DisasterDescription(mostImpactfulDisaster, mostImpactsByDisaster, year);
 	}
 
     /**
@@ -129,7 +139,7 @@ public class CodingCompCSVUtil {
 	 * To simplify the problem, we assume:
 	 * 	+ A value of -1 is provided if the max range is NOT applicable.
 	 *  + A min value can be provided, without providing a max value (which then has to be -1 like indicated above).
-	 *  + If a max value is provided, then a max value is also needed.
+	 *  + If a max value is provided, then a MIN value is also needed.
 	 */
 	public int countImpactfulYearsWithReportedIncidentsWithinRange(List<List<String>> records, int min, int max) {
 		// TODO implement this method
