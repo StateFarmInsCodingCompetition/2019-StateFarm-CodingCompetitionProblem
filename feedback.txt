@@ -1,9 +1,12 @@
-Your team (name of each individual participating):
-How many JUnits were you able to get to pass? 
+Your team (name of each individual participating): Sidhartha Chaganti
+How many JUnits were you able to get to pass? 10/10 tests
 
 Document and describe any enhancements included to help the judges properly grade your submission.
-	Step 1:
-	Step 2: 
+
+I added a method to CodingCompCSVUtil.java which is called averageNumberOfReportedIncidentsPerYearByCategory which returns an ArrayList of DisasterDescription entries which are unique by category, each of which contain the average number of reportedIncidents per year. To do this, I added a field to DisasterDescription called avgIncidents which is a float field that contains the average number of incidents. Then, I used a HashSet in the method to collect the unique categories in the records List of List of Strings that was provided in the parameters. Afterwards, I iterated through each unique category, found the total number of reported incidents for each category, and divided by the total number of entries for each category. Then, I created a DisasterDescription object which contains the unique category and the respective average number of reported incidents per year and added it to the finalList ArrayList. Then, I returned the ArrayList finalList for further processing as the user sees fit.
+
+I think that averageNumberOfReportedIncidents is a useful method which can be used to identify average number of incidents per year for each natural disaster or to identify the average number of incidents per year for each country for a given disaster. I think that there is a lot of use for this method using the different types of data provided.
 	
 	
 Feedback for the coding competition?  Things you would like to see in future events?
+I enjoyed working on this project, especially having to discover what each method did on my own by reading the code in the test file and by looking at the return types. Overall, I enjoyed it and understand why there wasn't documentation for each method in the source files (it would be too easy)
