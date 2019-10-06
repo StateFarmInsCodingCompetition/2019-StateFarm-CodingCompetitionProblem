@@ -165,11 +165,21 @@ public class CodingCompCSVUtil {
 		}
 		else {
 			for (List<String> line : records) {
-				int numIncidents = Integer.parseInt(line.get(3)); 
+				int numIncidents = Integer.parseInt(line.get(3));
 				if (min <= numIncidents && (max==-1)?true:numIncidents<=max) {
 					count += Integer.parseInt(line.get(3));
 				}
 			}
+		}
+		return count;
+	}
+
+
+	private int countIncidents(List<List<String>> records) {
+		int count = 0;
+		for (List<String> entry : records) {
+			int numDisasters = Integer.parseInt(entry.get(3));
+			count += numDisasters;
 		}
 		return count;
 	}
@@ -181,7 +191,6 @@ public class CodingCompCSVUtil {
      * @return          [description]
      */
 	public boolean firstRecordsHaveMoreReportedIndicents(List<List<String>> records1, List<List<String>> records2) {
-		// TODO implement this method
-		return false;
+		return countIncidents(records1) > countIncidents(records2);
 	}
 }
