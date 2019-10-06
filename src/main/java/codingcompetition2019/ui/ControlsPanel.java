@@ -32,10 +32,10 @@ public class ControlsPanel extends JPanel implements ItemListener {
 		chartTypeSelector = new JComboBox<String>();
 		chartTypeSelector.addItem("Pie Chart");
 		chartTypeSelector.addItem("Bar Graph");
-		chartTypeSelector.addItem("Line Graph");
+		//chartTypeSelector.addItem("Line Graph");
 		chartTypeSelector.addItemListener(this);
 		this.add(chartTypeSelector);
-		
+		/*
 		this.add(Box.createVerticalStrut(30));
 		
 		xAxisTitle = new JLabel("Slice By");
@@ -45,7 +45,7 @@ public class ControlsPanel extends JPanel implements ItemListener {
 		xAxisSelector.addItem("Year");
 		xAxisSelector.addItem("Category/Country");
 		xAxisSelector.addItemListener(this);
-		this.add(xAxisSelector);
+		this.add(xAxisSelector);*/
 	}
 
 	public void itemStateChanged(ItemEvent e) {
