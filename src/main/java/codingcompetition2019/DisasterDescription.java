@@ -5,8 +5,8 @@ import java.util.List;
 
 public class DisasterDescription {
 	
-	private String entity, code;
-	private int year, statistic;
+	private String entity, code, year;
+	private int statistic;
 	
 	public DisasterDescription(String...data) {
 		this(Arrays.asList(data));
@@ -19,11 +19,11 @@ public class DisasterDescription {
 		
 		entity = data.get(0);
 		code = data.get(1);
+		year = data.get(2);
 		try {
-			year = Integer.parseInt(data.get(2));
 			statistic = Integer.parseInt(data.get(3));
 		} catch (NumberFormatException e) {
-			throw new IllegalArgumentException("Invalid year or statistic number", e);
+			throw new IllegalArgumentException("Invalid statistic number", e);
 		}
 	}
 	
@@ -43,7 +43,7 @@ public class DisasterDescription {
 		return statistic;
 	}
 	
-	public int getYear() {
+	public String getYear() {
 		return year;
 	}
 	
