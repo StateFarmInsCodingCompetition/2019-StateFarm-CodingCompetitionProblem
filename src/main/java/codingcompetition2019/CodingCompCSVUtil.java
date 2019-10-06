@@ -71,8 +71,7 @@ public class CodingCompCSVUtil {
      * @return         [description]
      */
 	public DisasterDescription getMostImpactfulYear(List<List<String>> records) {
-		// TODO implement this method
-		return null;
+		return getMostImpactfulYearByCategory("All natural disasters", records);
 	}
 
     /**
