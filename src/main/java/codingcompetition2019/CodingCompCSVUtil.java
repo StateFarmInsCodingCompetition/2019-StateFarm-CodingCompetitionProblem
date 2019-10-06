@@ -152,7 +152,22 @@ public class CodingCompCSVUtil {
 	}
 	
 	public boolean firstRecordsHaveMoreReportedIndicents(List<List<String>> records1, List<List<String>> records2) {
-		// TODO implement this method
-		return false;
+		int records1Incidents = 0;
+		int records2Incidents = 0;
+		
+		
+		
+		for(List<String> line : records1)
+		{
+			records1Incidents+=Integer.parseInt(line.get(3));
+		}
+		for(List<String> line : records2)
+		{
+			records2Incidents+=Integer.parseInt(line.get(3));
+		}
+		
+		
+		
+		return records1Incidents > records2Incidents;
 	}
 }
