@@ -12,7 +12,7 @@ import static spark.Spark.*;
 public class Main {
     private static final String naturalDisasterByTypeFile = "src/main/resources/natural-disasters-by-type.csv";
     private static final String significantEarthquakeFile = "src/main/resources/significant-earthquakes.csv";
-    private static final String significantVolanicEruptionsFile = "src/main/resources/significant-earthquakes.csv";
+    private static final String significantVolanicEruptionsFile = "src/main/resources/significant-volcanic-eruptions.csv";
 
     public static String loadJson(String fileName) throws IOException {
         Gson gson = new Gson();
