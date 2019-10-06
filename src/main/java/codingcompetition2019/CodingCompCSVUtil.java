@@ -9,7 +9,7 @@ public class CodingCompCSVUtil {
 		FileReader fr = new FileReader(file);
 		BufferedReader br = new BufferedReader(fr);
 		String line;
-		List<List<String>> interpretedFile = new ArrayList();
+		List<List<String>> interpretedFile = new ArrayList<List<String>>();
 		while((line = br.readLine()) != null){
 	        List<String> interpretedLine = Arrays.asList(line.split("\\s*,\\s*"));
 	        if (interpretedLine.get(0).equals(countryName)) {
