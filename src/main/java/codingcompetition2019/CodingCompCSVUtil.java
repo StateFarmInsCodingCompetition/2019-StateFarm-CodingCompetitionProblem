@@ -53,6 +53,8 @@ public class CodingCompCSVUtil {
                     List<String> values = Arrays.asList(currentLine.split(","));
                     csvEntriesWithHeader.add(values);
                 }
+
+                input.close();
             } catch (IOException ex) {
                 throw ex;
             } catch (Exception ex) {
@@ -113,7 +115,7 @@ public class CodingCompCSVUtil {
             DisasterDescription disaster = new DisasterDescription();
             disaster.setYear(year);
             disaster.setReportedIncidentsNum(maxImpact);
-            disaster.setCategory(entity); // Could be country name or category
+            disaster.setCategory(entity);
 
             return disaster;
         }
