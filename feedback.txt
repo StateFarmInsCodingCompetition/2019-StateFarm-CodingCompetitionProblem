@@ -3,7 +3,7 @@ How many JUnits were you able to get to pass? 10/10
 
 Document and describe any enhancements included to help the judges properly grade your submission.
 	1: JavaDocs
-	2: Created PNG utilizing R to generate visualizations for the data easy for many people to understand.
+	2: Created PNG utilizing R to generate visualizations for the data easy for many people to understand. Found in src/main/resources/datagraphics
 	3: Created GUI in Gui.java for the user to utilize the CSV Utility. In order to open and access the GUI, run the main method in Gui.java.
 	In the GUI you will be able to select the data source and what method you wish to run on it. Based on this, it will show a parameter box which has
 	what it type of parameter it is expecting (there is a tooltip if you hover over it as well). 
