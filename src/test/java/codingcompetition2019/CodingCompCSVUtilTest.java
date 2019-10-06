@@ -25,11 +25,6 @@ public class CodingCompCSVUtilTest extends TestCase {
 		records = util.readCSVFileWithoutHeaders(naturalDisasterByTypeFile);
 		System.out.println(records);
 	}
-
-	@Test
-	public void testDefault() {
-		assertEquals(143, 143);
-	}
 	
 	@Test
 	public void testReadCSVFileWithHeadersByCountry() throws IOException {
