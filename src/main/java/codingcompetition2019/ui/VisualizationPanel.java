@@ -19,7 +19,9 @@ public class VisualizationPanel extends JPanel {
 		chartView = new ChartView();
 		this.add(chartView, BorderLayout.CENTER);
 		controls = new ControlsPanel(chartView);
-		this.add(controls, BorderLayout.EAST);
+		JPanel east = new JPanel();
+		east.add(controls);
+		this.add(east, BorderLayout.EAST);
 		
 		JPanel north = new JPanel();
 		north.setLayout(new BorderLayout());
