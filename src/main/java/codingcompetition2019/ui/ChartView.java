@@ -31,7 +31,7 @@ public class ChartView extends JPanel {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		CategoryChart chart = this.buildYearBarChart(records);
+		CategoryChart chart = this.getChart();
 		SwingWrapper wrapper = new SwingWrapper(chart);
 		JFrame frame = wrapper.displayChart();
 		frame.setVisible(false);
