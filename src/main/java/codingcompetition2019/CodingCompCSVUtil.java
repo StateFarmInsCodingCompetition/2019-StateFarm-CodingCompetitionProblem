@@ -18,7 +18,6 @@ public class CodingCompCSVUtil {
 			DisasterDescription desc = new DisasterDescription(item);
 			if (desc.getCountry().equals(countryName)) {
 				filtered.add(item);
-				System.out.println(item.get(0));
 			}
 		}
 		return filtered;
@@ -95,8 +94,13 @@ public class CodingCompCSVUtil {
 	}
 
 	public DisasterDescription getTotalReportedIncidentsByCategory(String category, List<List<String>> records) {
-		// TODO implement this method
-		return null;
+		int incidents = 0;
+		for (List<String> item : records) {
+			DisasterDescription desc = new DisasterDescription(item);
+			if (!desc.getCategory().equals(category)) continue;
+			incidents += desc.getReportedIncidentsNum();
+		}
+		return new DisasterDescription(category, "", "", incidents + "");	
 	}
 	
 	/**
