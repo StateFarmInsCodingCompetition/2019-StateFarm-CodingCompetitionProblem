@@ -12,7 +12,7 @@ public class CodingCompCSVUtil {
 
     private BufferedReader bufferedReader;
 
-    private static final String ALL_NATURAL_DISASTERS = "All natural disasters";
+    public static final String ALL_NATURAL_DISASTERS = "All natural disasters";
 
     public List<List<String>> readCSVFileByCountry(String fileName, String countryName) throws IOException {
         List<List<String>> result = new LinkedList<List<String>>();
@@ -230,5 +230,37 @@ public class CodingCompCSVUtil {
         }
 
         return totalReportedIncidents;
+    }
+
+    public Map<String, Integer> getIncidentsByEntityMap(List<List<String>> records) {
+        Map<String, Integer> incidentsByEntity = new HashMap<>();
+        for (List<String> line : records) {
+            DisasterDescription description = new DisasterDescription(line);
+
+            int incidents = description.getReportedIncidentsNum();
+
+            Integer currentMapValue = incidentsByEntity.get(description.getCategory());
+            Integer value = currentMapValue == null ? incidents : currentMapValue + incidents;
+
+            incidentsByEntity.put(description.getCategory(), value);
+        }
+
+        return incidentsByEntity;
+    }
+
+    public Map<String, Integer> getIncidentsByYearMap(List<List<String>> records) {
+        Map<String, Integer> incidentsByYear = new HashMap<>();
+        for (List<String> line : records) {
+            DisasterDescription description = new DisasterDescription(line);
+
+            int incidents = description.getReportedIncidentsNum();
+
+            Integer currentMapValue = incidentsByYear.get(description.getYear());
+            Integer value = currentMapValue == null ? incidents : currentMapValue + incidents;
+
+            incidentsByYear.put(description.getYear(), value);
+        }
+
+        return incidentsByYear;
     }
 }
