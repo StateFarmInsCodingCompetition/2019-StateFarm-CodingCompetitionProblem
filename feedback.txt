@@ -1,9 +1,9 @@
-Your team (name of each individual participating):
-How many JUnits were you able to get to pass? 
+Your team (name of each individual participating): Kris Satya and Rishab Mitra
+How many JUnits were you able to get to pass? 10/10
 
 Document and describe any enhancements included to help the judges properly grade your submission.
-	Step 1:
-	Step 2: 
+	Step 1: All methods documented with javadocs
+	Step 2: Added command line test that can be executed by running main method of DisasterCLI
 	
 	
 Feedback for the coding competition?  Things you would like to see in future events?
