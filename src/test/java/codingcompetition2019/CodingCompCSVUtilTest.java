@@ -61,14 +61,14 @@ public class CodingCompCSVUtilTest extends TestCase {
 		assertEquals("1990", util.getMostImpactfulYearByCategory("Earthquake", records).getYear());
 	}
 
-//	@Test
-//	public void testGetMostImpactfulDisasterByYear() {
-//		DisasterDescription dd = util.getMostImpactfulDisasterByYear("2005", records);
-//
-//		assertEquals("Flood", dd.getCategory());
-//		assertEquals(193, dd.getReportedIncidentsNum());
-//	}
-//
+	@Test
+	public void testGetMostImpactfulDisasterByYear() {
+		DisasterDescription dd = util.getMostImpactfulDisasterByYear("2005", records);
+
+		assertEquals("Flood", dd.getCategory());
+		assertEquals(193, dd.getReportedIncidentsNum());
+	}
+
 	@Test
 	public void testGetTotalReportedIncidentsByCategoryy() {
 		assertEquals(1372, util.getTotalReportedIncidentsByCategory("Earthquake", records).getReportedIncidentsNum());

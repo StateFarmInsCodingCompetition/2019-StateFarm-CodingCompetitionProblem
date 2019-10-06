@@ -106,7 +106,21 @@ public class CodingCompCSVUtil {
 
 	public DisasterDescription getMostImpactfulDisasterByYear(String year, List<List<String>> records) {
 		// TODO implement this method
-		return null;
+        String maxCategory = null;
+        int maxDisaster = 0;
+        for (List<String> record : records) {
+            if (!record.get(0).equals("All natural disasters")) {
+                if (record.get(2).equals(year)) {
+                    String category = record.get(0);
+                    int disaster = Integer.parseInt(record.get(record.size() - 1));
+                    if (disaster > maxDisaster) {
+                        maxDisaster = disaster;
+                        maxCategory = category;
+                    }
+                }
+            }
+        }
+        return new DisasterDescription(year, maxCategory, maxDisaster);
 	}
 
 	public DisasterDescription getTotalReportedIncidentsByCategory(String category, List<List<String>> records) {
