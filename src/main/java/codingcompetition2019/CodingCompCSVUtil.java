@@ -1,19 +1,43 @@
 package codingcompetition2019;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+
 
 public class CodingCompCSVUtil {
 	public List<List<String>> readCSVFileByCountry(String fileName, String countryName) throws IOException {
 		// TODO implement this method
-		return null;
+		BufferedReader br = null;
+		String line = "";
+		List<List<String>> countryLines = new ArrayList<List<String>>();
+		String delimiter = ",";
+		try {
+			br = new BufferedReader(new FileReader(fileName));
+			while ((line = br.readLine()) != null) {
+				String[] country = line.split(delimiter, -1);
+				if (country[0].equals(countryName)) {
+					List<String> countryCast = Arrays.asList(country);
+					countryLines.add(countryCast);
+				}
+			}
+		} catch(FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return countryLines;
 	}
 	
 	public List<List<String>> readCSVFileWithHeaders(String fileName) throws IOException {
 		// TODO implement this method
 		return null;
 	}
-	
+
 	public List<List<String>> readCSVFileWithoutHeaders(String fileName) throws IOException {
 		// TODO implement this method
 		return null;
