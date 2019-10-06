@@ -1,5 +1,15 @@
 package codingcompetition2019;
 
 public class DisasterDescription {
-	// TODO finish this class
+	public String getCategory() {
+		return null;
+	}
+	
+	public int getReportedIncidentsNum() {
+		return -1;
+	}
+	
+	public int getYear() {
+		return -1;
+	}
 }
