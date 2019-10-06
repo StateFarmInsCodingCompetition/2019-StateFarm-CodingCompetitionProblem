@@ -93,7 +93,6 @@ public class CodingCompCSVUtil {
      * @return         [description]
      */
 	public DisasterDescription getMostImpactfulDisasterByYear(String year, List<List<String>> records) {
-		// TODO implement this method
 		String mostImpactfulDisaster = "";
 		int mostImpactsByDisaster = -1;
 		for (List<String> line : records) {
@@ -115,7 +114,13 @@ public class CodingCompCSVUtil {
      */
 	public DisasterDescription getTotalReportedIncidentsByCategory(String category, List<List<String>> records) {
 		// TODO implement this method
-		return null;
+		int totalReportedIncidents = 0;
+		for (List<String> line : records) {
+			if (line.get(0).equals(category)) {
+				totalReportedIncidents += Integer.parseInt(line.get(3));
+			}
+		}
+		return new DisasterDescription(category,totalReportedIncidents);
 	}
 
 	/**
