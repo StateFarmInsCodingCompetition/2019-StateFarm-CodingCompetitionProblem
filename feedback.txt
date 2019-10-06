@@ -1,9 +1,10 @@
-Your team (name of each individual participating):
-How many JUnits were you able to get to pass? 
+Your team (name of each individual participating): Andrew Zeng and Luke Kim
+How many JUnits were you able to get to pass? All 10
 
 Document and describe any enhancements included to help the judges properly grade your submission.
-	Step 1:
-	Step 2: 
-	
+	1. Added GUI to visualize difference aspects of the three provided csv files
+	2. GUI allows user to visualize the breakdown of natural disasters by type (first csv selection) in the form of a colored pie chart
+	3. Selecting the other two csv files in the dropdown will allow the user to view all of the countries present in the datasets and select a country to display on the bar chart (plotting year and incidents. By further selecting more countries in the dropdown, their respective data will be added to the bar chart to allow for easy visual comparison between the multiple countries.
+	4. These features relied on the creation of getIncidentsByYearMap(records) and getIncidentsByEntityMap(records) in the util class as well as two classes for handling the UI.
 	
 Feedback for the coding competition?  Things you would like to see in future events?
