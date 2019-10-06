@@ -1,6 +1,7 @@
 package codingcompetition2019;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 
 public class CodingCompCSVUtil {
@@ -26,22 +27,102 @@ public class CodingCompCSVUtil {
 	
 	public DisasterDescription getMostImpactfulYear(List<List<String>> records) {
 		HashMap<String,Integer> impactMap = new HashMap<String,Integer>();
-		return null;
+		String mostImp = "";
+		for(List<String> line : records)
+		{
+			String year = line.get(2);
+			if(impactMap.containsKey(year))
+			{
+				impactMap.put(year, impactMap.get(year)+Integer.parseInt(line.get(3)));
+			}else
+			{
+				impactMap.put(year, Integer.parseInt(line.get(3)));
+			}
+			if(mostImp.equals("") || impactMap.get(year) > impactMap.get(mostImp))
+			{
+				mostImp = year;
+			}
+		}
+		DisasterDescription dd = new DisasterDescription();
+		dd.setYear(mostImp);
+		return dd;
 	}
 
 	public DisasterDescription getMostImpactfulYearByCategory(String category, List<List<String>> records) {
-		// TODO implement this method
-		return null;
+		HashMap<String,Integer> impactMap = new HashMap<String,Integer>();
+		String mostImp = "";
+		for(List<String> line : records)
+		{
+			if(!line.get(0).equals(category))
+				continue;
+			String year = line.get(2);
+			if(impactMap.containsKey(year))
+			{
+				impactMap.put(year, impactMap.get(year)+Integer.parseInt(line.get(3)));
+			}else
+			{
+				impactMap.put(year, Integer.parseInt(line.get(3)));
+			}
+			if(mostImp.equals("") || impactMap.get(year) > impactMap.get(mostImp))
+			{
+				mostImp = year;
+			}
+		}
+		DisasterDescription dd = new DisasterDescription();
+		dd.setYear(mostImp);
+		return dd;
 	}
 
 	public DisasterDescription getMostImpactfulDisasterByYear(String year, List<List<String>> records) {
-		// TODO implement this method
-		return null;
+		HashMap<String,Integer> impactMap = new HashMap<String,Integer>();
+		String mostImp = "";
+		for(List<String> line : records)
+		{
+			if(!line.get(2).equals(year) || line.get(0).equals("All natural disasters"))
+				continue;
+			String disaster = line.get(0);
+			if(impactMap.containsKey(disaster))
+			{
+				impactMap.put(disaster, impactMap.get(disaster)+Integer.parseInt(line.get(3)));
+			}else
+			{
+				impactMap.put(disaster, Integer.parseInt(line.get(3)));
+			}
+			if(mostImp.equals("") || impactMap.get(disaster) > impactMap.get(mostImp))
+			{
+				mostImp = disaster;
+			}
+		}
+		DisasterDescription dd = new DisasterDescription();
+		dd.setEntity(mostImp);
+		dd.setNumQuakes((impactMap.get(mostImp)));
+		return dd;
 	}
 
 	public DisasterDescription getTotalReportedIncidentsByCategory(String category, List<List<String>> records) {
-		// TODO implement this method
-		return null;
+		HashMap<String,Integer> impactMap = new HashMap<String,Integer>();
+		String mostImp = "";
+		for(List<String> line : records)
+		{
+			if(!line.get(0).equals(category) || line.get(0).equals("All natural disasters"))
+				continue;
+			String disaster = line.get(0);
+			if(impactMap.containsKey(disaster))
+			{
+				impactMap.put(disaster, impactMap.get(disaster)+Integer.parseInt(line.get(3)));
+			}else
+			{
+				impactMap.put(disaster, Integer.parseInt(line.get(3)));
+			}
+			if(mostImp.equals("") || impactMap.get(disaster) > impactMap.get(mostImp))
+			{
+				mostImp = disaster;
+			}
+		}
+		DisasterDescription dd = new DisasterDescription();
+		dd.setEntity(mostImp);
+		dd.setNumQuakes((impactMap.get(mostImp)));
+		return dd;
 	}
 	
 	/**

@@ -4,19 +4,14 @@ import java.io.IOException;
 
 public class runner {
 
-	public static void main(String[] args)
+	public static void main(String[] args) throws IOException
 	{
-		String target = "src/main/resources/test.csv";
+		String target = "src/main/resources/natural-disasters-by-type.csv";
+		CodingCompCSVUtil util = new CodingCompCSVUtil();
 		CodingCompetitionCSVParser parser = new CodingCompetitionCSVParser(target);
-		try {
-			System.out.println(parser.parseAsString(false).toString());
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		
 		
-		
+		System.out.println(util.getMostImpactfulDisasterByYear("2005",(util.readCSVFileWithoutHeaders(target))).getCategory());
 		
 
 	}

@@ -34,7 +34,7 @@ public class CodingCompetitionCSVParser
 				continue;
 			}
 		    String[] dataArray = data.split(",");
-		    DisasterDescription dd = new DisasterDescription(dataArray[0],dataArray[1],dataArray[2],dataArray[3]);
+		    DisasterDescription dd = new DisasterDescription(dataArray[0],dataArray[1],dataArray[2],Integer.parseInt(dataArray[3]));
 		    parsedEntrys.add(dd);
 		}
 		br.close();

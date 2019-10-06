@@ -7,7 +7,7 @@ public class DisasterDescription {
 	private String entity;
 	private String code;
 	private String year;
-	private String numQuakes;
+	private int numQuakes;
 	
 	
 	public DisasterDescription() 
@@ -19,7 +19,7 @@ public class DisasterDescription {
 	
 	
 	
-	public DisasterDescription(String entity, String code, String year, String numQuakes) {
+	public DisasterDescription(String entity, String code, String year, int numQuakes) {
 		super();
 		this.entity = entity;
 		this.code = code;
@@ -38,7 +38,7 @@ public class DisasterDescription {
 	}
 	
 	
-	public String getReportedIncidentsNum()
+	public int getReportedIncidentsNum()
 	{
 		return numQuakes;
 	}
@@ -47,17 +47,14 @@ public class DisasterDescription {
 	
 	public String getCategory()
 	{
-		return "";
-	}
-
-
-
-
-
-
-	public String getEntity() {
 		return entity;
 	}
+
+
+
+
+
+
 
 
 
@@ -91,7 +88,7 @@ public class DisasterDescription {
 
 
 
-	public String getNumQuakes() {
+	public int getNumQuakes() {
 		return numQuakes;
 	}
 
@@ -100,7 +97,7 @@ public class DisasterDescription {
 
 
 
-	public void setNumQuakes(String numQuakes) {
+	public void setNumQuakes(int numQuakes) {
 		this.numQuakes = numQuakes;
 	}
 
