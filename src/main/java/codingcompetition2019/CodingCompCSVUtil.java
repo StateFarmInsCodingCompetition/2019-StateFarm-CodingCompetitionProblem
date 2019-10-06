@@ -10,6 +10,7 @@ import java.util.List;
 
 
 public class CodingCompCSVUtil {
+	final String ALL_CATEGORIES = "ALL";
 	public List<List<String>> readCSVFileByCountry(String fileName, String countryName) throws IOException {
 		BufferedReader br = null;
 		String line = "";
@@ -110,19 +111,7 @@ public class CodingCompCSVUtil {
 	}
 
 	public DisasterDescription getTotalReportedIncidentsByCategory(String category, List<List<String>> records) {
-		DisasterDescription disaster = new DisasterDescription("year=" + category, category, 0);
-
-		for (List<String> record : records) {
-			if (record.get(0).compareTo(category) > 0) {
-				break;
-			}
-
-			if (!record.get(0).equals(category)) {
-				continue;
-			}
-			disaster.addReportedIncidents(Integer.parseInt(record.get(3)));
-		}
-		return disaster;
+		return helperGetTotalReportedIncidents(category, records);
 	}
 	
 	/**
@@ -146,7 +135,26 @@ public class CodingCompCSVUtil {
 	}
 	
 	public boolean firstRecordsHaveMoreReportedIndicents(List<List<String>> records1, List<List<String>> records2) {
-		// TODO implement this method
-		return false;
+		return helperGetTotalReportedIncidents(ALL_CATEGORIES, records1).getReportedIncidentsNum() > helperGetTotalReportedIncidents(ALL_CATEGORIES, records2).getReportedIncidentsNum();
+	}
+
+	public DisasterDescription helperGetTotalReportedIncidents (String category, List<List<String>> records) {
+		boolean allCategories = false;
+		if (category.equals(ALL_CATEGORIES)) {
+			allCategories = true;
+		}
+		DisasterDescription disaster = new DisasterDescription("N/A", category, 0);
+
+		for (List<String> record : records) {
+			if (!allCategories && record.get(0).compareTo(category) > 0) {
+				break;
+			}
+
+			if (!allCategories && !record.get(0).equals(category)) {
+				continue;
+			}
+			disaster.addReportedIncidents(Integer.parseInt(record.get(3)));
+		}
+		return disaster;
 	}
 }
