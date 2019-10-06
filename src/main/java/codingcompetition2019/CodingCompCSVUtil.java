@@ -1,24 +1,45 @@
 package codingcompetition2019;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
 public class CodingCompCSVUtil {
 	public List<List<String>> readCSVFileByCountry(String fileName, String countryName) throws IOException {
-		// TODO implement this method
-		return null;
+		List<List<String>> data = this.readCSVFileWithHeaders(fileName);
+		List<List<String>> filtered = new LinkedList<List<String>>();
+		data.remove(0);
+		for (List<String> item : data) {
+			DisasterDescription desc = new DisasterDescription(item);
+			if (desc.getCountry().equals(countryName)) {
+				filtered.add(item);
+				System.out.println(item.get(0));
+			}
+		}
+		return filtered;
 	}
 	
 	public List<List<String>> readCSVFileWithHeaders(String fileName) throws IOException {
-		// TODO implement this method
-		return null;
+		BufferedReader reader = new BufferedReader(new FileReader(fileName));
+		List<List<String>> data = new LinkedList<List<String>>();
+		String row = null;
+		while ((row = reader.readLine()) != null) {
+			String[] parts = row.split("\\,");
+			data.add(Arrays.asList(parts));
+		}
+		reader.close();
+		return data;
 	}
 	
 	public List<List<String>> readCSVFileWithoutHeaders(String fileName) throws IOException {
-		// TODO implement this method
-		return null;
+		List<List<String>> data = this.readCSVFileWithHeaders(fileName);
+		data.remove(0);
+		return data;
 	}
 	
 	public DisasterDescription getMostImpactfulYear(List<List<String>> records) {
