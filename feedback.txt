@@ -1,9 +1,11 @@
-Your team (name of each individual participating):
-How many JUnits were you able to get to pass? 
+Your team (name of each individual participating): Jacob Williams and Paul Cseley
+How many JUnits were you able to get to pass? all 10 tests
 
 Document and describe any enhancements included to help the judges properly grade your submission.
-	Step 1:
-	Step 2: 
+	Step 1: Alot of System.out.println() statments called and a couple left over
+	Step 2: just started storing data into the lists and parsing into Objects
+	Step 3: used my new Objects and methods to simplify more code
 	
 	
-Feedback for the coding competition?  Things you would like to see in future events?
+Feedback for the coding competition?  Things you would like to see in future events? I enjoyed the events but I think 
+adding an instruction for the IDE and other applications before the start would be good.
