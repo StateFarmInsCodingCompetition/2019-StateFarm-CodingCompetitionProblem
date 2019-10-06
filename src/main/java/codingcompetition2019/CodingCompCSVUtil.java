@@ -83,7 +83,7 @@ public class CodingCompCSVUtil {
 	public DisasterDescription getMostImpactfulYearByCategory(String category, List<List<String>> records) {
 		boolean foundCategory = false;
 		int i = 0;
-		while (!foundCategory) {
+		while (!foundCategory && i < records.size()) {
 			if(records.get(i++).get(0).equals(category)) {
 				foundCategory = true;
 			}
@@ -146,8 +146,21 @@ public class CodingCompCSVUtil {
 	 *  + If a max value is provided, then a MIN value is also needed.
 	 */
 	public int countImpactfulYearsWithReportedIncidentsWithinRange(List<List<String>> records, int min, int max) {
-		// TODO implement this method
-		return -1;
+		int count = 0;
+		if (min==-1) {
+			for (List<String> line : records) {
+				count += Integer.parseInt(line.get(3));
+			}
+		}
+		else {
+			for (List<String> line : records) {
+				int numIncidents = Integer.parseInt(line.get(3)); 
+				if (min <= numIncidents && (max==-1)?true:numIncidents<=max) {
+					count += Integer.parseInt(line.get(3));
+				}
+			}
+		}
+		return count;
 	}
 
     /**
