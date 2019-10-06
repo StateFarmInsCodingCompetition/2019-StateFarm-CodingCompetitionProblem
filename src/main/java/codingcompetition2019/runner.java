@@ -4,7 +4,7 @@ import java.io.IOException;
 
 public class runner {
 
-	public static void main(String[] args) throws IOException
+	/*public static void main(String[] args) throws IOException
 	{
 		String target = "src/main/resources/natural-disasters-by-type.csv";
 		CodingCompCSVUtil util = new CodingCompCSVUtil();
@@ -14,6 +14,6 @@ public class runner {
 		System.out.println(util.getMostImpactfulDisasterByYear("2005",(util.readCSVFileWithoutHeaders(target))).getCategory());
 		
 
-	}
+	}*/
 
 }
