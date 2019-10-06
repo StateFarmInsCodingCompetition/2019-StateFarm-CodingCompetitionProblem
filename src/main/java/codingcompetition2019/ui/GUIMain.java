@@ -1,6 +1,5 @@
 package codingcompetition2019.ui;
 
-import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Rectangle;
@@ -13,6 +12,8 @@ public class GUIMain {
 	
 	private static JFrame frame;
 	private static final Dimension WINDOW_SIZE = new Dimension(700, 700);
+	
+	public static String fileName;
 
 	
 	public static void main(String[] args) {
@@ -28,6 +29,8 @@ public class GUIMain {
 	
 	public static void switchToPane(JPanel panel) {
 		frame.setContentPane(panel);
+		frame.getContentPane().revalidate();
+		frame.getContentPane().repaint();
 	}
 	
 }
