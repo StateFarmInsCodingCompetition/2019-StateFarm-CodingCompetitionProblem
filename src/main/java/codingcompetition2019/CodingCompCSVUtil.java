@@ -12,6 +12,12 @@ public class CodingCompCSVUtil {
 
     private BufferedReader bufferedReader;
 
+    private static final String ALL_NATURAL_DISASTERS = "All natural disasters";
+
+    private enum SearchCriteria {
+        CATEGORY, YEAR;
+    }
+
     public List<List<String>> readCSVFileByCountry(String fileName, String countryName) throws IOException {
         List<List<String>> result = new LinkedList<List<String>>();
         bufferedReader = new BufferedReader(new FileReader(fileName));
@@ -80,35 +86,56 @@ public class CodingCompCSVUtil {
         return result;
     }
 
-    public DisasterDescription getMostImpactfulYear(List<List<String>> records) {
+    private DisasterDescription getDisasterDescriptionByCritera(SearchCriteria searchCriteria, String relevant, List<List<String>> records) {
         DisasterDescription description = new DisasterDescription();
 
         Map<String, Integer> incidentsByYear = new HashMap<String, Integer>();
 
-        String mostImpactfulYear;
+        String mostImpactfulYear = "";
         int max = Integer.MIN_VALUE;
 
         for (List<String> line : records) {
+            String category = line.get(0);
             String year = line.get(2);
-            final int incidents = Integer.parseInt(line.get(3));
 
-            Integer value = incidentsByYear.get(year);
+            if (searchCriteria == SearchCriteria.CATEGORY) {
+                if (!category.equalsIgnoreCase(relevant)) continue;
+            } else if (searchCriteria == SearchCriteria.YEAR) {
+                if (!year.equalsIgnoreCase(relevant)) continue;
+            }
 
-            incidentsByYear.put(year, value == null ? incidents : value + incidents);
+            int incidents = Integer.parseInt(line.get(3));
+            Integer currentValue = incidentsByYear.get(year);
+            Integer value = currentValue == null ? incidents : currentValue + incidents;
+
+            if (value > max) {
+                max = value;
+                mostImpactfulYear = year;
+            }
+
+            incidentsByYear.put(year, value);
         }
-
+        if (searchCriteria == SearchCriteria.CATEGORY) {
+            description.setCategory(relevant);
+        } else {
+            description.setCategory(ALL_NATURAL_DISASTERS);
+        }
+        description.setYear(mostImpactfulYear);
+        description.setReportedIncidentsNum(max);
 
         return description;
     }
 
+    public DisasterDescription getMostImpactfulYear(List<List<String>> records) {
+        return getDisasterDescriptionByCritera(SearchCriteria.CATEGORY, ALL_NATURAL_DISASTERS, records);
+    }
+
     public DisasterDescription getMostImpactfulYearByCategory(String category, List<List<String>> records) {
-        // TODO implement this method
-        return null;
+        return getDisasterDescriptionByCritera(SearchCriteria.CATEGORY, category, records);
     }
 
     public DisasterDescription getMostImpactfulDisasterByYear(String year, List<List<String>> records) {
-        // TODO implement this method
-        return null;
+        return getDisasterDescriptionByCritera(SearchCriteria.YEAR, year, records);
     }
 
     public DisasterDescription getTotalReportedIncidentsByCategory(String category, List<List<String>> records) {
