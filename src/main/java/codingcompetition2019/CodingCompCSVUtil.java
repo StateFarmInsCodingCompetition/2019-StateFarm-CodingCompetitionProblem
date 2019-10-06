@@ -94,7 +94,6 @@ public class CodingCompCSVUtil {
 		for (List<String> item : records) {
 			DisasterDescription desc = new DisasterDescription(item);
 			if (!desc.getCategory().equals(category)) continue;
-			if (desc.getCategory().equals("All natural disasters")) continue;
 			incidents += desc.getReportedIncidentsNum();
 		}
 		return new DisasterDescription(category, "", "", incidents + "");	
