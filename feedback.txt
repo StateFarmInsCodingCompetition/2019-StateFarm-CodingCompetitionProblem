@@ -1,5 +1,5 @@
-Your team (name of each individual participating):
-How many JUnits were you able to get to pass? 
+Your team (name of each individual participating): Ishan Baniya
+How many JUnits were you able to get to pass? 10/10
 
 Document and describe any enhancements included to help the judges properly grade your submission.
 	Step 1:
@@ -7,3 +7,5 @@ Document and describe any enhancements included to help the judges properly grad
 	
 	
 Feedback for the coding competition?  Things you would like to see in future events?
+# It would have been better to have comments on the methods so it would be easier to understand what the method does.
+
