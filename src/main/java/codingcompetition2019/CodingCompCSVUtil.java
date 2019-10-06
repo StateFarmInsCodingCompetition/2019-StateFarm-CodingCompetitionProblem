@@ -26,10 +26,10 @@ public class CodingCompCSVUtil {
 		File file = new File(fileName);
 		FileReader fr = new FileReader(file);
 		BufferedReader br = new BufferedReader(fr);
-		String line;
+		String entry;
 		List<List<String>> interpretedFile = new ArrayList<List<String>>();
-		while ((line = br.readLine()) != null) {
-	        List<String> interpretedLine = Arrays.asList(line.split("\\s*,\\s*"));
+		while ((entry = br.readLine()) != null) {
+	        List<String> interpretedLine = Arrays.asList(entry.split("\\s*,\\s*"));
 	        if (interpretedLine.get(0).equals(countryName)) {
 	        	interpretedFile.add(interpretedLine);
 	        }
@@ -47,10 +47,10 @@ public class CodingCompCSVUtil {
 		File file = new File(fileName);
 		FileReader fr = new FileReader(file);
 		BufferedReader br = new BufferedReader(fr);
-		String line;
+		String entry;
 		List<List<String>> interpretedFile = new ArrayList();
-		while ((line = br.readLine()) != null) {
-	        List<String> interpretedLine = Arrays.asList(line.split("\\s*,\\s*"));
+		while ((entry = br.readLine()) != null) {
+	        List<String> interpretedLine = Arrays.asList(entry.split("\\s*,\\s*"));
 	        interpretedFile.add(interpretedLine);
 		}
 		return interpretedFile;
@@ -102,12 +102,13 @@ public class CodingCompCSVUtil {
 		while (!foundCategory && i < records.size()) {
 			if(records.get(i++).get(0).equals(category)) {
 				foundCategory = true;
+				i--;
 			}
 		}
 		List<String> currentEntry = records.get(i++);
 		int highestNumDistasters = Integer.parseInt(currentEntry.get(3));
 		int yearOf_highestNumDistasters = Integer.parseInt(currentEntry.get(2));
-		while((currentEntry = records.get(i++)).get(0).equals(category)) {
+		while((currentEntry = records.get(i++)).get(0).equals(category) && i < records.size()) {
 			int numDisasters = Integer.parseInt(currentEntry.get(3));
 			if (numDisasters > highestNumDistasters) {
 				highestNumDistasters = numDisasters;
@@ -151,11 +152,12 @@ public class CodingCompCSVUtil {
 		while (!foundCategory && i < records.size()) {
 			if(records.get(i++).get(0).equals(category)) {
 				foundCategory = true;
+				i--;
 			}
 		}
 		List<String> currentEntry = records.get(i++);
 		int totalReportedIncidents = Integer.parseInt(currentEntry.get(3));
-		while((currentEntry = records.get(i++)).get(0).equals(category)) {
+		while((currentEntry = records.get(i++)).get(0).equals(category) && i < records.size()) {
 			int numDisasters = Integer.parseInt(currentEntry.get(3));
 			totalReportedIncidents += numDisasters;
 		}
@@ -175,15 +177,15 @@ public class CodingCompCSVUtil {
 	 */
 	public int countImpactfulYearsWithReportedIncidentsWithinRange(List<List<String>> records, int min, int max) {
 		int count = 0;
-		if (min==-1) {
-			for (List<String> line : records) {
+		if (min == -1) {
+			for (List<String> entry : records) {
 				count++;
 			}
 		}
 		else {
-			for (List<String> line : records) {
-				int numIncidents = Integer.parseInt(line.get(3));
-				if (min <= numIncidents && ((max==-1)?true:numIncidents<=max)) {
+			for (List<String> entry : records) {
+				int numIncidents = Integer.parseInt(entry.get(3));
+				if (min <= numIncidents && (max == -1 ? true : numIncidents <= max)) {
 					count++;
 				}
 			}
@@ -194,6 +196,7 @@ public class CodingCompCSVUtil {
 
 	/**
 	 * counts the number of incidents in a set of natural disaster records
+	 * used as a helper method for firstRecordsHaveMoreReportedIndicents
 	 * @param records a list of lists of strings representing natural disaster data interpreted from a CSV file
 	 * @return        the number of incidents in the records
 	 */
