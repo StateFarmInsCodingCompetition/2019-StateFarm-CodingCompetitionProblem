@@ -3,18 +3,19 @@ package codingcompetition2019;
 public class DisasterDescription {
 	private String year = "";
 	private String category = "";
-	private int numInYear = 0;
+	private int reportedIncidents = 0;
+
 	public DisasterDescription(String year) {
 	    this(year, "", 0);
     }
-    public DisasterDescription(String year, String type, int num) {
+    public DisasterDescription(String year, String type, int reportedIncidents) {
 	    this.year = year;
 	    this.category = type;
-	    this.numInYear = num;
+	    this.reportedIncidents = reportedIncidents;
     }
 
     public int getReportedIncidentsNum() {
-	    return numInYear;
+	    return reportedIncidents;
     }
 
     public String getYear() {

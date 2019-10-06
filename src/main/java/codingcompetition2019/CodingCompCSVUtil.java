@@ -83,8 +83,25 @@ public class CodingCompCSVUtil {
 	}
 
 	public DisasterDescription getMostImpactfulYearByCategory(String category, List<List<String>> records) {
-		// TODO implement this method
-		return null;
+		String mostImpactfulYear = null;
+		int maxYearImpact = 0;
+
+		for (List<String> record : records) {
+			if (record.get(0).compareTo(category) > 0) {
+				break;
+			}
+
+			if (!record.get(0).equals(category)) {
+				continue;
+			}
+
+			int currImpact = Integer.parseInt(record.get(3));
+			if (currImpact > maxYearImpact) {
+				maxYearImpact = currImpact;
+				mostImpactfulYear = record.get(2);
+			}
+		}
+		return new DisasterDescription(mostImpactfulYear);
 	}
 
 	public DisasterDescription getMostImpactfulDisasterByYear(String year, List<List<String>> records) {

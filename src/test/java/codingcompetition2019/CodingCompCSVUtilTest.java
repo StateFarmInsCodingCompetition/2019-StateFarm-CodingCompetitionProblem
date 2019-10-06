@@ -46,21 +46,21 @@ public class CodingCompCSVUtilTest extends TestCase {
 		assertEquals(829, util.readCSVFileWithHeaders(naturalDisasterByTypeFile).size());
 	}
 
-//	@Test
-//	public void testReadCSVFileWithoutHeaders() throws IOException {
-//		assertEquals(828, util.readCSVFileWithoutHeaders(naturalDisasterByTypeFile).size());
-//	}
-//
-//	@Test
-//	public void testGetMostImpactfulYear() {
-//		assertEquals("2005", util.getMostImpactfulYear(records).getYear());
-//	}
-//
-//	@Test
-//	public void testGetMostImpactfulYearByCategory() {
-//		assertEquals("1990", util.getMostImpactfulYearByCategory("Earthquake", records).getYear());
-//	}
-//
+	@Test
+	public void testReadCSVFileWithoutHeaders() throws IOException {
+		assertEquals(828, util.readCSVFileWithoutHeaders(naturalDisasterByTypeFile).size());
+	}
+
+	@Test
+	public void testGetMostImpactfulYear() {
+		assertEquals("2005", util.getMostImpactfulYear(records).getYear());
+	}
+
+	@Test
+	public void testGetMostImpactfulYearByCategory() {
+		assertEquals("1990", util.getMostImpactfulYearByCategory("Earthquake", records).getYear());
+	}
+
 //	@Test
 //	public void testGetMostImpactfulDisasterByYear() {
 //		DisasterDescription dd = util.getMostImpactfulDisasterByYear("2005", records);
@@ -69,11 +69,11 @@ public class CodingCompCSVUtilTest extends TestCase {
 //		assertEquals(193, dd.getReportedIncidentsNum());
 //	}
 //
-//	@Test
-//	public void testGetTotalReportedIncidentsByCategoryy() {
-//		assertEquals(1372, util.getTotalReportedIncidentsByCategory("Earthquake", records).getReportedIncidentsNum());
-//	}
-//
+	@Test
+	public void testGetTotalReportedIncidentsByCategoryy() {
+		assertEquals(1372, util.getTotalReportedIncidentsByCategory("Earthquake", records).getReportedIncidentsNum());
+	}
+
 //	@Test
 //	public void testCountImpactfulYearsWithReportedIncidentsWithinRange() throws IOException {
 //		List<List<String>> tempRecords = util.readCSVFileByCountry(significantVolcanicEruptionsFileName, "United States");
