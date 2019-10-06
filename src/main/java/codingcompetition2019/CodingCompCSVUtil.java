@@ -3,8 +3,7 @@ package codingcompetition2019;
 import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.util.List;
-import java.util.ArrayList;
+import java.util.*;
 
 /**
  * A class holding methods to analyze csv files of disasters
@@ -12,6 +11,34 @@ import java.util.ArrayList;
  * @version 1.0.0
  */
 public class CodingCompCSVUtil {
+
+        /**
+         * Uses a HashSet to find the unique categories in a given records List of List of Strings and iterates through them to find the average number of reported incidents per year by category
+         * @param records The List of List of Strings containing the disaster entries
+         * @return a List of DisasterDescription instances, each containing the average number of disaster incidents per year for their category
+         */
+        public List<DisasterDescription> averageNumberOfReportedIncidentsPerYearByCategory(List<List<String>> records) {
+            List<DisasterDescription> finalList = new ArrayList<DisasterDescription>();
+            Set<String> categorySet = new HashSet<String>();
+            for (List<String> entry : records) {
+                categorySet.add(entry.get(0));
+            }
+            for (String category : categorySet) {
+                int totalForCategory = 0;
+                int numEntries = 0;
+                for (List<String> entry : records) {
+                    if (entry.get(0).equals(category)) {
+                        totalForCategory += Integer.parseInt(entry.get(3));
+                    }
+                    numEntries++;
+                }
+                double avgIncidents = (double) (totalForCategory) / numEntries;
+                DisasterDescription temp = new DisasterDescription(category, avgIncidents);
+                finalList.add(temp);
+            }
+            return finalList;
+        }
+
         /**
          * Reads a specified CSV file and returns only the entries pertaining to a specified country
          * @param fileName The csv file to be read
@@ -43,7 +70,6 @@ public class CodingCompCSVUtil {
          * @return A List of List of Strings of all entries from the csv file
          */
 	public List<List<String>> readCSVFileWithHeaders(String fileName) throws IOException {
-		// TODO implement this method
                 List<List<String>> finalList = new ArrayList<List<String>>();
                 BufferedReader csvReader = new BufferedReader(new FileReader(fileName));
                 String row;
@@ -66,7 +92,6 @@ public class CodingCompCSVUtil {
          * @return A List of List of Strings of all entries from the csv file except the header entry
          */
 	public List<List<String>> readCSVFileWithoutHeaders(String fileName) throws IOException {
-		// TODO implement this method
                 List<List<String>> finalList = new ArrayList<List<String>>();
                 BufferedReader csvReader = new BufferedReader(new FileReader(fileName));
                 String row = csvReader.readLine();
@@ -89,7 +114,6 @@ public class CodingCompCSVUtil {
          * @return a DisasterDescription instance of the year with the most disaster incidents
          */
 	public DisasterDescription getMostImpactfulYear(List<List<String>> records) {
-            // TODO implement this method
             // let first entry be the most impactful
             List<String> first = records.get(0);
             DisasterDescription mostImpactfulDisasterDescription = new DisasterDescription(first.get(0), first.get(2), Integer.parseInt(first.get(3)));
@@ -110,7 +134,6 @@ public class CodingCompCSVUtil {
          * @return a DisasterDescription instance of the year with the most disaster incidents and the specified category
          */
 	public DisasterDescription getMostImpactfulYearByCategory(String category, List<List<String>> records) {
-            // TODO implement this method
             // need to find the first instance of the category we want
             DisasterDescription mostImpactfulDisasterDescription = new DisasterDescription(category, null, -1);
             for (List<String> entry : records) {
@@ -130,7 +153,6 @@ public class CodingCompCSVUtil {
          * @return A DisasterDescription instance containing the category of the most impactful disaster during a specified year
          */
 	public DisasterDescription getMostImpactfulDisasterByYear(String year, List<List<String>> records) {
-		// TODO implement this method
             DisasterDescription mostImpactfulDisasterDescription = new DisasterDescription(null, year, -1);
             for (List<String> entry : records) {
                 int numIncidents = Integer.parseInt(entry.get(3));
@@ -149,7 +171,6 @@ public class CodingCompCSVUtil {
          * @return a DisasterDescription containing the total number of incidents from a specified category
          */
 	public DisasterDescription getTotalReportedIncidentsByCategory(String category, List<List<String>> records) {
-		// TODO implement this method
             int totalForCategory = 0;
             for (List<String> entry : records) {
                 if (entry.get(0).equals(category)) {
@@ -171,7 +192,6 @@ public class CodingCompCSVUtil {
          *  @return The count of impactful years within the specified range
 	 */
 	public int countImpactfulYearsWithReportedIncidentsWithinRange(List<List<String>> records, int min, int max) {
-		// TODO implement this method
             int total = 0;
             boolean hasMax = (max == -1) ? false : true;
 
@@ -197,7 +217,6 @@ public class CodingCompCSVUtil {
          * @return A boolean of whether records1 contains more reported incidents than records2
          */
 	public boolean firstRecordsHaveMoreReportedIndicents(List<List<String>> records1, List<List<String>> records2) {
-		// TODO implement this method
             return countImpactfulYearsWithReportedIncidentsWithinRange(records1, 1, -1) > countImpactfulYearsWithReportedIncidentsWithinRange(records2, 1, -1);
 	}
 }

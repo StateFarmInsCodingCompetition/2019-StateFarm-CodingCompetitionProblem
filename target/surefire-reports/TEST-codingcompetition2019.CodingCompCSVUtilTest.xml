@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="10" failures="0" name="codingcompetition2019.CodingCompCSVUtilTest" time="0.276" errors="0" skipped="0">
+<testsuite tests="10" failures="0" name="codingcompetition2019.CodingCompCSVUtilTest" time="0.266" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
     <property name="java.vm.version" value="11.0.4+11"/>
@@ -60,14 +60,14 @@
     <property name="sun.cpu.endian" value="little"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase classname="codingcompetition2019.CodingCompCSVUtilTest" name="testReadCSVFileWithoutHeaders" time="0.012"/>
-  <testcase classname="codingcompetition2019.CodingCompCSVUtilTest" name="testGetMostImpactfulYearByCategory" time="0.002"/>
-  <testcase classname="codingcompetition2019.CodingCompCSVUtilTest" name="testFirstRecordsHaveMoreReportedIndicents" time="0.145"/>
-  <testcase classname="codingcompetition2019.CodingCompCSVUtilTest" name="testGetTheMostImpactfulYearInUSAByEarthquake" time="0.06"/>
+  <testcase classname="codingcompetition2019.CodingCompCSVUtilTest" name="testReadCSVFileWithoutHeaders" time="0.013"/>
+  <testcase classname="codingcompetition2019.CodingCompCSVUtilTest" name="testGetMostImpactfulYearByCategory" time="0.003"/>
+  <testcase classname="codingcompetition2019.CodingCompCSVUtilTest" name="testFirstRecordsHaveMoreReportedIndicents" time="0.127"/>
+  <testcase classname="codingcompetition2019.CodingCompCSVUtilTest" name="testGetTheMostImpactfulYearInUSAByEarthquake" time="0.062"/>
   <testcase classname="codingcompetition2019.CodingCompCSVUtilTest" name="testReadCSVFileWithHeaders" time="0.002"/>
-  <testcase classname="codingcompetition2019.CodingCompCSVUtilTest" name="testCountImpactfulYearsWithReportedIncidentsWithinRange" time="0.009"/>
-  <testcase classname="codingcompetition2019.CodingCompCSVUtilTest" name="testGetMostImpactfulYear" time="0.001"/>
-  <testcase classname="codingcompetition2019.CodingCompCSVUtilTest" name="testReadCSVFileWithHeadersByCountry" time="0.043"/>
+  <testcase classname="codingcompetition2019.CodingCompCSVUtilTest" name="testCountImpactfulYearsWithReportedIncidentsWithinRange" time="0.01"/>
+  <testcase classname="codingcompetition2019.CodingCompCSVUtilTest" name="testGetMostImpactfulYear" time="0.002"/>
+  <testcase classname="codingcompetition2019.CodingCompCSVUtilTest" name="testReadCSVFileWithHeadersByCountry" time="0.045"/>
   <testcase classname="codingcompetition2019.CodingCompCSVUtilTest" name="testGetMostImpactfulDisasterByYear" time="0.001"/>
   <testcase classname="codingcompetition2019.CodingCompCSVUtilTest" name="testGetTotalReportedIncidentsByCategoryy" time="0.001"/>
 </testsuite>
